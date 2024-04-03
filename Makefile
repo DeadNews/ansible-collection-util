@@ -1,4 +1,4 @@
-.PHONY: all clean default install update checks pc lint test
+.PHONY: all clean default install lock update checks pc lint test
 
 default: checks
 
@@ -7,16 +7,22 @@ install:
 	poetry install --sync --no-root
 	poetry run ansible-galaxy install -r requirements.yml
 
+lock:
+	poetry lock --no-update
+
 update:
 	poetry up --latest
 
-checks: pc
+checks: pc lint-py
 
 pc:
 	pre-commit run -a
 
 lint:
 	poetry run ansible-lint
+
+lint-py:
+	poetry run poe lint
 
 test-%:
 	pushd roles/$* && poetry run molecule test -s $*; popd
