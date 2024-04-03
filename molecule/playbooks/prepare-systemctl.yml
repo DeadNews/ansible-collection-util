@@ -1,0 +1,36 @@
+---
+- name: Install docker-systemctl-replacement
+  hosts: all
+  vars:
+    version: 1.5.8066 # renovate: datasource=pypi dep_name=docker-systemctl-replacement
+
+  tasks:
+    - name: Update apt cache
+      when: ansible_os_family == 'Debian'
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Ensure directory for systemctl-replacement
+      ansible.builtin.file:
+        path: /systemctl-replacement/
+        state: directory
+        mode: "0755"
+
+    - name: Install systemctl.py
+      ansible.builtin.pip:
+        name: docker-systemctl-replacement=={{ version }}
+        extra_args: --target=/systemctl-replacement/
+      register: pip_install
+
+    - name: Replace systemctl
+      ansible.builtin.copy:
+        src: /systemctl-replacement/bin/systemctl.py
+        dest: /usr/bin/systemctl
+        remote_src: true
+        mode: "0755"
+
+    - name: Ensure run directory for ansible check_systemd
+      ansible.builtin.file:
+        name: /run/systemd/system/
+        state: directory
+        mode: "0755"

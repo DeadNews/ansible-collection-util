@@ -1,0 +1,25 @@
+---
+namespace: deadnews
+name: util
+version: 1.0.0 # dynamically updated by ci/cd
+
+description: Ansible Collection — deadnews.util
+authors:
+  - DeadNews <deadnewsgit@gmail.com>
+readme: README.md
+license_file: LICENSE
+tags:
+  - linux
+  - tools
+repository: https://github.com/DeadNews/ansible-collection-util
+
+dependencies:
+  community.docker: ">=3.8.1"
+  community.general: ">=8.3.0"
+
+build_ignore:
+  - .ansible
+  - .facts_cache
+  - .github
+  - .pytest_cache
+  - .vscode

@@ -1,0 +1,101 @@
+[tool.poetry]
+name = "ansible-collection-util"
+version = "0.0.0"
+description = "Ansible Utils Collection"
+authors = ["DeadNews <deadnewsgit@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ansible-core = "^2.16.5"
+
+[tool.poetry.group.lint.dependencies]
+ansible-lint = { version = "^24.2.1", markers = "platform_system != 'Windows'" }
+mypy = "^1.9.0"
+poethepoet = "^0.25.0"
+ruff = "^0.3.3"
+
+[tool.poetry.group.test.dependencies]
+molecule = "^24.2.0"
+molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
+pytest = "^8.1.1"
+pytest-ansible = "^24.1.2"
+
+[tool.poe.tasks]
+mypy = "mypy ."
+ruff = "ruff check ."
+ruff-fmt = "ruff format ."
+lint.sequence = ["ruff", "ruff-fmt", "mypy"]
+
+[tool.poe.tasks.test]
+cmd = "pytest -rP -p no:warnings -m ${driver} --molecule ${discover}"
+help = "Run Molecule tests"
+
+[tool.poe.tasks.test.args.driver]
+options = ["--driver"]
+default = "docker"
+help = "Molecule driver to select"
+
+[tool.poe.tasks.test.args.discover]
+options = ["-d", "--discover"]
+help = "Path to directory containing Molecule scenarios"
+
+[tool.pytest.ini_options]
+addopts = "--verbose"
+testpaths = ["tests"]
+markers = ["docker", "molecule", "no_driver", "vagrant"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "# pragma: no cover",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.mypy]
+disallow_untyped_defs = true
+follow_imports = "normal"
+ignore_missing_imports = true
+show_column_numbers = true
+show_error_codes = true
+warn_unused_ignores = true
+exclude = "^collections/"
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+
+[tool.pyright]
+typeCheckingMode = "off"
+
+[tool.ruff]
+line-length = 99
+target-version = "py310" # Until Poetry v2
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "COM812",  # Trailing comma missing
+  "FBT001",  # Boolean positional arg in function definition
+  "FBT002",  # Boolean default value in function definition
+  "ISC001",  # Checks for implicitly concatenated strings on a single line
+  "PLR0913", # Too many arguments to function call
+  #
+  "S603", # Check for execution of untrusted input
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/*" = ["ANN", "D", "E501", "PLC1901", "PLR2004", "S"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 129
+max-line-length = 129
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

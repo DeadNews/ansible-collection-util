@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+
+  tasks:
+    - name: Test module
+      deadnews.util.hello_world:
+        message: Hello, World!
+      register: result
+
+    - name: Show module result
+      ansible.builtin.debug:
+        var: result.message
+
+    - name: Assert module result
+      ansible.builtin.assert:
+        that: result.message == "Hello, World!"

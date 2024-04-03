@@ -1,0 +1,174 @@
+name: Main
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - "v*"
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  ANSIBLE_COLLECTIONS_PATH: ~/.ansible/collections
+  ANSIBLE_HOME: ~/.ansible
+  MOLECULE_PARALLEL: "1"
+  PY_COLORS: "1"
+
+jobs:
+  lint-py:
+    name: Lint Python code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v5
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Lint code
+        run: poetry run poe lint
+
+  lint:
+    name: Lint Ansible code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache ansible requirements
+        id: cache-reqs
+        uses: actions/cache@v4
+        with:
+          key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
+          path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v5
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install --no-root
+
+      - name: Install requirements
+        if: steps.cache-reqs.outputs.cache-hit != 'true'
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Lint code
+        run: poetry run ansible-lint
+
+  # TODO: try https://github.com/tj-actions/changed-files
+  changes:
+    name: Detect changed scenarios
+    permissions:
+      pull-requests: read
+    runs-on: ubuntu-latest
+    outputs:
+      # If no changes detected, return hello_world scenario
+      discover: ${{ steps.filter.outputs.changes != '[]' && steps.filter.outputs.changes || '["plugins/tests/molecule/hello_world"]' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for file changes
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: .github/file-filters.yml
+
+  tests:
+    name: Tests
+    needs: [changes]
+    strategy:
+      fail-fast: false
+      matrix:
+        molecule-distro: [debian12, ubuntu2204]
+        molecule-discover: ${{ fromJSON(needs.changes.outputs.discover) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache ansible requirements
+        id: cache-reqs
+        uses: actions/cache@v4
+        with:
+          key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
+          path: ${{ env.ANSIBLE_COLLECTIONS_PATH }}
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v5
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install --no-root
+
+      - name: Install requirements
+        if: steps.cache-reqs.outputs.cache-hit != 'true'
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Run tests
+        # FIXME: shared is not a valid scenario
+        if: matrix.molecule-discover != 'shared'
+        run: poetry run poe test --discover ${{ matrix.molecule-discover }}
+        env:
+          MOLECULE_DISTRO: ${{ matrix.molecule-distro }}
+
+  galaxy-deploy:
+    name: Release to Ansible Galaxy
+    if: github.ref_type == 'tag'
+    needs: [lint-py, lint, tests]
+    environment:
+      name: galaxy
+      url: https://galaxy.ansible.com/ui/repo/published/deadnews/util/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version in galaxy.yml
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          sed -re "s/^version:.*$/version: ${VERSION}/" -i galaxy.yml
+
+      - name: Upload collection to Ansible Galaxy
+        uses: ansible/ansible-publish-action@v1.0.0
+        with:
+          api_key: ${{ secrets.GALAXY_API_KEY }}
+
+  github-deploy:
+    name: Release to GitHub
+    if: github.ref_type == 'tag'
+    needs: [lint-py, lint, tests]
+    environment: github-releases
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        run: |
+          set -x
+          PRERELEASE=$([[ ${{ github.ref }} =~ (alpha|beta|rc) ]] && echo true || echo false)
+          CHANGELOG="https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md"
+
+          gh release create ${{ github.ref_name }} \
+            --title ${{ github.ref_name }} \
+            --notes="See [the CHANGELOG](${CHANGELOG}) for more details." \
+            --draft=${PRERELEASE} \
+            --prerelease=${PRERELEASE}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
