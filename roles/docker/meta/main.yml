@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: DeadNews
+  description: Install Docker on Debian-family OS
+  license: MIT
+  min_ansible_version: 2.16.0
+
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - jammy
+
+  galaxy_tags:
+    - docker
+    - linux
+    - tools

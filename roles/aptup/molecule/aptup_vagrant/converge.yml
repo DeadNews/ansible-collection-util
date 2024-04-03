@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Test role
+      ansible.builtin.import_role:
+        name: deadnews.util.aptup
+      vars:
+        aptup_next_release: true
+        aptup_next_release_update_grub: false

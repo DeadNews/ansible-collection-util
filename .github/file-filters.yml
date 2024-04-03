@@ -1,0 +1,32 @@
+# Run tests only on changed scenarios.
+# If scenario is not listed here, it will not be included in the Tests job.
+
+shared: &shared
+  - molecule/**
+  - poetry.lock
+  - requirements.yml
+  - tests/test_integration.py
+
+# plugins
+plugins/tests/molecule/hello_world:
+  - *shared
+  - plugins/tests/molecule/hello_world/**
+  - plugins/modules/hello_world.py
+
+plugins/tests/molecule/linger:
+  - *shared
+  - plugins/tests/molecule/linger/**
+  - plugins/modules/linger.py
+
+# roles
+roles/aptup:
+  - *shared
+  - roles/aptup/**
+
+roles/docker:
+  - *shared
+  - roles/docker/**
+
+roles/docker_compose:
+  - *shared
+  - roles/docker_compose/**

@@ -1,0 +1,11 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the aptup role.
+    options:
+      aptup_next_release:
+        type: bool
+        description: Whether to update to the next LTS release of the distribution.
+      aptup_next_release_update_grub:
+        type: bool
+        description: Whether to update the GRUB configuration after updating to the next LTS release.

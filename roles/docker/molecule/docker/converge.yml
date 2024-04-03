@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Test role
+      ansible.builtin.import_role:
+        name: deadnews.util.docker
+      vars:
+        docker_rootless: false
