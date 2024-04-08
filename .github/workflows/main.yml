@@ -133,15 +133,14 @@ jobs:
     needs: [lint-py, lint, tests]
     environment:
       name: galaxy
-      url: https://galaxy.ansible.com/ui/repo/published/deadnews/util/
+      url: https://galaxy.ansible.com/ui/repo/published/deadnews/util
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Set version in galaxy.yml
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          sed -re "s/^version:.*$/version: ${VERSION}/" -i galaxy.yml
+          sed "s|^version:.*$|version: ${GITHUB_REF_NAME#v}|" -i galaxy.yml
 
       - name: Upload collection to Ansible Galaxy
         uses: ansible/ansible-publish-action@v1.0.0
@@ -155,20 +154,19 @@ jobs:
     environment: github-releases
     permissions:
       contents: write
+    env:
+      CHANGELOG: https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md
+      PRERELEASE: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Create GitHub Release
         run: |
-          set -x
-          PRERELEASE=$([[ ${{ github.ref }} =~ (alpha|beta|rc) ]] && echo true || echo false)
-          CHANGELOG="https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md"
-
           gh release create ${{ github.ref_name }} \
             --title ${{ github.ref_name }} \
-            --notes="See [the CHANGELOG](${CHANGELOG}) for more details." \
-            --draft=${PRERELEASE} \
-            --prerelease=${PRERELEASE}
+            --notes="See [the CHANGELOG](${{ env.CHANGELOG }}) for more details." \
+            --draft=${{ env.PRERELEASE }} \
+            --prerelease=${{ env.PRERELEASE }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
