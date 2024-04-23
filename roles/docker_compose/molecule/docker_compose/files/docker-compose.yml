@@ -1,5 +1,4 @@
 ---
-version: "3"
 services:
   web:
     image: ghcr.io/deadnews/deadnews-template-go:2.0.3@sha256:2d66ff9a4d36b3682b2f94ec7a575d3d2e6744ac678ecfc2b82b58200aa6f845
