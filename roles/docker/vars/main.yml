@@ -2,8 +2,8 @@
 docker_hold_packages: false
 docker_rootless_expose_privileged_ports: false
 docker_rootless_gid: 800
-docker_rootless_group: dockeru
+docker_rootless_group: rootless
 docker_rootless_uid: 800
 docker_rootless_user_home: /var/lib/{{ docker_rootless_user }}
-docker_rootless_user: dockeru
+docker_rootless_user: rootless
 docker_rootless: false
