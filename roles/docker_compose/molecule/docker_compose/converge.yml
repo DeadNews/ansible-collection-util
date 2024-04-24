@@ -20,16 +20,6 @@
         docker_compose_template:
           - { src: templates/.env.dev.j2, dest: .env.dev, mode: "0644" }
 
-    - name: Check if Docker container is running
-      community.docker.docker_container_info:
-        name: docker-app
-      register: container_info
-
-    - name: Fail if Docker container is not running
-      ansible.builtin.fail:
-        msg: The Docker container is not running.
-      when: not container_info.container.State.Running
-
     - name: Verify that Docker App is responding
       ansible.builtin.uri:
         url: http://127.0.0.1:8000/health
