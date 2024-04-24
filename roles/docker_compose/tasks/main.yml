@@ -24,13 +24,14 @@
   when: docker_compose_template is defined
 
 - name: Find files in the Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.find:
-    paths: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-  register: found_files
+  ansible.builtin.command:
+    cmd: ls -lh "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+  changed_when: false
+  register: ls_output
 
 - name: Show found files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.debug:
-    var: found_files.files
+    var: ls_output.stdout
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
@@ -56,3 +57,18 @@
   when:
     - compose_output.failed
     - or verbosity > 0
+
+- name: Check if container is running
+  when:
+    - docker_rootless_create_user_and_group is defined
+    - docker_rootless_create_user_and_group
+  block:
+    - name: Check if Docker container is running
+      community.docker.docker_container_info:
+        name: docker-app
+      register: container_info
+
+    - name: Fail if Docker container is not running
+      ansible.builtin.fail:
+        msg: The Docker container is not running.
+      when: not container_info.container.State.Running
