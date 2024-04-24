@@ -33,6 +33,7 @@ argument_specs:
           mode:
             type: str
             required: true
+            default: "0600"
             description: The file mode to set on the copied file.
 
       docker_compose_template:
