@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.0.1-beta.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.0.1-beta.0) - 2024-04-24
+
+### 🚀 Features
+
+- _(docker)_ make rootless user and group creation optional - ([94bd86b](https://github.com/DeadNews/ansible-collection-util/commit/94bd86bd6aa80cc75ea1fb533897b39c3cf1edb9))
+
+### 🐛 Bug fixes
+
+- _(docker)_ update `rootless_group` and `rootless_user` default names - ([3f6e2ba](https://github.com/DeadNews/ansible-collection-util/commit/3f6e2ba5a107602fa6a712293f0ad6311bf32bf7))
+
+### 🧹 Chores
+
+- remove obsolete `version` entry from `docker-compose` files - ([f932baa](https://github.com/DeadNews/ansible-collection-util/commit/f932baaf863a6210d4bf23cf744314620d9e203e))
+
+### ⚙️ CI/CD
+
+- _(github)_ update `github-deploy` job ([#3](https://github.com/DeadNews/ansible-collection-util/issues/3)) - ([613147e](https://github.com/DeadNews/ansible-collection-util/commit/613147ebf8ebdef25a5fc73d8fe96e7cf0f6ae06))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependency ansible-core to v2.16.6 ([#6](https://github.com/DeadNews/ansible-collection-util/issues/6)) - ([c5a66a7](https://github.com/DeadNews/ansible-collection-util/commit/c5a66a7a48407ba844a7a1ae80ed0abb6cef2069))
+
 ## [1.0.0] - 2024-04-03
 
 ### 🚀 Features
