@@ -6,29 +6,43 @@ argument_specs:
       docker_compose_project:
         type: str
         required: true
-        description: The name of Docker Compose projects which should be deployed.
+        description: The name of Docker Compose project which should be deployed.
 
       docker_compose_target_dir:
         type: str
         required: true
-        description: The directory where the Docker Compose projects directory should be created.
+        description: The directory where the Docker Compose project directory should be created.
 
-      docker_compose_source:
-        type: str
-        required: true
-        description: The local path to the Docker Compose file to copy to the remote server.
-
-      docker_compose_env:
-        type: str
-        required: false
-        description: The local path to the Environment file to copy to the remote server.
-
-      docker_compose_env_template:
-        type: str
-        required: false
-        description: The local path to the Environment file template to copy to the remote server.
-
-      docker_compose_copy_files:
+      docker_compose_copy:
         type: list
+        elements: dict
         required: false
-        description: A list of files to copy to the Docker Compose projects directory.
+        description: A list of files to copy to the Docker Compose project directory.
+        options:
+          src:
+            type: str
+            required: true
+            description: The source file to copy.
+          dest:
+            type: str
+            required: true
+            description: |
+              The destination where the file will be copied.
+              Relative to the Docker Compose project directory.
+
+      docker_compose_template:
+        type: list
+        elements: dict
+        required: false
+        description: A list of templates to render to the Docker Compose project directory.
+        options:
+          src:
+            type: str
+            required: true
+            description: The jinja2 template to render.
+          dest:
+            type: str
+            required: true
+            description: |
+              The destination where the template will be rendered.
+              Relative to the Docker Compose project directory.
