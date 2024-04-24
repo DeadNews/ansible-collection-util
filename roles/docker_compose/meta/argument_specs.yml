@@ -52,7 +52,7 @@ argument_specs:
             description: |
               The destination where the template will be rendered.
               Relative to the Docker Compose project directory.
-              By default, the destination is the same as the source filename.
+              By default, the destination is the same as the source filename without the .j2 extension.
           mode:
             type: str
             required: false

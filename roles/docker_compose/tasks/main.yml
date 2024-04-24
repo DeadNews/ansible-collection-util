@@ -18,10 +18,19 @@
 - name: Render templates to the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.template:
     src: "{{ item.src }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src.split('/')[-1]) }}"
+    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default((item.src.split('/')[-1]).split('.j2')[0]) }}"
     mode: "{{ item.mode | default('0600') }}"
   loop: "{{ docker_compose_template }}"
   when: docker_compose_template is defined
+
+- name: Find files in the Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.find:
+    paths: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+  register: found_files
+
+- name: Show found files in the Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.debug:
+    var: found_files.files
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
