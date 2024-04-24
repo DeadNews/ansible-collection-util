@@ -1,15 +1,22 @@
 # Changelog
 
-## [1.0.1-beta.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.0.1-beta.1) - 2024-04-24
+## [1.0.1-beta.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.0.1-beta.2) - 2024-04-24
 
 ### 🚀 Features
 
 - _(docker)_ make rootless user and group creation optional - ([94bd86b](https://github.com/DeadNews/ansible-collection-util/commit/94bd86bd6aa80cc75ea1fb533897b39c3cf1edb9))
+- _(docker_compose)_ update `files` and `templates` handling - ([5d3d3db](https://github.com/DeadNews/ansible-collection-util/commit/5d3d3dbf53fe79d79a51faf68a80376b6cb34ae7))
+- _(docker_compose)_ update `files` and `templates` handling - ([4361486](https://github.com/DeadNews/ansible-collection-util/commit/4361486b78dd18326ca60f7d069cfc15043398c1))
+- _(docker_compose)_ update `files` and `templates` handling - ([3faa6c4](https://github.com/DeadNews/ansible-collection-util/commit/3faa6c4b637242bc7ed7ca2fd8eb601fbe1e14e2))
 - _(docker_compose)_ update `files` and `templates` handling - ([0f265aa](https://github.com/DeadNews/ansible-collection-util/commit/0f265aab159502d5849d58ef5a0ebd3b9305939d))
 
 ### 🐛 Bug fixes
 
 - _(docker)_ update `rootless_group` and `rootless_user` default names - ([3f6e2ba](https://github.com/DeadNews/ansible-collection-util/commit/3f6e2ba5a107602fa6a712293f0ad6311bf32bf7))
+
+### 🧪 Testing
+
+- _(docker_compose)_ check if container is running - ([2ed1a24](https://github.com/DeadNews/ansible-collection-util/commit/2ed1a24111a3104cb8cd4334fb1046584ba2f08e))
 
 ### 🧹 Chores
 
