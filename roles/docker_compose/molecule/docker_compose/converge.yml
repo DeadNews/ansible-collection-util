@@ -15,10 +15,10 @@
         docker_compose_project: docker-app
         docker_compose_target_dir: ~/docker-compose
         docker_compose_copy:
-          - { src: files/docker-compose.yml, dest: docker-compose.yml }
-          - { src: files/.env, dest: .env }
+          - { src: files/docker-compose.yml }
+          - { src: files/.env }
         docker_compose_template:
-          - { src: templates/.env.dev.j2, dest: .env.dev }
+          - { src: templates/.env.dev.j2, dest: .env.dev, mode: "0644" }
 
     - name: Verify that Docker App is responding
       ansible.builtin.uri:

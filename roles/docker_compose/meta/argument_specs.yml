@@ -29,6 +29,11 @@ argument_specs:
             description: |
               The destination where the file will be copied.
               Relative to the Docker Compose project directory.
+              By default, the destination is the same as the source filename.
+          mode:
+            type: str
+            required: true
+            description: The file mode to set on the copied file.
 
       docker_compose_template:
         type: list
@@ -42,7 +47,13 @@ argument_specs:
             description: The jinja2 template to render.
           dest:
             type: str
-            required: true
+            required: false
             description: |
               The destination where the template will be rendered.
               Relative to the Docker Compose project directory.
+              By default, the destination is the same as the source filename.
+          mode:
+            type: str
+            required: false
+            default: "0600"
+            description: The file mode to set on the rendered template.
