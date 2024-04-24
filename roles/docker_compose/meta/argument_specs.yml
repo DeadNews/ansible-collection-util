@@ -25,14 +25,14 @@ argument_specs:
             description: The source file to copy.
           dest:
             type: str
-            required: true
+            required: false
             description: |
               The destination where the file will be copied.
               Relative to the Docker Compose project directory.
               By default, the destination is the same as the source filename.
           mode:
             type: str
-            required: true
+            required: false
             default: "0600"
             description: The file mode to set on the copied file.
 
