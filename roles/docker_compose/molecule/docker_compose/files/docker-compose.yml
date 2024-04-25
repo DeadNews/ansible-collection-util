@@ -1,7 +1,9 @@
 ---
 services:
   web:
-    image: ghcr.io/deadnews/deadnews-template-go:2.0.3@sha256:2d66ff9a4d36b3682b2f94ec7a575d3d2e6744ac678ecfc2b82b58200aa6f845
+    image: ghcr.io/deadnews/deadnews-template-go:2.0.5@sha256:36f209c1dccf74d2179d92ad55e72a03aa5a7d5af82be643bcc247100bdaf48b
     container_name: docker-app
     ports:
       - 127.0.0.1:${GO_PORT}:${GO_PORT}
+    environment:
+      GO_PORT: ${GO_PORT}
