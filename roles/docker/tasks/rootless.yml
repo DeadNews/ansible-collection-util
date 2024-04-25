@@ -75,6 +75,18 @@
         cmd: /usr/bin/dockerd-rootless-setuptool.sh install
         creates: "{{ docker_rootless_user_home }}/.docker/config.json"
 
+- name: Replace docker config
+  ansible.builtin.copy:
+    src: "{{ docker_config }}"
+    dest: "{{ docker_rootless_user_home }}/.docker/config.json"
+    owner: "{{ docker_rootless_user }}"
+    group: "{{ docker_rootless_group }}"
+    mode: "0600"
+  when:
+    - docker_config is defined
+  notify:
+    - (Handler) Restart rootless docker.service
+
 - name: Expose privileged ports (< 1024) on rootlesskit binary
   community.general.capabilities:
     path: /usr/bin/rootlesskit

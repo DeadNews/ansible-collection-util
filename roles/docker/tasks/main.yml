@@ -6,9 +6,11 @@
     that:
       - ansible_os_family == 'Debian'
 
-- name: Ensure the deb822_repository module requirements is installed
+- name: Ensure the `deb822_repository` and `community.docker` modules requirements is installed
   ansible.builtin.apt:
-    name: python3-debian
+    name:
+      - python3-debian
+      - python3-requests
     state: present
     cache_valid_time: 3600 # 1h
 

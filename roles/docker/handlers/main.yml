@@ -7,3 +7,9 @@
     name: docker.service
     state: restarted
     scope: user
+
+- name: (Handler) Restart rootfull docker.service
+  ansible.builtin.systemd:
+    name: docker.service
+    state: restarted
+    scope: system

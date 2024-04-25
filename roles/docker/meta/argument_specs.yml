@@ -3,30 +3,43 @@ argument_specs:
   main:
     short_description: The main entry point for the docker role.
     options:
+      docker_config:
+        type: str
+        required: false
+        description: The path to the Docker configuration file to deploy.
       docker_hold_packages:
         type: bool
+        required: false
         description: Prevent the Docker packages from being updated.
       docker_rootless:
         type: bool
+        required: false
         description: Install Docker in rootless mode.
       docker_rootless_expose_privileged_ports:
         type: bool
+        required: false
         description: Expose privileged ports (< 1024) on rootlesskit binary.
       docker_rootless_create_user_and_group:
         type: bool
+        required: false
         description: Create the rootless user and group.
       docker_rootless_gid:
         type: int
+        required: false
         description: Create the rootless group with this GID.
       docker_rootless_uid:
         type: int
+        required: false
         description: Create the rootless user with this UID.
       docker_rootless_group:
         type: str
+        required: false
         description: The name of the rootless group.
       docker_rootless_user:
         type: str
+        required: false
         description: The name of the rootless user.
       docker_rootless_user_home:
         type: str
+        required: false
         description: The home directory for the rootless user.

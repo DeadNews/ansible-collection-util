@@ -9,3 +9,4 @@
         name: deadnews.util.docker
       vars:
         docker_rootless: false
+        docker_config: files/docker-config.json
