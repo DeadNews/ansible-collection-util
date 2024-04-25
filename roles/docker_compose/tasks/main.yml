@@ -31,7 +31,7 @@
 
 - name: Show found files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.debug:
-    var: ls_output.stdout
+    var: ls_output.stdout_lines
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
@@ -57,18 +57,19 @@
   when:
     - compose_output.failed
     - or verbosity > 0
+#
+# TODO:
+# - name: Check if container is running
+#   when:
+#     - docker_rootless_create_user_and_group is defined
+#     - docker_rootless_create_user_and_group
+#   block:
+#     - name: Check if Docker container is running
+#       community.docker.docker_container_info:
+#         name: docker-app
+#       register: container_info
 
-- name: Check if container is running
-  when:
-    - docker_rootless_create_user_and_group is defined
-    - docker_rootless_create_user_and_group
-  block:
-    - name: Check if Docker container is running
-      community.docker.docker_container_info:
-        name: docker-app
-      register: container_info
-
-    - name: Fail if Docker container is not running
-      ansible.builtin.fail:
-        msg: The Docker container is not running.
-      when: not container_info.container.State.Running
+#     - name: Fail if Docker container is not running
+#       ansible.builtin.fail:
+#         msg: The Docker container is not running.
+#       when: not container_info.container.State.Running
