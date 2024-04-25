@@ -75,7 +75,13 @@
         cmd: /usr/bin/dockerd-rootless-setuptool.sh install
         creates: "{{ docker_rootless_user_home }}/.docker/config.json"
 
-- name: Replace docker config
+- name: Create directory for the Docker config
+  ansible.builtin.file:
+    path: "{{ docker_rootless_user_home }}/.docker"
+    state: directory
+    mode: "0700"
+
+- name: Create docker config
   ansible.builtin.copy:
     src: "{{ docker_config }}"
     dest: "{{ docker_rootless_user_home }}/.docker/config.json"

@@ -1,8 +1,14 @@
 ---
 # Install Docker in rootfull mode
 
+- name: Create directory for the Docker config
+  ansible.builtin.file:
+    path: /root/.docker
+    state: directory
+    mode: "0700"
+
 # TODO: can be template
-- name: Replace docker config
+- name: Create docker config
   ansible.builtin.copy:
     src: "{{ docker_config }}"
     dest: /root/.docker/config.json

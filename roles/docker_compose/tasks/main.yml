@@ -25,7 +25,7 @@
 
 - name: Find files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.command:
-    cmd: ls -lh "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+    cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
   changed_when: false
   register: ls_output
 
