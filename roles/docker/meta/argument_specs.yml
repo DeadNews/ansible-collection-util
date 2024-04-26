@@ -9,6 +9,12 @@ argument_specs:
         description: |
           The path to the Docker configuration file to deploy.
           Can be a local file or a template.
+      docker_config_daemon:
+        type: str
+        required: false
+        description: |
+          The path to the Docker daemon configuration file to deploy.
+          Can be a local file or a template.
       docker_hold_packages:
         type: bool
         required: false

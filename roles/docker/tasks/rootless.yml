@@ -75,23 +75,35 @@
         cmd: /usr/bin/dockerd-rootless-setuptool.sh install
         creates: "{{ docker_rootless_user_home }}/.docker/config.json"
 
-- name: Create directory for the Docker config
+- name: Create directory for the Docker configs
   ansible.builtin.file:
     path: "{{ docker_rootless_user_home }}/.docker"
     state: directory
     mode: "0751"
 
-- name: Create the Docker config
+- name: |
+    Create the Docker config.json
+    The configuration only applies to new containers and builds.
   ansible.builtin.template:
     src: "{{ docker_config }}"
     dest: "{{ docker_rootless_user_home }}/.docker/config.json"
     owner: "{{ docker_rootless_user }}"
     group: "{{ docker_rootless_group }}"
     mode: "0600"
+  when:
+    - docker_config is defined
+
+- name: Create the Docker daemon.json
+  ansible.builtin.template:
+    src: "{{ docker_config_daemon }}"
+    dest: "{{ docker_rootless_user_home }}/.docker/daemon.json"
+    owner: "{{ docker_rootless_user }}"
+    group: "{{ docker_rootless_group }}"
+    mode: "0600"
   notify:
     - (Handler) Restart rootless docker.service
   when:
-    - docker_config is defined
+    - docker_config_daemon is defined
 
 - name: Expose privileged ports (< 1024) on rootlesskit binary
   community.general.capabilities:
