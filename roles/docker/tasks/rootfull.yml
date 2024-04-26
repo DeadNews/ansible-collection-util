@@ -5,7 +5,7 @@
   ansible.builtin.file:
     path: /root/.docker
     state: directory
-    mode: "0700"
+    mode: "0751"
 
 - name: Create the Docker config
   ansible.builtin.template:
