@@ -1,7 +1,7 @@
 # Run tests only on changed scenarios.
 # If scenario is not listed here, it will not be included in the Tests job.
 
-++__@@$$%%&&shared: &shared
+__shared__: &shared
   - molecule/**
   - poetry.lock
   - requirements.yml
