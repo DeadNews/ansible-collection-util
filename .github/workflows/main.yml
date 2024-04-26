@@ -85,7 +85,7 @@ jobs:
         with:
           filters: .github/file-filters.yml
 
-      - name: Filter out "shared"; If no changes detected, return `hello_world` scenario
+      - name: Filter out `shared` group; If no changes detected, return `hello_world` scenario
         id: filter-edited
         run: |
           JSON=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "shared"))')
