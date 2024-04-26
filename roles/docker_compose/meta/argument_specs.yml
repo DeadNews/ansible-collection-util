@@ -58,3 +58,9 @@ argument_specs:
             required: false
             default: "0600"
             description: The file mode to set on the rendered template.
+
+      docker_compose_containers_check:
+        type: list
+        elements: str
+        required: false
+        description: A list of container names to assert are running after the Docker Compose project is deployed.

@@ -1,6 +1,6 @@
 ---
 services:
-  web:
+  docker_app:
     image: ghcr.io/deadnews/deadnews-template-go:2.0.5@sha256:36f209c1dccf74d2179d92ad55e72a03aa5a7d5af82be643bcc247100bdaf48b
     container_name: docker-app
     ports:

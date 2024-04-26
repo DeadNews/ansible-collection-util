@@ -4,7 +4,7 @@ exclude_paths:
   - .github/
   - .pre-commit-config.yaml
   - .prettierrc.yaml
-  - plugins/modules # TODO: figure out why there's an error on documentation
+  - plugins/modules # error on documentation
 
 skip_list:
   - name[play]

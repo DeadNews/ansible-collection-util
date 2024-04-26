@@ -112,7 +112,7 @@
   become_user: "{{ docker_rootless_user }}"
   become_flags: --login
   block:
-    - name: Ensure that Docker service is started
+    - name: Ensure that Docker service is started and enabled
       ansible.builtin.systemd:
         name: "{{ item }}"
         state: started

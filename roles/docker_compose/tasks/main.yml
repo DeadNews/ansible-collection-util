@@ -28,10 +28,14 @@
     cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
   changed_when: false
   register: ls_output
+  when:
+    - verbosity > 0
 
-- name: Show found files in the Docker Compose project {{ docker_compose_project }}
+- name: Show found files in the Docker Compose project
   ansible.builtin.debug:
     var: ls_output.stdout_lines
+  when:
+    - verbosity > 0
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
@@ -57,19 +61,20 @@
   when:
     - compose_output.failed
     - or verbosity > 0
-#
-# TODO:
-# - name: Check if container is running
-#   when:
-#     - docker_rootless_create_user_and_group is defined
-#     - docker_rootless_create_user_and_group
-#   block:
-#     - name: Check if Docker container is running
-#       community.docker.docker_container_info:
-#         name: docker-app
-#       register: container_info
 
-#     - name: Fail if Docker container is not running
-#       ansible.builtin.fail:
-#         msg: The Docker container is not running.
-#       when: not container_info.container.State.Running
+- name: Ensure that Docker containers are running
+  when:
+    - docker_compose_containers_check is defined
+    - docker_compose_containers_check
+  block:
+    - name: Get Docker container info
+      community.docker.docker_container_info:
+        name: "{{ item }}"
+      register: container_info
+      loop: "{{ docker_compose_containers_check }}"
+
+    - name: Assert Docker container is running
+      ansible.builtin.assert:
+        that: item.container.State.Running
+        fail_msg: The Docker container {{ item.name }} is not running.
+      loop: "{{ container_info.results }}"
