@@ -7,31 +7,22 @@
     state: directory
     mode: "0700"
 
-- name: Copy files to the Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.copy:
-    src: "{{ item.src }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src.split('/')[-1]) }}"
-    mode: "{{ item.mode | default('0600') }}"
-  loop: "{{ docker_compose_copy }}"
-  when: docker_compose_copy is defined
-
-- name: Render templates to the Docker Compose project {{ docker_compose_project }}
+- name: Create files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default((item.src.split('/')[-1]).split('.j2')[0]) }}"
     mode: "{{ item.mode | default('0600') }}"
-  loop: "{{ docker_compose_template }}"
-  when: docker_compose_template is defined
+  loop: "{{ docker_compose_files }}"
+  when: docker_compose_files is defined
 
-- name: Find files in the Docker Compose project {{ docker_compose_project }}
+- name: List files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.command:
     cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
   changed_when: false
   register: ls_output
-  when:
-    - ansible_verbosity > 0
+  when: ansible_verbosity > 0
 
-- name: Show found files in the Docker Compose project
+- name: Show files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.debug:
     var: ls_output.stdout_lines
     verbosity: 1
@@ -44,9 +35,7 @@
 - name: Show pull results
   ansible.builtin.debug:
     var: pull_output
-  when:
-    - pull_output.failed
-    - or ansible_verbosity > 0
+    verbosity: 1
 
 - name: Ensure the Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
   community.docker.docker_compose_v2:
@@ -57,9 +46,7 @@
 - name: Show compose results
   ansible.builtin.debug:
     var: compose_output
-  when:
-    - compose_output.failed
-    - or ansible_verbosity > 0
+    verbosity: 1
 
 - name: Ensure that Docker containers are running
   when:
@@ -72,7 +59,7 @@
       register: container_info
       loop: "{{ docker_compose_containers_check }}"
 
-    - name: Show Docker container info result
+    - name: Show Docker container info
       ansible.builtin.debug:
         var: container_info
         verbosity: 2

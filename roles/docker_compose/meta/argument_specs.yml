@@ -13,51 +13,30 @@ argument_specs:
         required: true
         description: The directory where the Docker Compose project directory should be created.
 
-      docker_compose_copy:
+      docker_compose_files:
         type: list
         elements: dict
-        required: false
-        description: A list of files to copy to the Docker Compose project directory.
+        required: true
+        description: A list of files to create in the Docker Compose project directory.
         options:
           src:
             type: str
             required: true
-            description: The source file to copy.
+            description: |
+              The source file to copy.
+              Or the jinja2 template to render.
           dest:
             type: str
             required: false
             description: |
-              The destination where the file will be copied.
+              The destination where the file will be created.
               Relative to the Docker Compose project directory.
-              By default, the destination is the same as the source filename.
+              By default, the destination is the same as the source filename, with .j2 extension stripped.
           mode:
             type: str
             required: false
             default: "0600"
-            description: The file mode to set on the copied file.
-
-      docker_compose_template:
-        type: list
-        elements: dict
-        required: false
-        description: A list of templates to render to the Docker Compose project directory.
-        options:
-          src:
-            type: str
-            required: true
-            description: The jinja2 template to render.
-          dest:
-            type: str
-            required: false
-            description: |
-              The destination where the template will be rendered.
-              Relative to the Docker Compose project directory.
-              By default, the destination is the same as the source filename without the .j2 extension.
-          mode:
-            type: str
-            required: false
-            default: "0600"
-            description: The file mode to set on the rendered template.
+            description: The file mode to set on the created file.
 
       docker_compose_containers_check:
         type: list
