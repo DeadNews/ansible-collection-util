@@ -89,13 +89,11 @@ jobs:
       - name: List all changed files
         run: echo '${{ steps.filter.outputs.changes }}'
 
-      - name: Filter out "__shared__"
+      - name: Filter out "__shared__", If no changes detected, return hello_world scenario
+        id: filter-shared
         run: |
           FILTRED=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "__shared__"))')
 
-      - name: If no changes detected, return hello_world scenario
-        id: filter-shared
-        run: |
           if [[ $FILTRED == '[]' ]]; then
               FILTRED='["plugins/tests/molecule/hello_world"]'
           fi
