@@ -6,7 +6,9 @@ argument_specs:
       docker_config:
         type: str
         required: false
-        description: The path to the Docker configuration file to deploy.
+        description: |
+          The path to the Docker configuration file to deploy.
+          Can be a local file or a template.
       docker_hold_packages:
         type: bool
         required: false

@@ -7,18 +7,17 @@
     state: directory
     mode: "0700"
 
-# TODO: can be template
-- name: Create docker config
-  ansible.builtin.copy:
+- name: Create the Docker config
+  ansible.builtin.template:
     src: "{{ docker_config }}"
     dest: /root/.docker/config.json
     owner: root
     group: root
     mode: "0600"
-  when:
-    - docker_config is defined
   notify:
     - (Handler) Restart rootfull docker.service
+  when:
+    - docker_config is defined
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers

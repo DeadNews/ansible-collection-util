@@ -81,28 +81,28 @@
     state: directory
     mode: "0700"
 
-- name: Create docker config
-  ansible.builtin.copy:
+- name: Create the Docker config
+  ansible.builtin.template:
     src: "{{ docker_config }}"
     dest: "{{ docker_rootless_user_home }}/.docker/config.json"
     owner: "{{ docker_rootless_user }}"
     group: "{{ docker_rootless_group }}"
     mode: "0600"
-  when:
-    - docker_config is defined
   notify:
     - (Handler) Restart rootless docker.service
+  when:
+    - docker_config is defined
 
 - name: Expose privileged ports (< 1024) on rootlesskit binary
   community.general.capabilities:
     path: /usr/bin/rootlesskit
     capability: cap_net_bind_service=ep
     state: present
+  notify:
+    - (Handler) Restart rootless docker.service
   when:
     - docker_rootless_expose_privileged_ports is defined
     - docker_rootless_expose_privileged_ports
-  notify:
-    - (Handler) Restart rootless docker.service
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
