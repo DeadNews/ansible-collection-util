@@ -86,23 +86,21 @@ jobs:
         with:
           filters: .github/file-filters.yml
 
-      - name: List all changed files
-        run: echo '${{ steps.filter.outputs.changes }}'
-
-      - name: Filter out "__shared__", If no changes detected, return hello_world scenario
-        id: filter-shared
+      - name: |
+          Filter out "shared"
+          If no changes detected, return hello_world scenario
+        id: filter-edited
         run: |
-          FILTRED=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "__shared__"))')
+          JSON=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "shared"))')
 
-          if [[ $FILTRED == '[]' ]]; then
-              FILTRED='["plugins/tests/molecule/hello_world"]'
+          if [[ $JSON == '[]' ]]; then
+              JSON='["plugins/tests/molecule/hello_world"]'
           fi
 
-          echo $FILTRED
-          echo "matrix=$FILTRED" >> $GITHUB_OUTPUT
+          echo "changes=$JSON" >> $GITHUB_OUTPUT
 
       - name: List all changed files
-        run: echo '${{ steps.filter-shared.outputs.matrix }}'
+        run: echo '${{ steps.filter-edited.outputs.changes }}'
 
   tests:
     name: Tests
