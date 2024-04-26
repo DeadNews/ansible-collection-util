@@ -81,9 +81,10 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: ./
+        uses: tj-actions/changed-files@0874344d6ebbaa00a27da73276ae7162fadcaf69 # v44.3.0
         with:
           matrix: true
+          # files_yaml_from_source_file: .github/file-filters.yml
 
       - name: List all changed files
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
