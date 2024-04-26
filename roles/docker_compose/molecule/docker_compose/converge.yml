@@ -21,7 +21,6 @@
           - { src: templates/.env.dev.j2, dest: .env.dev, mode: "0644" }
         docker_compose_containers_check:
           - docker-app
-          - docker-app-nonexistent
 
     - name: Verify that Docker App is responding
       ansible.builtin.uri:
