@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.1-beta.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.0.1-beta.2) - 2024-04-26
+## [1.1.0-beta.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.0) - 2024-04-26
 
 ### 🚀 Features
 
