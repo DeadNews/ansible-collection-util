@@ -59,7 +59,7 @@
       register: container_info
       loop: "{{ docker_compose_containers_check }}"
 
-    - name: Show Docker container info
+    - name: Show Docker containers info
       ansible.builtin.debug:
         var: container_info
         verbosity: 2
