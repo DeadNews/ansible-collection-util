@@ -82,4 +82,5 @@
         that: item.container.State.Running
         fail_msg: The Docker container {{ item.item }} is not running.
         success_msg: The Docker container {{ item.item }} is running.
+        quiet: true
       loop: "{{ container_info.results }}"
