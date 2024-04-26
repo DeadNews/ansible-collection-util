@@ -20,12 +20,12 @@
     cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
   changed_when: false
   register: ls_output
-  when: ansible_verbosity > 0
+  # when: ansible_verbosity > 0
 
 - name: Show files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.debug:
     var: ls_output.stdout_lines
-    verbosity: 1
+    # verbosity: 1
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
