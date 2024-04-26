@@ -1,9 +1,10 @@
 # Changelog
 
-## [1.1.0-beta.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.1) - 2024-04-26
+## [1.1.0-beta.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.2) - 2024-04-26
 
 ### 🚀 Features
 
+- _(docker)_ add option to deploy `config.json` and `daemon.json` - ([dbb2d42](https://github.com/DeadNews/ansible-collection-util/commit/dbb2d42e1905b2478015f50805b94b6869aa0edc))
 - _(docker)_ add option to deploy `config.json` - ([b45bd01](https://github.com/DeadNews/ansible-collection-util/commit/b45bd0137cb0a53fe4e9e5de0d6b171438ec1fc3))
 - _(docker)_ add option to deploy `config.json` - ([83bf9b9](https://github.com/DeadNews/ansible-collection-util/commit/83bf9b984610716d3028605dead1efc13c0661c1))
 - _(docker)_ add option to deploy `config.json` - ([07a9236](https://github.com/DeadNews/ansible-collection-util/commit/07a923692eccdc83f18991cc40a31d6cd5047707))
