@@ -89,6 +89,15 @@ jobs:
       - name: List all changed files
         run: echo '${{ steps.filter.outputs.changes }}'
 
+      - name: Filter out __shared__
+        id: filter_shared
+        run: |
+          echo '${{ steps.filter.outputs.changes }}' | jq 'map(select(. != "__shared__"))' > filtered_changes.json
+
+      - name: List all changed files
+        run: |
+          cat filtered_changes.json
+
   tests:
     name: Tests
     needs: [changes]
