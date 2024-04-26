@@ -89,22 +89,19 @@ jobs:
       - name: List all changed files
         run: echo '${{ steps.filter.outputs.changes }}'
 
-      - name: Filter out __shared__
+      - name: Filter out "__shared__"
+        run: |
+          FILTRED=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "__shared__"))')
+
+      - name: If no changes detected, return hello_world scenario
         id: filter-shared
         run: |
-          VAR=$(echo '${{ steps.filter.outputs.changes }}' | \
-          jq -c '
-              # If the array is empty, return a default value
-              if . == [] then
-                  ["plugins/tests/molecule/hello_world"]
-              else
-                  # Otherwise, filter out "__shared__"
-                  map(select(. != "__shared__"))
-              end
-          ')
+          if [[ $FILTRED == '[]' ]]; then
+              FILTRED='["plugins/tests/molecule/hello_world"]'
+          fi
 
-          echo $VAR
-          echo "matrix=$VAR" >> $GITHUB_OUTPUT
+          echo $FILTRED
+          echo "matrix=$FILTRED" >> $GITHUB_OUTPUT
 
       - name: List all changed files
         run: echo '${{ steps.filter-shared.outputs.matrix }}'
