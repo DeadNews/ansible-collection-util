@@ -73,8 +73,7 @@ jobs:
       pull-requests: read
     runs-on: ubuntu-latest
     outputs:
-      # If no changes detected, return hello_world scenario
-      discover: ${{ steps.filter.outputs.changes != '[]' && steps.filter.outputs.changes || '["plugins/tests/molecule/hello_world"]' }}
+      discover: ${{ steps.filter-edited.outputs.changes }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -86,9 +85,7 @@ jobs:
         with:
           filters: .github/file-filters.yml
 
-      - name: |
-          Filter out "shared"
-          If no changes detected, return hello_world scenario
+      - name: Filter out "shared"; If no changes detected, return `hello_world` scenario
         id: filter-edited
         run: |
           JSON=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "shared"))')
@@ -98,9 +95,6 @@ jobs:
           fi
 
           echo "changes=$JSON" >> $GITHUB_OUTPUT
-
-      - name: List all changed files
-        run: echo '${{ steps.filter-edited.outputs.changes }}'
 
   tests:
     name: Tests
@@ -136,8 +130,6 @@ jobs:
         run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Run tests
-        # TODO: shared is not a valid scenario — https://github.com/dorny/paths-filter/issues/131
-        if: matrix.molecule-discover != 'shared'
         run: poetry run poe test --discover ${{ matrix.molecule-discover }}
         env:
           MOLECULE_DISTRO: ${{ matrix.molecule-distro }}
