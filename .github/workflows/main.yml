@@ -95,9 +95,10 @@ jobs:
           # filter-shared() {
           #   jq 'map(select(. != "__shared__"))'
           # }
+
           VAR=$(echo '${{ steps.filter.outputs.changes }}' | jq 'map(select(. != "__shared__"))')
           echo $VAR
-          echo "matrix=$VAR" >> $$GITHUB_OUTPUT
+          echo "matrix=$VAR" >> $GITHUB_OUTPUT
 
       - name: List all changed files
         run: echo '${{ steps.filter-shared.outputs.matrix }}'
