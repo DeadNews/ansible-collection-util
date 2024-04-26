@@ -92,11 +92,17 @@ jobs:
       - name: Filter out __shared__
         id: filter-shared
         run: |
-          # filter-shared() {
-          #   jq -c 'map(select(. != "__shared__"))'
-          # }
+          VAR=$(echo '${{ steps.filter.outputs.changes }}' | \
+          jq -c '
+              # If the array is empty, return a default value
+              if . == [] then
+                  ["plugins/tests/molecule/hello_world"]
+              else
+                  # Otherwise, filter out "__shared__"
+                  map(select(. != "__shared__"))
+              end
+          ')
 
-          VAR=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "__shared__"))')
           echo $VAR
           echo "matrix=$VAR" >> $GITHUB_OUTPUT
 
