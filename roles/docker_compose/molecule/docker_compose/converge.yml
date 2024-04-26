@@ -19,7 +19,7 @@
           - { src: files/.env }
         docker_compose_template:
           - { src: templates/.env.dev.j2, dest: .env.dev, mode: "0644" }
-        docker_compose_containers_to_check:
+        docker_compose_containers_check:
           - docker-app
 
     - name: Verify that Docker App is responding
