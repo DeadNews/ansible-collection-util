@@ -2,6 +2,11 @@
 # Create Docker configs.
 # Should be run as the user that will be running Docker.
 
+- name: Show the current user
+  ansible.builtin.debug:
+    var: ansible_user
+    verbosity: 1
+
 - name: Create directory for the Docker configs
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.docker"
@@ -32,7 +37,7 @@
   block:
     - name: Set the Docker systemd service config directory
       ansible.builtin.set_fact:
-        docker_config_systemd_dir: >
+        docker_config_systemd_dir: >-
           {{
             ansible_user_dir + '/.config/systemd/user/docker.service.d'
             if docker_rootless
