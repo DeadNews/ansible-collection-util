@@ -8,7 +8,7 @@
       ansible.builtin.import_role:
         name: deadnews.util.docker
       vars:
-        docker_rootless: false
+        docker_rootless: true
         docker_config: files/config.json
         docker_config_daemon: files/daemon.json
         docker_config_systemd: templates/proxy.conf.j2
