@@ -47,10 +47,11 @@
     - /etc/subuid
     - /etc/subgid
 
-- name: Enable a persistent user session for the Docker user
-  ansible.builtin.command:
-    cmd: loginctl enable-linger {{ docker_rootless_user }}
-    creates: /var/lib/systemd/linger/{{ docker_rootless_user }}
+# TODO: enable
+# - name: Enable a persistent user session for the Docker user
+#   ansible.builtin.command:
+#     cmd: loginctl enable-linger {{ docker_rootless_user }}
+#     creates: /var/lib/systemd/linger/{{ docker_rootless_user }}
 
 - name: Set environment variables in bash_profile for the Docker user
   ansible.builtin.copy:
