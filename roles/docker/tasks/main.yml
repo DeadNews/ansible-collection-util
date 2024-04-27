@@ -63,16 +63,16 @@
     - docker_hold_packages
 
 - name: Install Docker in rootfull mode
-  ansible.builtin.include_role:
-    name: docker
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
     tasks_from: rootfull
   when:
     - docker_rootless is defined
     - not docker_rootless
 
 - name: Install Docker in rootless mode
-  ansible.builtin.include_role:
-    name: docker
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
     tasks_from: rootless
   when:
     - docker_rootless is defined
