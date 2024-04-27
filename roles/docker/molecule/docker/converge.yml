@@ -11,3 +11,4 @@
         docker_rootless: false
         docker_config: files/config.json
         docker_config_daemon: files/daemon.json
+        docker_cleanup_scheduled: true

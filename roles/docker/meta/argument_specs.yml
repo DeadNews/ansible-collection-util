@@ -15,6 +15,10 @@ argument_specs:
         description: |
           The path to the Docker daemon configuration file to deploy.
           Can be a local file or a template.
+      docker_cleanup_scheduled:
+        type: bool
+        required: false
+        description: Schedule a cron job to clean up Docker images.
       docker_hold_packages:
         type: bool
         required: false
