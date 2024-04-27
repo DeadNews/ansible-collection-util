@@ -9,10 +9,6 @@
   loop:
     - /root/.docker
     - /etc/systemd/system/docker.service.d
-  when:
-    - docker_config is defined
-    - or docker_config_daemon is defined
-    - or docker_config_systemd is defined
 
 - name: Create the Docker configs
   ansible.builtin.template:
