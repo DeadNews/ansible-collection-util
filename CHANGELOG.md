@@ -1,9 +1,11 @@
 # Changelog
 
-## [1.1.0-beta.4](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.4) - 2024-04-27
+## [1.1.0-beta.5](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.5) - 2024-04-27
 
 ### 🚀 Features
 
+- _(docker)_ add option to deploy `config.json`, `daemon.json` and systemd service configuration - ([e3a33d7](https://github.com/DeadNews/ansible-collection-util/commit/e3a33d736d90a0a36a46fd88730b01ceaafc5e0c))
+- _(docker)_ add option to deploy `config.json`, `daemon.json` and systemd service configuration - ([ec29b71](https://github.com/DeadNews/ansible-collection-util/commit/ec29b712cc4d6ef0017742030fa31435a83254fc))
 - _(docker)_ add option to deploy `config.json`, `daemon.json` and systemd service configuration - ([eaf9d71](https://github.com/DeadNews/ansible-collection-util/commit/eaf9d715444e957efc15c9c321db902acfae7fdf))
 - _(docker)_ add option to deploy `config.json`, `daemon.json` and systemd service configuration - ([b3ff221](https://github.com/DeadNews/ansible-collection-util/commit/b3ff221d0619c2dd49f22529609724eb9eea74fe))
 - _(docker)_ add option to deploy `config.json`, `daemon.json` and systemd service configuration - ([52dae76](https://github.com/DeadNews/ansible-collection-util/commit/52dae76573c614056eb7b3e7297f32bc5e3351bc))
