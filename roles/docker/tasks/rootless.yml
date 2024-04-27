@@ -99,7 +99,7 @@
   block:
     # TODO: try include_role
     - name: Create Docker configs
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: deadnews.util.docker
         tasks_from: configs
 
