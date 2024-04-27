@@ -2,7 +2,7 @@
 # Install Docker in rootfull mode
 
 - name: Create Docker configs
-  ansible.builtin.include_role:
+  ansible.builtin.import_role:
     name: deadnews.util.docker
     tasks_from: configs
 
