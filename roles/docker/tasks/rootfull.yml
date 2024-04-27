@@ -1,50 +1,8 @@
 ---
 # Install Docker in rootfull mode
 
-- name: Create directories for the Docker configs
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    mode: "0751"
-  loop:
-    - /root/.docker
-    - /etc/systemd/system/docker.service.d
-
-- name: |
-    Create the Docker config.json
-    The configuration only applies to new containers and builds.
-  ansible.builtin.template:
-    src: "{{ docker_config }}"
-    dest: /root/.docker/config.json
-    owner: root
-    group: root
-    mode: "0600"
-  when:
-    - docker_config is defined
-
-- name: Create the Docker daemon.json
-  ansible.builtin.template:
-    src: "{{ docker_config_daemon }}"
-    dest: /root/.docker/daemon.json
-    owner: root
-    group: root
-    mode: "0600"
-  notify:
-    - (Handler) Restart system docker.service
-  when:
-    - docker_config_daemon is defined
-
-- name: Create the Docker systemd service configuration
-  ansible.builtin.template:
-    src: "{{ docker_config_systemd }}"
-    dest: /etc/systemd/system/docker.service.d/{{ (docker_config_systemd.split('/')[-1]).split('.j2')[0] }}
-    owner: root
-    group: root
-    mode: "0600"
-  notify:
-    - (Handler) Restart system docker.service
-  when:
-    - docker_config_systemd is defined
+- name: Create Docker configs
+  ansible.builtin.include_tasks: configs.yml
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
