@@ -25,9 +25,9 @@
     - src: "{{ docker_config_daemon }}"
       dest: /root/.docker/daemon.json
       restart: true
-    - src: "{{ docker_config_systemd }}"
-      dest: /etc/systemd/system/docker.service.d/proxy.conf
-      restart: true
+  # - src: "{{ docker_config_systemd }}"
+  #   dest: "/etc/systemd/system/docker.service.d/{{ item.src.split('/')[-1] }}"
+  #   restart: true
   when: item.src is defined
 
 - name: Flush handlers after deployment
