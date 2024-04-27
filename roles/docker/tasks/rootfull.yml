@@ -2,7 +2,9 @@
 # Install Docker in rootfull mode
 
 - name: Create Docker configs
-  ansible.builtin.include_tasks: configs.yml
+  ansible.builtin.include_role:
+    name: deadnews.util.docker
+    tasks_from: configs
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers

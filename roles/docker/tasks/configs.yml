@@ -1,7 +1,5 @@
 ---
-- name: Print ansible_user_dir variable
-  ansible.builtin.debug:
-    var: ansible_user_dir
+# Create Docker configs
 
 - name: Create directory for the Docker configs
   ansible.builtin.file:
