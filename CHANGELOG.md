@@ -1,9 +1,12 @@
 # Changelog
 
-## [1.1.0-beta.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.2) - 2024-04-26
+## [1.1.0-beta.3](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0-beta.3) - 2024-04-27
 
 ### 🚀 Features
 
+- _(docker)_ add option to schedule images cleanup - ([8505536](https://github.com/DeadNews/ansible-collection-util/commit/850553696a91a670cd7fd890123dedd138a2fde2))
+- _(docker)_ add option to schedule images cleanup - ([df40a2b](https://github.com/DeadNews/ansible-collection-util/commit/df40a2b015c298f40f739535dbcfd43893b0d0f5))
+- _(docker)_ add option to schedule images cleanup - ([85578aa](https://github.com/DeadNews/ansible-collection-util/commit/85578aafe84b5568bb305493bd77db455ddefd0c))
 - _(docker)_ add option to deploy `config.json` and `daemon.json` - ([dbb2d42](https://github.com/DeadNews/ansible-collection-util/commit/dbb2d42e1905b2478015f50805b94b6869aa0edc))
 - _(docker)_ add option to deploy `config.json` - ([b45bd01](https://github.com/DeadNews/ansible-collection-util/commit/b45bd0137cb0a53fe4e9e5de0d6b171438ec1fc3))
 - _(docker)_ add option to deploy `config.json` - ([83bf9b9](https://github.com/DeadNews/ansible-collection-util/commit/83bf9b984610716d3028605dead1efc13c0661c1))
@@ -48,6 +51,23 @@
 
 ### ⚙️ CI/CD
 
+- _(github)_ update `dorny/paths-filter` - ([3660d68](https://github.com/DeadNews/ansible-collection-util/commit/3660d680f056ad9471267a32503b3b129b1adcae))
+- _(github)_ update `dorny/paths-filter` - ([4f43945](https://github.com/DeadNews/ansible-collection-util/commit/4f439457f028a2a7f99997f1511f45edf7ea5093))
+- _(github)_ update `dorny/paths-filter` - ([0b4ad7b](https://github.com/DeadNews/ansible-collection-util/commit/0b4ad7b6bc6d04a05768731601f22a3df5a5ab82))
+- _(github)_ update `dorny/paths-filter` - ([b0bb912](https://github.com/DeadNews/ansible-collection-util/commit/b0bb912755235324d7bc80b066c357aed22f5d65))
+- _(github)_ update `dorny/paths-filter` - ([b55d47d](https://github.com/DeadNews/ansible-collection-util/commit/b55d47d110d4edde8ea505fd16b6fd3e531e6d1c))
+- _(github)_ update `dorny/paths-filter` - ([8ef3172](https://github.com/DeadNews/ansible-collection-util/commit/8ef3172feed022fa8a572f43fb9ce038d2df0d58))
+- _(github)_ update `dorny/paths-filter` - ([d706531](https://github.com/DeadNews/ansible-collection-util/commit/d7065312dda75a76cf47e8d2334d9d13f0c2beff))
+- _(github)_ update `dorny/paths-filter` - ([60a91c8](https://github.com/DeadNews/ansible-collection-util/commit/60a91c83008331aab34f3eac8ad5b444c1b76f1c))
+- _(github)_ update `dorny/paths-filter` - ([91b1d0e](https://github.com/DeadNews/ansible-collection-util/commit/91b1d0e6d03fbb4e590985e8b96a215d9289e6e7))
+- _(github)_ update `dorny/paths-filter` - ([8fd6f1b](https://github.com/DeadNews/ansible-collection-util/commit/8fd6f1bcf14172d15b82e1b40d9b24b7925840d3))
+- _(github)_ update `dorny/paths-filter` - ([b5d2b18](https://github.com/DeadNews/ansible-collection-util/commit/b5d2b18cf81e296d52f2d99f920ddddf566a50a4))
+- _(github)_ update `dorny/paths-filter` - ([9afb4df](https://github.com/DeadNews/ansible-collection-util/commit/9afb4df90c1b1fb0d05dc0ca0a34f0d469f49c8b))
+- _(github)_ update `dorny/paths-filter` - ([1847b8f](https://github.com/DeadNews/ansible-collection-util/commit/1847b8fb4f3ed1705ce4ba4566d42b403f22676a))
+- _(github)_ try `tj-actions/changed-files` - ([30163c0](https://github.com/DeadNews/ansible-collection-util/commit/30163c076585fc2c190bebcbfe8c2334a6197c1a))
+- _(github)_ try `tj-actions/changed-files` - ([1f65e33](https://github.com/DeadNews/ansible-collection-util/commit/1f65e33bf870da20f4b1d94f9566f9e8595bd20e))
+- _(github)_ try `tj-actions/changed-files` - ([67dd791](https://github.com/DeadNews/ansible-collection-util/commit/67dd791698eaac345be96cfd9ccfd6a03b7befc2))
+- _(github)_ try `tj-actions/changed-files` - ([8223faf](https://github.com/DeadNews/ansible-collection-util/commit/8223faf89f31a10b80f1525cd2716a9c06c6414c))
 - _(github)_ update `github-deploy` job ([#3](https://github.com/DeadNews/ansible-collection-util/issues/3)) - ([613147e](https://github.com/DeadNews/ansible-collection-util/commit/613147ebf8ebdef25a5fc73d8fe96e7cf0f6ae06))
 
 ### ⬆️ Dependencies
