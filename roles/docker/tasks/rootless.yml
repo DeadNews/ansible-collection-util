@@ -86,19 +86,19 @@
     - docker_rootless_expose_privileged_ports is defined
     - docker_rootless_expose_privileged_ports
 
-- name: Create Docker configs
-  ansible.builtin.import_role:
-    name: deadnews.util.docker
-    tasks_from: configs
-
-- name: Flush handlers after deployment
-  ansible.builtin.meta: flush_handlers
-
-- name: Verify that Docker daemon is responding
+- name: Create Docker configs and Verify that Docker daemon is responding
   become: true
   become_user: "{{ docker_rootless_user }}"
   become_flags: --login
   block:
+    - name: Create Docker configs
+      ansible.builtin.import_role:
+        name: deadnews.util.docker
+        tasks_from: configs
+
+    - name: Flush handlers after deployment
+      ansible.builtin.meta: flush_handlers
+
     - name: Ensure that Docker service is started and enabled
       ansible.builtin.systemd:
         name: "{{ item }}"
