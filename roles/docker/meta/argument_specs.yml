@@ -9,7 +9,6 @@ argument_specs:
         description: |
           The path to the Docker configuration file to deploy.
           Can be a local file or a template.
-          The configuration only applies to new containers and builds.
       docker_config_daemon:
         type: str
         required: false
@@ -22,6 +21,7 @@ argument_specs:
         description: |
           The path to the Docker systemd service configuration file to deploy.
           Can be a local file or a template.
+          The destination filename is the same as the source filename, with .j2 extension stripped.
       docker_cleanup_scheduled:
         type: bool
         required: false
