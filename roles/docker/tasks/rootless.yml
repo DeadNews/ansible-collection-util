@@ -105,6 +105,11 @@
   block:
     # TODO: try include_role
 
+    - name: Show the become_user
+      ansible.builtin.debug:
+        var: ansible_become_user
+        verbosity: 1
+
     - name: Show the current user using ansible_env.USER
       ansible.builtin.debug:
         var: ansible_env.USER
