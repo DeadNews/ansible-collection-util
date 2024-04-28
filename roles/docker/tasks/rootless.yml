@@ -48,10 +48,16 @@
     - /etc/subgid
 
 # TODO: enable
-# - name: Enable a persistent user session for the Docker user
-#   ansible.builtin.command:
-#     cmd: loginctl enable-linger {{ docker_rootless_user }}
-#     creates: /var/lib/systemd/linger/{{ docker_rootless_user }}
+
+- name: Service systemd-logind start
+  ansible.builtin.systemd:
+    name: systemd-logind
+    state: started
+
+- name: Enable a persistent user session for the Docker user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger {{ docker_rootless_user }}
+    creates: /var/lib/systemd/linger/{{ docker_rootless_user }}
 
 - name: Enable a persistent user session for the Docker user
   deadnews.util.linger:

@@ -2,9 +2,26 @@
 # Create Docker configs.
 # Should be run as the user that will be running Docker.
 
+# TODO: current user
+
 - name: Show the current user
   ansible.builtin.debug:
     var: ansible_user
+    verbosity: 1
+
+- name: Show the current user using ansible_env.USER
+  ansible.builtin.debug:
+    var: ansible_env.USER
+    verbosity: 1
+
+- name: Show the current user using lookup('env','USER')
+  ansible.builtin.debug:
+    msg: "{{ lookup('env', 'USER') }}"
+    verbosity: 1
+
+- name: Show the current user home directory
+  ansible.builtin.debug:
+    var: ansible_user_dir
     verbosity: 1
 
 - name: Create directory for the Docker configs
