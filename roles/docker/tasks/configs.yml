@@ -4,6 +4,11 @@
 
 # TODO: current user
 
+- name: Show the become_user
+  ansible.builtin.debug:
+    var: ansible_become_user
+    verbosity: 1
+
 - name: Show the current user
   ansible.builtin.debug:
     var: ansible_user
