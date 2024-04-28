@@ -104,8 +104,14 @@
   become_flags: --login
   block:
     # TODO: try include_role
+
+    - name: Show the current user using ansible_env.USER
+      ansible.builtin.debug:
+        var: ansible_env.USER
+        verbosity: 1
+
     - name: Create Docker configs
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: deadnews.util.docker
         tasks_from: configs
 
