@@ -2,43 +2,20 @@
 # Create Docker configs.
 # Should be run as the user that will be running Docker.
 
-# TODO: current user
-
-- name: Show the become_user
-  ansible.builtin.debug:
-    var: ansible_become_user
-    verbosity: 1
-
-- name: Show the current user
-  ansible.builtin.debug:
-    var: ansible_user
-    verbosity: 1
-
-- name: Show the current user using ansible_env.USER
-  ansible.builtin.debug:
-    var: ansible_env.USER
-    verbosity: 1
-
-- name: Show the current user using lookup('env','USER')
-  ansible.builtin.debug:
-    msg: "{{ lookup('env', 'USER') }}"
-    verbosity: 1
-
-- name: Show the current user home directory
-  ansible.builtin.debug:
-    var: ansible_user_dir
-    verbosity: 1
+- name: Set the Docker user home directory
+  ansible.builtin.set_fact:
+    docker_user_home: "{{ docker_rootless_user_home if docker_rootless else '/root' }}"
 
 - name: Create directory for the Docker configs
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.docker"
+    path: "{{ docker_user_home }}/.docker"
     state: directory
     mode: "0751"
 
 - name: Create the Docker config.json. The config only applies to new containers.
   ansible.builtin.template:
     src: "{{ docker_config }}"
-    dest: "{{ ansible_user_dir }}/.docker/config.json"
+    dest: "{{ docker_user_home }}/.docker/config.json"
     mode: "0600"
   when:
     - docker_config is defined
@@ -46,7 +23,7 @@
 - name: Create the Docker daemon.json
   ansible.builtin.template:
     src: "{{ docker_config_daemon }}"
-    dest: "{{ ansible_user_dir }}/.docker/daemon.json"
+    dest: "{{ docker_user_home }}/.docker/daemon.json"
     mode: "0600"
   notify:
     - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
@@ -61,7 +38,7 @@
       ansible.builtin.set_fact:
         docker_config_systemd_dir: >-
           {{
-            ansible_user_dir + '/.config/systemd/user/docker.service.d'
+            docker_user_home + '/.config/systemd/user/docker.service.d'
             if docker_rootless
             else '/etc/systemd/system/docker.service.d'
           }}
