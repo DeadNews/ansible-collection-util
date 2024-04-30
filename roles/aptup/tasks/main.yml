@@ -7,8 +7,8 @@
       - ansible_os_family == 'Debian'
 
 - name: Upgrade Debian-based OS
-  ansible.builtin.include_role:
-    name: aptup
+  ansible.builtin.import_role:
+    name: deadnews.util.aptup
     tasks_from: apt_upgrade
 
 - name: Upgrade Debian-based OS from one LTS to the next LTS
@@ -17,8 +17,8 @@
     - aptup_next_release
   block:
     - name: Replace the codename to next LTS version
-      ansible.builtin.include_role:
-        name: aptup
+      ansible.builtin.import_role:
+        name: deadnews.util.aptup
         tasks_from: codename_next
 
     - name: Upgrade the OS (apt full-upgrade)
@@ -42,8 +42,8 @@
         - aptup_full.rc != 0
 
     - name: Make sure that the GRUB is updated
-      ansible.builtin.include_role:
-        name: aptup
+      ansible.builtin.import_role:
+        name: deadnews.util.aptup
         tasks_from: grub_update
       when:
         - aptup_next_release_update_grub is defined
