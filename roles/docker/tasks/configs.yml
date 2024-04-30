@@ -20,11 +20,14 @@
   when:
     - docker_config is defined
 
+# TODO: add validation
+# TODO: if src extension is .j2, then use `ansible.builtin.template` else use `ansible.builtin.copy`
 - name: Create the Docker daemon.json
   ansible.builtin.template:
     src: "{{ docker_config_daemon }}"
     dest: "{{ docker_user_home }}/.docker/daemon.json"
     mode: "0600"
+    validate: dockerd --config-file {{ docker_user_home }}/.docker/daemon.json --validate
   notify:
     - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
   when:
