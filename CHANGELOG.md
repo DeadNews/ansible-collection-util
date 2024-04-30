@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0) - 2024-04-30
+
+### 🚀 Features
+
+- _(docker,docker_compose)_ enhance configs deployment ([#7](https://github.com/DeadNews/ansible-collection-util/issues/7)) - ([de8341f](https://github.com/DeadNews/ansible-collection-util/commit/de8341fcd1b568ffb2f394ff18fe40427a50949b))
+
+### ⚙️ CI/CD
+
+- _(github)_ update `github-deploy` job ([#3](https://github.com/DeadNews/ansible-collection-util/issues/3)) - ([613147e](https://github.com/DeadNews/ansible-collection-util/commit/613147ebf8ebdef25a5fc73d8fe96e7cf0f6ae06))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependency ansible-core to v2.16.6 ([#6](https://github.com/DeadNews/ansible-collection-util/issues/6)) - ([c5a66a7](https://github.com/DeadNews/ansible-collection-util/commit/c5a66a7a48407ba844a7a1ae80ed0abb6cef2069))
+
 ## [1.0.0] - 2024-04-03
 
 ### 🚀 Features
