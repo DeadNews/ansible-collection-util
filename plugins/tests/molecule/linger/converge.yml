@@ -7,4 +7,4 @@
     - name: Test module
       deadnews.util.linger:
         user: nobody
-        state: disabled
+        state: absent
