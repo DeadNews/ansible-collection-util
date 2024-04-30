@@ -3,27 +3,62 @@ argument_specs:
   main:
     short_description: The main entry point for the docker role.
     options:
+      docker_config:
+        type: str
+        required: false
+        description: |
+          The path to the Docker config.json file to deploy.
+          Can be a local file or a template.
+      docker_config_daemon:
+        type: str
+        required: false
+        description: |
+          The path to the Docker daemon.json file to deploy.
+          Can be a local file or a template.
+      docker_config_systemd:
+        type: str
+        required: false
+        description: |
+          The path to the Docker systemd service config file to deploy.
+          Can be a local file or a template.
+          The destination filename is the same as the source filename, with .j2 extension stripped.
+      docker_cleanup_scheduled:
+        type: bool
+        required: false
+        description: Schedule a cron job to clean up Docker images.
       docker_hold_packages:
         type: bool
+        required: false
         description: Prevent the Docker packages from being updated.
       docker_rootless:
         type: bool
+        required: false
         description: Install Docker in rootless mode.
       docker_rootless_expose_privileged_ports:
         type: bool
+        required: false
         description: Expose privileged ports (< 1024) on rootlesskit binary.
+      docker_rootless_create_user_and_group:
+        type: bool
+        required: false
+        description: Create the rootless user and group.
       docker_rootless_gid:
         type: int
-        description: The GID to use for the docker group.
-      docker_rootless_group:
-        type: str
-        description: The name of the docker group.
+        required: false
+        description: Create the rootless group with this GID.
       docker_rootless_uid:
         type: int
-        description: The UID to use for the docker user.
+        required: false
+        description: Create the rootless user with this UID.
+      docker_rootless_group:
+        type: str
+        required: false
+        description: The name of the rootless group.
       docker_rootless_user:
         type: str
-        description: The name of the docker user.
+        required: false
+        description: The name of the rootless user.
       docker_rootless_user_home:
         type: str
-        description: The home directory for the docker user.
+        required: false
+        description: The home directory for the rootless user.

@@ -1,7 +1,15 @@
 ---
 # Install Docker in rootfull mode
 
-- name: Ensure that docker.service is started
+- name: Create Docker configs
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
+    tasks_from: configs
+
+- name: Flush handlers after deployment
+  ansible.builtin.meta: flush_handlers
+
+- name: Ensure that docker.service is started and enabled
   ansible.builtin.systemd:
     name: docker.service
     state: started

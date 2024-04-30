@@ -10,29 +10,34 @@
       - uidmap
     state: present
 
-- name: Add group {{ docker_rootless_group }}
-  ansible.builtin.group:
-    name: "{{ docker_rootless_group }}"
-    gid: "{{ docker_rootless_gid }}"
-    system: true
-    state: present
+- name: Add rootless user
+  when:
+    - docker_rootless_create_user_and_group is defined
+    - docker_rootless_create_user_and_group
+  block:
+    - name: Add group {{ docker_rootless_group }}
+      ansible.builtin.group:
+        name: "{{ docker_rootless_group }}"
+        gid: "{{ docker_rootless_gid }}"
+        system: true
+        state: present
 
-- name: Add user {{ docker_rootless_user }}
-  ansible.builtin.user:
-    name: "{{ docker_rootless_user }}"
-    comment: docker engine owner
-    uid: "{{ docker_rootless_uid }}"
-    group: "{{ docker_rootless_group }}"
-    home: /var/lib/{{ docker_rootless_user }}
-    shell: /usr/bin/bash
-    system: true
-    state: present
-  register: docker_rootless_user_info
+    - name: Add user {{ docker_rootless_user }}
+      ansible.builtin.user:
+        name: "{{ docker_rootless_user }}"
+        comment: docker engine owner
+        uid: "{{ docker_rootless_uid }}"
+        group: "{{ docker_rootless_group }}"
+        home: /var/lib/{{ docker_rootless_user }}
+        shell: /usr/bin/bash
+        system: true
+        state: present
+      register: docker_rootless_user_info
 
-- name: Print Docker user info
-  ansible.builtin.debug:
-    var: docker_rootless_user_info
-    verbosity: 1
+    - name: Print rootless user info
+      ansible.builtin.debug:
+        var: docker_rootless_user_info
+        verbosity: 1
 
 - name: Assign a subordinate IDs range
   ansible.builtin.lineinfile:
@@ -41,6 +46,11 @@
   with_items:
     - /etc/subuid
     - /etc/subgid
+
+- name: Ensure that systemd-logind is started
+  ansible.builtin.systemd:
+    name: systemd-logind
+    state: started
 
 - name: Enable a persistent user session for the Docker user
   ansible.builtin.command:
@@ -75,21 +85,26 @@
     path: /usr/bin/rootlesskit
     capability: cap_net_bind_service=ep
     state: present
+  notify:
+    - (Handler) Restart rootless docker.service
   when:
     - docker_rootless_expose_privileged_ports is defined
     - docker_rootless_expose_privileged_ports
-  notify:
-    - (Handler) Restart rootless docker.service
 
-- name: Flush handlers after deployment
-  ansible.builtin.meta: flush_handlers
-
-- name: Verify that Docker daemon is responding
+- name: Create Docker configs and Verify that Docker daemon is responding
   become: true
   become_user: "{{ docker_rootless_user }}"
   become_flags: --login
   block:
-    - name: Ensure that Docker service is started
+    - name: Create Docker configs
+      ansible.builtin.import_role:
+        name: deadnews.util.docker
+        tasks_from: configs
+
+    - name: Flush handlers after deployment
+      ansible.builtin.meta: flush_handlers
+
+    - name: Ensure that Docker service is started and enabled
       ansible.builtin.systemd:
         name: "{{ item }}"
         state: started

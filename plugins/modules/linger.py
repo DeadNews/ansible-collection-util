@@ -21,7 +21,7 @@ options:
         type: str
     state:
         description:
-            - The desired state for linger. Can be either "enabled" or "disabled".
+            - The desired state for linger. Can be either "present" or "absent".
         required: true
         type: str
 """
@@ -30,14 +30,14 @@ EXAMPLES = r"""
 # Enable linger for a user
 - name: Enable linger for user
     deadnews.util.linger:
-        user: "myuser"
-        state: "enabled"
+        user: myuser
+        state: present
 
 # Disable linger for a user
 - name: Disable linger for user
     deadnews.util.linger:
-        user: "myuser"
-        state: "disabled"
+        user: myuser
+        state: absent
 """
 
 RETURN = r"""
@@ -56,7 +56,7 @@ def main() -> None:
     """The main function for the Ansible module."""
     argument_spec = {
         "user": {"type": "str", "required": True},
-        "state": {"type": "str", "choices": ["enabled", "disabled"], "required": True},
+        "state": {"type": "str", "choices": ["present", "absent"], "required": True},
     }
 
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)
@@ -71,7 +71,7 @@ def main() -> None:
 
     linger_exists = Path(f"/var/lib/systemd/linger/{user}").is_file()
 
-    if (state == "enabled" and linger_exists) or (state == "disabled" and not linger_exists):
+    if (state == "present" and linger_exists) or (state == "absent" and not linger_exists):
         module.exit_json(**result)
 
     loginctl = which("loginctl")
@@ -79,7 +79,7 @@ def main() -> None:
         module.fail_json(msg="loginctl is not found on the system.", **result)
         return
 
-    if state == "enabled":
+    if state == "present":
         subprocess.call([loginctl, "enable-linger", user])
         result["changed"] = True
         result["message"] = f"Linger has been enabled for {user}"

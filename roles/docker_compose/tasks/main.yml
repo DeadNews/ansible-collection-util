@@ -1,48 +1,33 @@
 ---
 # Deploy Docker Compose projects (with docker compose v2)
 
-- name: Validate mutually exclusive parameters
-  ansible.builtin.assert:
-    that:
-      - docker_compose_env_template is not defined
-    msg: "`docker_compose_env_template` must not be defined when `docker_compose_env` is set."
-  when: docker_compose_env is defined
-
-- name: Create directory for Docker Compose project {{ docker_compose_project }}
+- name: Create directory for the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.file:
     path: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     state: directory
     mode: "0700"
 
-- name: Copy Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.copy:
-    src: "{{ docker_compose_source }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml"
-    mode: "0600"
-
-- name: Copy additional files for Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.split('/')[-1] }}"
-    mode: "0600"
-  loop: "{{ docker_compose_copy_files }}"
-  when: docker_compose_copy_files is defined
-
-- name: Copy environment file for Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.copy:
-    src: "{{ docker_compose_env }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/.env"
-    mode: "0600"
-  when: docker_compose_env is defined
-
-- name: Create environment file for Docker Compose project {{ docker_compose_project }}
+- name: Create files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.template:
-    src: "{{ docker_compose_env_template }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/.env"
-    mode: "0600"
-  when: docker_compose_env_template is defined
+    src: "{{ item.src }}"
+    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default((item.src.split('/')[-1]).split('.j2')[0]) }}"
+    mode: "{{ item.mode | default('0600') }}"
+  loop: "{{ docker_compose_files }}"
+  when: docker_compose_files is defined
 
-- name: Pull images for Docker Compose project {{ docker_compose_project }}
+- name: List files in the Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.command:
+    cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+  changed_when: false
+  register: ls_output
+  when: ansible_verbosity > 0
+
+- name: Show files in the Docker Compose project {{ docker_compose_project }}
+  ansible.builtin.debug:
+    var: ls_output.stdout_lines
+    verbosity: 1
+
+- name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
   register: pull_output
@@ -50,11 +35,9 @@
 - name: Show pull results
   ansible.builtin.debug:
     var: pull_output
-  when:
-    - pull_output.failed
-    - or verbosity > 0
+    verbosity: 1
 
-- name: Ensure Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
+- name: Ensure the Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     pull: never
@@ -63,6 +46,28 @@
 - name: Show compose results
   ansible.builtin.debug:
     var: compose_output
+    verbosity: 1
+
+- name: Ensure that Docker containers are running
   when:
-    - compose_output.failed
-    - or verbosity > 0
+    - docker_compose_containers_check is defined
+    - docker_compose_containers_check
+  block:
+    - name: Get Docker container info
+      community.docker.docker_container_info:
+        name: "{{ item }}"
+      register: container_info
+      loop: "{{ docker_compose_containers_check }}"
+
+    - name: Show Docker containers info
+      ansible.builtin.debug:
+        var: container_info
+        verbosity: 2
+
+    - name: Assert Docker container is running
+      ansible.builtin.assert:
+        that: item.container.State.Running
+        quiet: true
+      loop: "{{ container_info.results }}"
+      loop_control:
+        label: "{{ item.item }}"

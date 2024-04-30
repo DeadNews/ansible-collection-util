@@ -67,15 +67,13 @@ jobs:
       - name: Lint code
         run: poetry run ansible-lint
 
-  # TODO: try https://github.com/tj-actions/changed-files
   changes:
     name: Detect changed scenarios
     permissions:
       pull-requests: read
     runs-on: ubuntu-latest
     outputs:
-      # If no changes detected, return hello_world scenario
-      discover: ${{ steps.filter.outputs.changes != '[]' && steps.filter.outputs.changes || '["plugins/tests/molecule/hello_world"]' }}
+      discover: ${{ steps.filter-edited.outputs.changes }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -87,13 +85,24 @@ jobs:
         with:
           filters: .github/file-filters.yml
 
+      - name: Filter out `shared` group; If no changes detected, return `hello_world` scenario
+        id: filter-edited
+        run: |
+          JSON=$(echo '${{ steps.filter.outputs.changes }}' | jq -c 'map(select(. != "shared"))')
+
+          if [[ $JSON == '[]' ]]; then
+              JSON='["plugins/tests/molecule/hello_world"]'
+          fi
+
+          echo "changes=$JSON" >> $GITHUB_OUTPUT
+
   tests:
     name: Tests
     needs: [changes]
     strategy:
       fail-fast: false
       matrix:
-        molecule-distro: [debian12, ubuntu2204]
+        molecule-distro: [debian12, ubuntu2204, ubuntu2404]
         molecule-discover: ${{ fromJSON(needs.changes.outputs.discover) }}
     runs-on: ubuntu-latest
     steps:
@@ -121,8 +130,6 @@ jobs:
         run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Run tests
-        # FIXME: shared is not a valid scenario
-        if: matrix.molecule-discover != 'shared'
         run: poetry run poe test --discover ${{ matrix.molecule-discover }}
         env:
           MOLECULE_DISTRO: ${{ matrix.molecule-distro }}

@@ -6,9 +6,11 @@
     that:
       - ansible_os_family == 'Debian'
 
-- name: Ensure the deb822_repository module requirements is installed
+- name: Ensure the `deb822_repository` and `community.docker` modules requirements is installed
   ansible.builtin.apt:
-    name: python3-debian
+    name:
+      - python3-debian
+      - python3-requests
     state: present
     cache_valid_time: 3600 # 1h
 
@@ -61,17 +63,38 @@
     - docker_hold_packages
 
 - name: Install Docker in rootfull mode
-  ansible.builtin.include_role:
-    name: docker
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
     tasks_from: rootfull
   when:
     - docker_rootless is defined
     - not docker_rootless
 
 - name: Install Docker in rootless mode
-  ansible.builtin.include_role:
-    name: docker
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
     tasks_from: rootless
   when:
     - docker_rootless is defined
     - docker_rootless
+
+- name: Schedule Docker images cleanup
+  when:
+    - docker_cleanup_scheduled is defined
+    - docker_cleanup_scheduled
+  block:
+    - name: Create a cron for clear dangling Docker images
+      ansible.builtin.cron:
+        name: clear dangling Docker images
+        special_time: weekly
+        user: "{{ docker_rootless_user if docker_rootless else 'root' }}"
+        job: docker image prune -f
+        cron_file: docker-image-clear-dangling
+
+    - name: Create a cron for clear unused Docker images created more than 3 months ago
+      ansible.builtin.cron:
+        name: clear unused Docker images created more than 3 months ago
+        special_time: monthly
+        user: "{{ docker_rootless_user if docker_rootless else 'root' }}"
+        job: docker image prune -f --all --filter "until=2160h"
+        cron_file: docker-image-clear-unused
