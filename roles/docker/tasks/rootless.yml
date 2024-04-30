@@ -47,22 +47,15 @@
     - /etc/subuid
     - /etc/subgid
 
-# TODO: enable
-
-# - name: Ensure that systemd-logind is started
-#   ansible.builtin.systemd:
-#     name: systemd-logind
-#     state: started
-
-# - name: Enable a persistent user session for the Docker user
-#   ansible.builtin.command:
-#     cmd: loginctl enable-linger {{ docker_rootless_user }}
-#     creates: /var/lib/systemd/linger/{{ docker_rootless_user }}
+- name: Ensure that systemd-logind is started
+  ansible.builtin.systemd:
+    name: systemd-logind
+    state: started
 
 - name: Enable a persistent user session for the Docker user
-  deadnews.util.linger:
-    user: "{{ docker_rootless_user }}"
-    state: enabled
+  ansible.builtin.command:
+    cmd: loginctl enable-linger {{ docker_rootless_user }}
+    creates: /var/lib/systemd/linger/{{ docker_rootless_user }}
 
 - name: Set environment variables in bash_profile for the Docker user
   ansible.builtin.copy:
