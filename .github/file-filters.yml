@@ -18,6 +18,11 @@ plugins/tests/molecule/linger:
   - plugins/tests/molecule/linger/**
   - plugins/modules/linger.py
 
+plugins/tests/molecule/copy_or_tpl:
+  - *shared
+  - plugins/tests/molecule/copy_or_tpl/**
+  - plugins/modules/copy_or_tpl.py
+
 # roles
 roles/aptup:
   - *shared
