@@ -13,6 +13,8 @@
     dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default((item.src.split('/')[-1]).split('.j2')[0]) }}"
     mode: "{{ item.mode | default('0600') }}"
   loop: "{{ docker_compose_files }}"
+  notify:
+    - (Handler) Restart Docker Compose project containers
   when: docker_compose_files is defined
 
 - name: List files in the Docker Compose project {{ docker_compose_project }}
@@ -37,10 +39,14 @@
     var: pull_output
     verbosity: 1
 
+- name: Flush handlers after deployment
+  ansible.builtin.meta: flush_handlers
+
 - name: Ensure the Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     pull: never
+    state: present
   register: compose_output
 
 - name: Show compose results
