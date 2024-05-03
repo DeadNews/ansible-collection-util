@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+
+  tasks:
+    - name: Test copy_or_tpl module with a file
+      deadnews.util.copy_or_tpl:
+        src: files/config.json
+        dest: /tmp/config.json
