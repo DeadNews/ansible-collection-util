@@ -54,7 +54,8 @@
 
     - name: Show the Docker Compose project in canonical format
       ansible.builtin.debug:
-        msg: "{{ config_output.stdout_lines | join('\n') }}"
+        msg: |-
+          {{ config_output.stdout_lines }}
         verbosity: 1
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
