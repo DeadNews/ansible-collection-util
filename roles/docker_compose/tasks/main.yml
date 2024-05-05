@@ -43,7 +43,8 @@
 
     - name: Show files in the Docker Compose project {{ docker_compose_project }}
       ansible.builtin.debug:
-        var: ls_output.stdout_lines
+        msg: |-
+          {{ ls_output.stdout }}
         verbosity: 1
 
     - name: Validate the Docker Compose project {{ docker_compose_project }}
@@ -55,7 +56,7 @@
     - name: Show the Docker Compose project in canonical format
       ansible.builtin.debug:
         msg: |-
-          {{ config_output.stdout_lines }}
+          {{ config_output.stdout }}
         verbosity: 1
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
