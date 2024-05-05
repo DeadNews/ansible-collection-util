@@ -1,0 +1,6 @@
+---
+- name: (Handler) Restart Docker Compose project containers
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+    pull: never
+    state: restarted

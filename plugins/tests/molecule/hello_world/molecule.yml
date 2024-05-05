@@ -8,5 +8,7 @@ platforms:
 
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_VERBOSITY: 0
   playbooks:
     converge: converge.yml

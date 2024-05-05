@@ -11,6 +11,9 @@
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true
   },
+  "[toml]": {
+    "editor.formatOnSave": true
+  },
   "ansible.ansible.reuseTerminal": true,
   "files.associations": {
     "**/handlers/*.yml": "ansible",
@@ -20,7 +23,8 @@
     "**/roles/**/*.yml": "ansible",
     "**/tasks/**/*.yml": "ansible",
     ".ansible-lint": "yaml",
-    "ansible.cfg": "properties"
+    "ansible.cfg": "properties",
+    "docker-compose.yml": "dockercompose"
   },
   "python.testing.pytestEnabled": true
 }
