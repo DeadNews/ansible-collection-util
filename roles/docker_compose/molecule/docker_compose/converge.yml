@@ -15,8 +15,8 @@
         docker_compose_project: docker-app
         docker_compose_target_dir: ~/docker-compose
         docker_compose_files:
-          - src: files/.env
           - src: files/docker-compose.yml
+          - src: files/.env
           - src: templates/.env.dev.j2
             dest: .env.dev-dev
             mode: "0644"
