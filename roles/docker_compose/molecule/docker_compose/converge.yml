@@ -17,7 +17,7 @@
         docker_compose_files:
           - src: files/.env
           - src: files/docker-compose.yml
-            validate: docker compose -f %s config
+          # validate: docker compose -f %s config
           - src: templates/.env.dev.j2
             dest: .env.dev-dev
             mode: "0644"

@@ -46,6 +46,18 @@
         var: ls_output.stdout_lines
         verbosity: 1
 
+    - name: Validate the Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.command:
+        cmd: docker compose "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml" config
+      changed_when: false
+      register: config_output
+      when: ansible_verbosity > 0
+
+    - name: Show Docker Compose project validation results
+      ansible.builtin.debug:
+        var: config_output.stdout_lines
+        verbosity: 1
+
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
