@@ -13,23 +13,46 @@
     mode: "0751"
 
 - name: Create the Docker config.json. The config only applies to new containers.
-  ansible.builtin.template:
-    src: "{{ docker_config }}"
-    dest: "{{ docker_user_home }}/.docker/config.json"
-    mode: "0600"
-  when:
-    - docker_config is defined
+  when: docker_config is defined
+  block:
+    - name: Template the Docker config.json
+      ansible.builtin.template:
+        src: "{{ docker_config }}"
+        dest: "{{ docker_user_home }}/.docker/config.json"
+        mode: "0600"
+      when:
+        - docker_config.endswith('.j2')
 
-# TODO: if src extension is .j2, then use `ansible.builtin.template` else use `ansible.builtin.copy`
+    - name: Copy the Docker config.json
+      ansible.builtin.copy:
+        src: "{{ docker_config }}"
+        dest: "{{ docker_user_home }}/.docker/config.json"
+        mode: "0600"
+      when:
+        - not docker_config.endswith('.j2')
+
 - name: Create the Docker daemon.json
-  "{{ 'ansible.builtin.template' if docker_config_daemon.endswith('.j2') else 'ansible.builtin.copy' }}":
-    src: "{{ docker_config_daemon }}"
-    dest: "{{ docker_user_home }}/.docker/daemon.json"
-    mode: "0600"
-  notify:
-    - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
-  when:
-    - docker_config_daemon is defined
+  when: docker_config_daemon is defined
+  block:
+    - name: Template the Docker daemon.json
+      ansible.builtin.template:
+        src: "{{ docker_config_daemon }}"
+        dest: "{{ docker_user_home }}/.docker/daemon.json"
+        mode: "0600"
+      notify:
+        - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+      when:
+        - docker_config_daemon.endswith('.j2')
+
+    - name: Copy the Docker daemon.json
+      ansible.builtin.copy:
+        src: "{{ docker_config_daemon }}"
+        dest: "{{ docker_user_home }}/.docker/daemon.json"
+        mode: "0600"
+      notify:
+        - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+      when:
+        - not docker_config_daemon.endswith('.j2')
 
 - name: Create the Docker systemd service config
   when:
@@ -51,9 +74,24 @@
         mode: "0751"
 
     - name: Create the Docker systemd service config
-      ansible.builtin.template:
-        src: "{{ docker_config_systemd }}"
-        dest: "{{ docker_config_systemd_dir }}/{{ (docker_config_systemd.split('/')[-1]).split('.j2')[0] }}"
-        mode: "0600"
-      notify:
-        - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+      when: docker_config_systemd is defined
+      block:
+        - name: Template the Docker systemd service config
+          ansible.builtin.template:
+            src: "{{ docker_config_systemd }}"
+            dest: "{{ docker_config_systemd_dir }}/{{ docker_config_systemd | basename | splitext }}"
+            mode: "0600"
+          notify:
+            - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+          when:
+            - docker_config_systemd.endswith('.j2')
+
+        - name: Copy the Docker systemd service config
+          ansible.builtin.copy:
+            src: "{{ docker_config_systemd }}"
+            dest: "{{ docker_config_systemd_dir }}/{{ docker_config_systemd | basename }}"
+            mode: "0600"
+          notify:
+            - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+          when:
+            - not docker_config_systemd.endswith('.j2')
