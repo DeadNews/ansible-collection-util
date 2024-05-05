@@ -37,6 +37,10 @@ argument_specs:
             required: false
             default: "0600"
             description: The file mode to set on the created file.
+          validate:
+            type: str
+            required: false
+            description: The validation command to run before copying the updated file into the final destination.
 
       docker_compose_containers_check:
         type: list

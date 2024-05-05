@@ -15,7 +15,7 @@
         src: "{{ item.src }}"
         dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename | split('.j2') | first) }}"
         mode: "{{ item.mode | default('0600') }}"
-        validate: ""
+        validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
         - (Handler) Restart Docker Compose project containers
@@ -27,24 +27,24 @@
         src: "{{ item.src }}"
         dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename) }}"
         mode: "{{ item.mode | default('0600') }}"
-        validate: ""
+        validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
         - (Handler) Restart Docker Compose project containers
       when:
         - not item.src.endswith('.j2')
 
-- name: List files in the Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.command:
-    cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-  changed_when: false
-  register: ls_output
-  when: ansible_verbosity > 0
+    - name: List files in the Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.command:
+        cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+      changed_when: false
+      register: ls_output
+      when: ansible_verbosity > 0
 
-- name: Show files in the Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.debug:
-    var: ls_output.stdout_lines
-    verbosity: 1
+    - name: Show files in the Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.debug:
+        var: ls_output.stdout_lines
+        verbosity: 1
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:

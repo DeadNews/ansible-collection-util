@@ -16,6 +16,7 @@
         docker_compose_target_dir: ~/docker-compose
         docker_compose_files:
           - src: files/docker-compose.yml
+            validate: docker-compose -f %s config
           - src: files/.env
           - src: templates/.env.dev.j2
             dest: .env.dev-dev
