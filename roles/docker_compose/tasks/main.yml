@@ -34,26 +34,6 @@
       when:
         - not item.src.endswith('.j2')
 
-- name: Create the Docker Compose file in the Docker Compose project {{ docker_compose_project }}
-  block:
-    - name: Template the Docker Compose file in the Docker Compose project {{ docker_compose_project }}
-      ansible.builtin.template:
-        src: "{{ docker_compose_src }}"
-        dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml"
-        mode: "0600"
-        validate: docker compose -f %s config
-      when:
-        - docker_compose_src.endswith('.j2')
-
-    - name: Copy the Docker Compose file in the Docker Compose project {{ docker_compose_project }}
-      ansible.builtin.copy:
-        src: "{{ docker_compose_src }}"
-        dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml"
-        mode: "0600"
-        validate: docker compose -f %s config
-      when:
-        - not docker_compose_src.endswith('.j2')
-
     - name: List files in the Docker Compose project {{ docker_compose_project }}
       ansible.builtin.command:
         cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
