@@ -1,12 +1,19 @@
 # Changelog
 
-## [1.2.0-beta.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.1.0...v1.2.0-beta.0) - 2024-05-05
+## [1.2.0-beta.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.1.0...v1.2.0-beta.1) - 2024-05-05
 
 ### 🚀 Features
 
 - _(copy_or_tpl)_ remove module - ([ff8077c](https://github.com/DeadNews/ansible-collection-util/commit/ff8077c73c45d270e73d791e9a7d89774bb7ea04))
 - _(copy_or_tpl)_ add module - ([2d09c9d](https://github.com/DeadNews/ansible-collection-util/commit/2d09c9d3ec9add24aa17dc7431193a720f0b2610))
 - _(copy_or_tpl)_ add module - ([98f12de](https://github.com/DeadNews/ansible-collection-util/commit/98f12dee4683df62d8eb68590310303741921193))
+- _(docker,docker_compose)_ enhance configs deployment - ([2f33cf2](https://github.com/DeadNews/ansible-collection-util/commit/2f33cf235aa09a3b82ef9e3dca4d1fcae46d2ed8))
+- _(docker,docker_compose)_ enhance configs deployment - ([406ecbd](https://github.com/DeadNews/ansible-collection-util/commit/406ecbd1075fb7715f6dfe884dabcffa40e367c6))
+- _(docker,docker_compose)_ enhance configs deployment - ([8da05e8](https://github.com/DeadNews/ansible-collection-util/commit/8da05e81b9049d559c3d45aefa190d9403fcc25c))
+- _(docker,docker_compose)_ enhance configs deployment - ([6272544](https://github.com/DeadNews/ansible-collection-util/commit/627254477befe2761834035a86f588f32a84132f))
+- _(docker,docker_compose)_ enhance configs deployment - ([465b14d](https://github.com/DeadNews/ansible-collection-util/commit/465b14dd7629e74cc7da651a45dd0c9164aec9a9))
+- _(docker,docker_compose)_ enhance configs deployment - ([fefeb79](https://github.com/DeadNews/ansible-collection-util/commit/fefeb790519ca51f6d0bac5d26354f0d314e36dd))
+- _(docker,docker_compose)_ enhance configs deployment - ([dc44c88](https://github.com/DeadNews/ansible-collection-util/commit/dc44c88910c96c409e6f0721723e67945f2da2a0))
 - _(docker,docker_compose)_ enhance configs deployment - ([8ee88ad](https://github.com/DeadNews/ansible-collection-util/commit/8ee88ad242450e20d3e15259b727d7d68e701c0b))
 - _(docker,docker_compose)_ enhance configs deployment - ([43351a3](https://github.com/DeadNews/ansible-collection-util/commit/43351a3c289634dee314119b082259b7ab894965))
 - _(docker,docker_compose)_ enhance configs deployment - ([63db5db](https://github.com/DeadNews/ansible-collection-util/commit/63db5dbf06fb8c1caa41003c0a644dc9dc2a187e))
@@ -24,6 +31,14 @@
 - _(docker,docker_compose)_ enhance configs deployment - ([a40d821](https://github.com/DeadNews/ansible-collection-util/commit/a40d821d88cf2465bf3901a57252aa465f1831f7))
 - _(docker,docker_compose)_ enhance configs deployment - ([84f54fa](https://github.com/DeadNews/ansible-collection-util/commit/84f54fa39c233ce79f61081ac63fd7e5decd3e21))
 - _(docker_compose)_ trigger restart of the containers if the project files has changed - ([3c5a5d4](https://github.com/DeadNews/ansible-collection-util/commit/3c5a5d4477a19eef1a4aa9c70bcc00d4003a88e0))
+
+### 🧪 Testing
+
+- add `ANSIBLE_VERBOSITY` in `molecule.yml` files - ([014c294](https://github.com/DeadNews/ansible-collection-util/commit/014c2942d5f5b756f2a3b2a5f3df678603c3dca8))
+
+### 🧹 Chores
+
+- _(vscode)_ update settings - ([3cd5e94](https://github.com/DeadNews/ansible-collection-util/commit/3cd5e941f31415a66e4c69c370ed3902c3962486))
 
 ## [1.1.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.0.0...v1.1.0) - 2024-04-30
 
