@@ -73,25 +73,22 @@
         state: directory
         mode: "0751"
 
-    - name: Create the Docker systemd service config
-      when: docker_config_systemd is defined
-      block:
-        - name: Template the Docker systemd service config
-          ansible.builtin.template:
-            src: "{{ docker_config_systemd }}"
-            dest: "{{ docker_config_systemd_dir }}/{{ docker_config_systemd | basename | splitext }}"
-            mode: "0600"
-          notify:
-            - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
-          when:
-            - docker_config_systemd.endswith('.j2')
+    - name: Template the Docker systemd service config
+      ansible.builtin.template:
+        src: "{{ docker_config_systemd }}"
+        dest: "{{ docker_config_systemd_dir }}/{{ docker_config_systemd | basename | split('.j2') | first }}"
+        mode: "0600"
+      notify:
+        - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+      when:
+        - docker_config_systemd.endswith('.j2')
 
-        - name: Copy the Docker systemd service config
-          ansible.builtin.copy:
-            src: "{{ docker_config_systemd }}"
-            dest: "{{ docker_config_systemd_dir }}/{{ docker_config_systemd | basename }}"
-            mode: "0600"
-          notify:
-            - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
-          when:
-            - not docker_config_systemd.endswith('.j2')
+    - name: Copy the Docker systemd service config
+      ansible.builtin.copy:
+        src: "{{ docker_config_systemd }}"
+        dest: "{{ docker_config_systemd_dir }}/{{ docker_config_systemd | basename }}"
+        mode: "0600"
+      notify:
+        - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
+      when:
+        - not docker_config_systemd.endswith('.j2')

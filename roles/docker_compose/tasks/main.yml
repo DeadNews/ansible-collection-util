@@ -8,14 +8,29 @@
     mode: "0700"
 
 - name: Create files in the Docker Compose project {{ docker_compose_project }}
-  ansible.builtin.template:
-    src: "{{ item.src }}"
-    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default((item.src.split('/')[-1]).split('.j2')[0]) }}"
-    mode: "{{ item.mode | default('0600') }}"
-  loop: "{{ docker_compose_files }}"
-  notify:
-    - (Handler) Restart Docker Compose project containers
   when: docker_compose_files is defined
+  block:
+    - name: Template files in the Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename | split('.j2') | first) }}"
+        mode: "{{ item.mode | default('0600') }}"
+      loop: "{{ docker_compose_files }}"
+      notify:
+        - (Handler) Restart Docker Compose project containers
+      when:
+        - item.src.endswith('.j2')
+
+    - name: Copy files in the Docker Compose project {{ docker_compose_project }}
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename) }}"
+        mode: "{{ item.mode | default('0600') }}"
+      loop: "{{ docker_compose_files }}"
+      notify:
+        - (Handler) Restart Docker Compose project containers
+      when:
+        - not item.src.endswith('.j2')
 
 - name: List files in the Docker Compose project {{ docker_compose_project }}
   ansible.builtin.command:
