@@ -13,6 +13,11 @@ argument_specs:
         required: true
         description: The directory where the Docker Compose project directory should be created.
 
+      docker_compose_src:
+        type: str
+        required: true
+        description: The path to the Docker Compose file to deploy.
+
       docker_compose_files:
         type: list
         elements: dict
