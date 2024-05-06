@@ -6,15 +6,15 @@
   ansible.builtin.set_fact:
     docker_user_home: "{{ docker_rootless_user_home if docker_rootless else '/root' }}"
 
-- name: Create directory for the Docker configs
-  ansible.builtin.file:
-    path: "{{ docker_user_home }}/.docker"
-    state: directory
-    mode: "0751"
-
 - name: Create the Docker config.json. The config only applies to new containers.
   when: docker_config is defined
   block:
+    - name: Create directory for the Docker config.json
+      ansible.builtin.file:
+        path: "{{ docker_user_home }}/.docker"
+        state: directory
+        mode: "0751"
+
     - name: Template the Docker config.json
       ansible.builtin.template:
         src: "{{ docker_config }}"
@@ -34,10 +34,20 @@
 - name: Create the Docker daemon.json
   when: docker_config_daemon is defined
   block:
+    - name: Set Docker daemon.json directory
+      ansible.builtin.set_fact:
+        docker_config_daemon_dir: "{{ docker_user_home + '/.config/docker' if docker_rootless else '/etc/docker' }}"
+
+    - name: Create directory for the Docker daemon.json
+      ansible.builtin.file:
+        path: "{{ docker_config_daemon_dir }}"
+        state: directory
+        mode: "0751"
+
     - name: Template the Docker daemon.json
       ansible.builtin.template:
         src: "{{ docker_config_daemon }}"
-        dest: "{{ docker_user_home }}/.docker/daemon.json"
+        dest: "{{ docker_config_daemon_dir }}/daemon.json"
         mode: "0600"
       notify:
         - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
@@ -47,7 +57,7 @@
     - name: Copy the Docker daemon.json
       ansible.builtin.copy:
         src: "{{ docker_config_daemon }}"
-        dest: "{{ docker_user_home }}/.docker/daemon.json"
+        dest: "{{ docker_config_daemon_dir }}/daemon.json"
         mode: "0600"
       notify:
         - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
