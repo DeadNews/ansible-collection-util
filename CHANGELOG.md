@@ -1,14 +1,10 @@
 # Changelog
 
-## [1.2.1-beta.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.0...v1.2.1-beta.0) - 2024-05-06
-
-### 🚀 Features
-
-- _(docker)_ add validation for `daemon.json` config - ([bb43a2a](https://github.com/DeadNews/ansible-collection-util/commit/bb43a2a9bea092b16f660979a8fe2e90c634fa85))
+## [1.2.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.0...v1.2.1) - 2024-05-06
 
 ### 🐛 Bug fixes
 
-- _(docker)_ change `daemon.json` location - ([865a93c](https://github.com/DeadNews/ansible-collection-util/commit/865a93c0bc48aad0fdeae95d54f606e0b12d3551))
+- _(docker)_ change `daemon.json` location ([#14](https://github.com/DeadNews/ansible-collection-util/issues/14)) - ([fc47d4b](https://github.com/DeadNews/ansible-collection-util/commit/fc47d4b6775fcf7ef9382f76cf2f098d01293da1))
 
 ## [1.2.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.1.0...v1.2.0) - 2024-05-05
 
