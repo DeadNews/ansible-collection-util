@@ -49,7 +49,6 @@
         src: "{{ docker_config_daemon }}"
         dest: "{{ docker_config_daemon_dir }}/daemon.json"
         mode: "0600"
-        validate: dockerd --validate --config-file %s
       notify:
         - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
       when:
@@ -60,7 +59,6 @@
         src: "{{ docker_config_daemon }}"
         dest: "{{ docker_config_daemon_dir }}/daemon.json"
         mode: "0600"
-        validate: dockerd --validate --config-file %s
       notify:
         - "{{ '(Handler) Restart rootless docker.service' if docker_rootless else '(Handler) Restart system docker.service' }}"
       when:
