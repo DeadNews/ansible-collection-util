@@ -150,7 +150,7 @@ jobs:
           sed "s|^version:.*$|version: ${GITHUB_REF_NAME#v}|" -i galaxy.yml
 
       - name: Upload collection to Ansible Galaxy
-        uses: ansible/ansible-publish-action@v1.0.0
+        uses: ansible/ansible-publish-action@a56a0328c92c1d4feedf5bd7f7cf7ec7a4ae3f09 # v1.0.0
         with:
           api_key: ${{ secrets.GALAXY_API_KEY }}
 
