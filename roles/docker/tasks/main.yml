@@ -79,22 +79,9 @@
     - docker_rootless
 
 - name: Schedule Docker images cleanup
+  ansible.builtin.import_role:
+    name: deadnews.util.docker
+    tasks_from: cleanup
   when:
     - docker_cleanup_scheduled is defined
     - docker_cleanup_scheduled
-  block:
-    - name: Create a cron for clear dangling Docker images
-      ansible.builtin.cron:
-        name: clear dangling Docker images
-        special_time: weekly
-        user: "{{ docker_rootless_user if docker_rootless else 'root' }}"
-        job: docker image prune -f
-        cron_file: docker-image-clear-dangling
-
-    - name: Create a cron for clear unused Docker images created more than 3 months ago
-      ansible.builtin.cron:
-        name: clear unused Docker images created more than 3 months ago
-        special_time: monthly
-        user: "{{ docker_rootless_user if docker_rootless else 'root' }}"
-        job: docker image prune -f --all --filter "until=2160h"
-        cron_file: docker-image-clear-unused
