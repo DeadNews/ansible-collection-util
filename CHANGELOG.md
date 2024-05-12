@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.1...v1.2.2) - 2024-05-12
+
+### 🐛 Bug fixes
+
+- _(docker)_ add `user` to generated `cron file` names ([#15](https://github.com/DeadNews/ansible-collection-util/issues/15)) - ([2640ea3](https://github.com/DeadNews/ansible-collection-util/commit/2640ea344a067cf061dd28978cae2ab00fc04dac))
+
 ## [1.2.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.0...v1.2.1) - 2024-05-06
 
 ### 🐛 Bug fixes
