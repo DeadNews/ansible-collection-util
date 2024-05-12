@@ -1,4 +1,5 @@
 ---
+docker_cleanup_scheduled: false
 docker_hold_packages: false
 docker_rootless_create_user_and_group: true
 docker_rootless_expose_privileged_ports: false
