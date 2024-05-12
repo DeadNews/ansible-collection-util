@@ -1,6 +1,6 @@
 ---
-# Create Docker configs.
-# Should be run as the user that will be running Docker.
+# Create Docker configs
+# Should be run as the user that will be running Docker
 
 - name: Set the Docker user home directory
   ansible.builtin.set_fact:
