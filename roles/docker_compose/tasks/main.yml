@@ -82,6 +82,38 @@
     var: compose_output
     verbosity: 1
 
+- name: Execute command in running Docker containers
+  when:
+    - docker_compose_containers_exec is defined
+    - docker_compose_containers_exec
+  block:
+    - name: Execute command in Docker containers
+      ansible.builtin.command:
+        cmd: docker exec {{ item.container }} {{ item.cmd }}
+      changed_when: false
+      register: containers_exec
+      loop: "{{ docker_compose_containers_exec }}"
+
+    - name: Show exec results
+      ansible.builtin.debug:
+        var: containers_exec
+
+- name: Show Docker containers logs
+  when:
+    - docker_compose_containers_logs is defined
+    - docker_compose_containers_logs
+  block:
+    - name: Get Docker containers logs
+      ansible.builtin.command:
+        cmd: docker logs {{ item }}
+      changed_when: false
+      register: containers_logs
+      loop: "{{ docker_compose_containers_logs }}"
+
+    - name: Show Docker containers logs
+      ansible.builtin.debug:
+        var: containers_logs
+
 - name: Ensure that Docker containers are running
   when:
     - docker_compose_containers_check is defined
@@ -90,18 +122,18 @@
     - name: Get Docker container info
       community.docker.docker_container_info:
         name: "{{ item }}"
-      register: container_info
+      register: containers_info
       loop: "{{ docker_compose_containers_check }}"
 
     - name: Show Docker containers info
       ansible.builtin.debug:
-        var: container_info
+        var: containers_info
         verbosity: 2
 
     - name: Assert Docker container is running
       ansible.builtin.assert:
         that: item.container.State.Running
         quiet: true
-      loop: "{{ container_info.results }}"
+      loop: "{{ containers_info.results }}"
       loop_control:
         label: "{{ item.item }}"
