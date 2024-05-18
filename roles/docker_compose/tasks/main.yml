@@ -82,6 +82,16 @@
     var: compose_output
     verbosity: 1
 
+# TODO: wait
+# - name: Wait 10 seconds for Docker Compose project to start
+#   ansible.builtin.wait_for:
+#     host: localhost
+#     port: 8000
+#     delay: 1
+#     timeout: 10
+#     state: started
+
+# TODO: logs for docker compose
 # - name: Wite Docker Compose project logs
 #   ansible.builtin.command:
 #     cmd: docker compose -f "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml" logs
@@ -102,11 +112,14 @@
 
     - name: Show exec results
       ansible.builtin.debug:
-        var: containers_exec
-
-    - name: Show exec results per item
-      ansible.builtin.debug:
         var: item
+      loop: "{{ containers_exec.results }}"
+      loop_control:
+        label: "{{ item.item.container }} - {{ item.item.cmd }}"
+
+    - name: Show exec results 2
+      ansible.builtin.debug:
+        msg: "Stdout: {{ item.stdout_lines }}, Stderr: {{ item.stderr_lines }}"
       loop: "{{ containers_exec.results }}"
       loop_control:
         label: "{{ item.item.container }} - {{ item.item.cmd }}"
@@ -125,7 +138,10 @@
 
     - name: Show Docker containers logs
       ansible.builtin.debug:
-        var: containers_logs.stdout_lines
+        var: item
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
 
 - name: Ensure that Docker containers are running
   when:
