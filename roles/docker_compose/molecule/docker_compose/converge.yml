@@ -22,7 +22,7 @@
             mode: "0644"
         docker_compose_containers_exec:
           - container: docker-app
-            cmd: echo "Hello, Docker App!"
+            cmd: ls -lha /
         docker_compose_containers_logs: [docker-app]
         docker_compose_containers_check: [docker-app]
 
