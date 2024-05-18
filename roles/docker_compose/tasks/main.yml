@@ -104,7 +104,7 @@
 
     - name: Show Docker compose logs
       ansible.builtin.debug:
-        var: compose_logs
+        var: compose_logs.stdout_lines
 
 - name: Execute command in running Docker containers
   when:
