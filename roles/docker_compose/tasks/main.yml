@@ -83,13 +83,10 @@
     verbosity: 1
 
 # TODO: wait
-# - name: Wait 10 seconds for Docker Compose project to start
-#   ansible.builtin.wait_for:
-#     host: localhost
-#     port: 8000
-#     delay: 1
-#     timeout: 10
-#     state: started
+- name: Sleep for 1 seconds
+  ansible.builtin.wait_for:
+    timeout: 1
+  delegate_to: localhost
 
 # TODO: logs for docker compose
 # - name: Wite Docker Compose project logs
