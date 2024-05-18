@@ -42,6 +42,16 @@ argument_specs:
             required: false
             description: The validation command to run before copying the updated file into the final destination.
 
+      docker_compose_sleep_time:
+        type: int
+        required: false
+        description: The number of seconds to sleep after the Docker Compose project is deployed.
+
+      docker_compose_logs:
+        type: bool
+        required: false
+        description: Whether to show logs for the Docker Compose project after it is deployed.
+
       docker_compose_containers_exec:
         type: list
         elements: dict
