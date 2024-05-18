@@ -82,6 +82,12 @@
     var: compose_output
     verbosity: 1
 
+# - name: Wite Docker Compose project logs
+#   ansible.builtin.command:
+#     cmd: docker compose -f "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml" logs
+#   register: compose_logs
+#   changed_when: false
+
 - name: Execute command in running Docker containers
   when:
     - docker_compose_containers_exec is defined
@@ -97,6 +103,13 @@
     - name: Show exec results
       ansible.builtin.debug:
         var: containers_exec
+
+    - name: Show exec results per item
+      ansible.builtin.debug:
+        var: item
+      loop: "{{ containers_exec.results }}"
+      loop_control:
+        label: "{{ item.item.container }} - {{ item.item.cmd }}"
 
 - name: Show Docker containers logs
   when:
