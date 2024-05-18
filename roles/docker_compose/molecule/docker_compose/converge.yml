@@ -23,6 +23,8 @@
         docker_compose_containers_exec:
           - container: docker-app
             cmd: ls -lha /
+          - container: docker-app
+            cmd: echo "Hello, World!"
         docker_compose_containers_logs: [docker-app]
         docker_compose_containers_check: [docker-app]
 

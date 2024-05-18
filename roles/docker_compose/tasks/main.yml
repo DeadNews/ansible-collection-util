@@ -112,7 +112,7 @@
 
     - name: Show Docker containers logs
       ansible.builtin.debug:
-        var: containers_logs
+        var: containers_logs.stdout_lines
 
 - name: Ensure that Docker containers are running
   when:
