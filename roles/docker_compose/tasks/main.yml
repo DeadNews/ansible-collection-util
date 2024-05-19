@@ -145,13 +145,13 @@
       loop_control:
         label: "{{ item.item }}"
 
-    - name: Show Docker containers logs 3
+    - name: Show Docker containers logs
       ansible.builtin.debug:
         msg:
-          - "Stdout:"
-          - "{{ item.stdout_lines }}"
           - "Stderr:"
           - "{{ item.stderr_lines }}"
+          - "Stdout:"
+          - "{{ item.stdout_lines }}"
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
