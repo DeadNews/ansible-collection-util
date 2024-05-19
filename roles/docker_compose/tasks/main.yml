@@ -153,6 +153,9 @@
 
           Stderr:
           {{ item.stderr.split('\n') }}
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
 
     - name: Show Docker containers logs 3
       ansible.builtin.debug:
