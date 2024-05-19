@@ -104,7 +104,7 @@
 
     - name: Show Docker compose logs
       ansible.builtin.debug:
-        var: compose_logs.stdout_lines
+        var: compose_logs.stdout
 
 - name: Execute command in running Docker containers
   when:
@@ -159,11 +159,11 @@
     - name: Show Docker containers logs 3
       ansible.builtin.debug:
         msg: |-
-          "Stderr:"
-          "{{ item.stderr }}"
+          Stderr:
+          {{ item.stderr }}
 
-          "Stdout:"
-          "{{ item.stdout }}"
+          Stdout:
+          {{ item.stdout }}
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
@@ -172,11 +172,11 @@
       ansible.builtin.debug:
         msg:
           - |-
-            "Stderr:"
-            "{{ item.stderr }}"
+            Stderr:
+            "{{ item.stderr }}
           - |-
-            "Stdout:"
-            "{{ item.stdout }}"
+            Stdout:
+            {{ item.stdout }}
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
