@@ -43,7 +43,7 @@
 
     - name: Show files in the Docker Compose project {{ docker_compose_project }}
       ansible.builtin.debug:
-        var: ls_output.stdout_lines
+        var: ls_output.stdout
         verbosity: 1
 
     - name: Validate the Docker Compose project {{ docker_compose_project }}
@@ -54,7 +54,7 @@
 
     - name: Show the Docker Compose project in canonical format
       ansible.builtin.debug:
-        var: config_output.stdout_lines
+        var: config_output.stdout
         verbosity: 1
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
@@ -145,13 +145,38 @@
       loop_control:
         label: "{{ item.item }}"
 
-    - name: Show Docker containers logs
+    - name: Show Docker containers logs 2
       ansible.builtin.debug:
         msg:
           - "Stderr:"
-          - "{{ item.stderr_lines }}"
+          - "{{ item.stderr }}"
           - "Stdout:"
-          - "{{ item.stdout_lines }}"
+          - "{{ item.stdout }}"
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Show Docker containers logs 3
+      ansible.builtin.debug:
+        msg: |-
+          "Stderr:"
+          "{{ item.stderr }}"
+
+          "Stdout:"
+          "{{ item.stdout }}"
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Show Docker containers logs 4
+      ansible.builtin.debug:
+        msg:
+          - |-
+            "Stderr:"
+            "{{ item.stderr }}"
+          - |-
+            "Stdout:"
+            "{{ item.stdout }}"
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
