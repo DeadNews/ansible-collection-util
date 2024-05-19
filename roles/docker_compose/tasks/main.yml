@@ -145,25 +145,13 @@
       loop_control:
         label: "{{ item.item }}"
 
-    - name: Show Docker containers logs 2
-      ansible.builtin.debug:
-        msg: |
-          Stdout:
-          {{ item.stdout.split('\n') }}
-
-          Stderr:
-          {{ item.stderr.split('\n') }}
-      loop: "{{ containers_logs.results }}"
-      loop_control:
-        label: "{{ item.item }}"
-
     - name: Show Docker containers logs 3
       ansible.builtin.debug:
         msg:
           - "Stdout:"
           - "{{ item.stdout_lines }}"
           - "Stderr:"
-          - "{{ item.stderr._lines }}"
+          - "{{ item.stderr_lines }}"
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
