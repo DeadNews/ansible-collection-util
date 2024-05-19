@@ -115,7 +115,6 @@
       community.docker.docker_container_exec:
         container: "{{ item.container }}"
         command: "{{ item.cmd }}"
-      changed_when: false
       register: containers_exec
       loop: "{{ docker_compose_containers_exec }}"
 
@@ -141,6 +140,17 @@
     - name: Show Docker containers logs
       ansible.builtin.debug:
         var: item
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Show Docker containers logs 2
+      ansible.builtin.debug:
+        msg: |
+          Stdout:
+          {{ item.stdout_lines | join('\n') }}
+          Stderr:
+          {{ item.stderr_lines | join('\n') }}
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
