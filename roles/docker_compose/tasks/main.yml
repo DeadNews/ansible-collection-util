@@ -18,7 +18,7 @@
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
-        - (Handler) Restart Docker Compose project containers
+        - (Handler) Down Docker Compose project containers
       when:
         - item.src.endswith('.j2')
 
@@ -30,7 +30,7 @@
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
-        - (Handler) Restart Docker Compose project containers
+        - (Handler) Down Docker Compose project containers
       when:
         - not item.src.endswith('.j2')
 
@@ -64,22 +64,22 @@
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     policy: always
   notify:
-    - (Handler) Restart Docker Compose project containers
+    - (Handler) Down Docker Compose project containers
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
 
-- name: Ensure the Docker Compose project is running ー {{ docker_compose_project }}
+- name: Up Docker Compose project containers ー {{ docker_compose_project }}
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     pull: never
-    recreate: never
+    recreate: auto
     state: present
-  register: compose_up_output
+  register: compose_up
 
-- name: Show compose up results
+- name: Show results for docker compose up
   ansible.builtin.debug:
-    var: compose_up_output.stderr
+    var: compose_up.stderr
 
 - name: Sleep for a specified time
   ansible.builtin.wait_for:
