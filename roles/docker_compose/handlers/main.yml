@@ -7,8 +7,10 @@
         pull: never
         recreate: always
         state: restarted
+      listen: (Handler) Restart Docker Compose project containers
       register: compose_restart_output
 
     - name: Show compose restart results
       ansible.builtin.debug:
         var: compose_restart_output.stderr
+      listen: (Handler) Restart Docker Compose project containers
