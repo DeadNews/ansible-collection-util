@@ -61,16 +61,23 @@
   community.docker.docker_compose_v2_pull:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     policy: always
+  notify:
+    - (Handler) Restart Docker Compose project containers
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
 
-- name: Ensure the Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
+- name: Ensure the Docker Compose project is running ー {{ docker_compose_project }}
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     pull: never
     state: present
-    recreate: auto
+    recreate: never
+  register: compose_output
+
+- name: Show compose results
+  ansible.builtin.debug:
+    var: compose_output.stderr
 
 - name: Sleep for a specified time
   ansible.builtin.wait_for:
@@ -149,11 +156,6 @@
         name: "{{ item }}"
       register: containers_info
       loop: "{{ docker_compose_containers_check }}"
-
-    - name: Show Docker containers info
-      ansible.builtin.debug:
-        var: containers_info
-        verbosity: 2
 
     - name: Assert Docker container is running
       ansible.builtin.assert:
