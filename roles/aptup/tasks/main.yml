@@ -36,7 +36,7 @@
 
     - name: Show Upgrade errors
       ansible.builtin.fail:
-        msg: aptup_full.stderr_lines
+        msg: aptup_full.stderr
       when:
         - aptup_full.rc is defined
         - aptup_full.rc != 0

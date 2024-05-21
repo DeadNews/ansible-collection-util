@@ -43,7 +43,7 @@
 
     - name: Show files in the Docker Compose project {{ docker_compose_project }}
       ansible.builtin.debug:
-        var: ls_output.stdout_lines
+        var: ls_output.stdout
         verbosity: 1
 
     - name: Validate the Docker Compose project {{ docker_compose_project }}
@@ -54,7 +54,7 @@
 
     - name: Show the Docker Compose project in canonical format
       ansible.builtin.debug:
-        var: config_output.stdout_lines
+        var: config_output.stdout
         verbosity: 1
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
@@ -82,6 +82,74 @@
     var: compose_output
     verbosity: 1
 
+- name: Sleep for a specified time
+  ansible.builtin.wait_for:
+    timeout: "{{ docker_compose_sleep_time }}"
+  delegate_to: localhost
+  when:
+    - docker_compose_sleep_time is defined
+    - docker_compose_sleep_time
+
+- name: Show Docker Compose logs
+  when:
+    - docker_compose_logs is defined
+    - docker_compose_logs
+  block:
+    - name: Get Docker Compose logs
+      ansible.builtin.command:
+        cmd: docker compose logs
+        chdir: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+      changed_when: false
+      register: compose_logs
+
+    - name: Show Docker compose logs
+      ansible.builtin.debug:
+        var: compose_logs.stdout
+
+- name: Execute command in running Docker containers
+  when:
+    - docker_compose_containers_exec is defined
+    - docker_compose_containers_exec
+  block:
+    - name: Execute command in Docker containers
+      community.docker.docker_container_exec:
+        container: "{{ item.container }}"
+        command: "{{ item.cmd }}"
+      changed_when: false
+      register: containers_exec
+      loop: "{{ docker_compose_containers_exec }}"
+
+    - name: Show exec results
+      ansible.builtin.debug:
+        msg:
+          rc: "{{ item.rc }}"
+          stderr: "{{ item.stderr }}"
+          stdout: "{{ item.stdout }}"
+      loop: "{{ containers_exec.results }}"
+      loop_control:
+        label: "{{ item.item.container }} - {{ item.item.cmd }}"
+
+- name: Show Docker containers logs
+  when:
+    - docker_compose_containers_logs is defined
+    - docker_compose_containers_logs
+  block:
+    - name: Get Docker containers logs
+      ansible.builtin.command:
+        cmd: docker logs {{ item }}
+      changed_when: false
+      register: containers_logs
+      loop: "{{ docker_compose_containers_logs }}"
+
+    - name: Show Docker containers logs
+      ansible.builtin.debug:
+        msg:
+          stderr: "{{ item.stderr }}"
+          stdout: "{{ item.stdout }}"
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
 - name: Ensure that Docker containers are running
   when:
     - docker_compose_containers_check is defined
@@ -90,18 +158,18 @@
     - name: Get Docker container info
       community.docker.docker_container_info:
         name: "{{ item }}"
-      register: container_info
+      register: containers_info
       loop: "{{ docker_compose_containers_check }}"
 
     - name: Show Docker containers info
       ansible.builtin.debug:
-        var: container_info
+        var: containers_info
         verbosity: 2
 
     - name: Assert Docker container is running
       ansible.builtin.assert:
         that: item.container.State.Running
         quiet: true
-      loop: "{{ container_info.results }}"
+      loop: "{{ containers_info.results }}"
       loop_control:
         label: "{{ item.item }}"
