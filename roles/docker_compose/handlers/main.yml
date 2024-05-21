@@ -1,7 +1,14 @@
 ---
 - name: (Handler) Restart Docker Compose project containers
-  community.docker.docker_compose_v2:
-    project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-    pull: never
-    recreate: always
-    state: restarted
+  block:
+    - name: Restart Docker Compose project containers
+      community.docker.docker_compose_v2:
+        project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+        pull: never
+        recreate: always
+        state: restarted
+      register: compose_restart_output
+
+    - name: Show compose restart results
+      ansible.builtin.debug:
+        var: compose_restart_output.stderr

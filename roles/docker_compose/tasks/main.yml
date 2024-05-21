@@ -75,11 +75,11 @@
     pull: never
     recreate: never
     state: present
-  register: compose_output
+  register: compose_up_output
 
-- name: Show compose results
+- name: Show compose up results
   ansible.builtin.debug:
-    var: compose_output.stderr
+    var: compose_up_output.stderr
 
 - name: Sleep for a specified time
   ansible.builtin.wait_for:
