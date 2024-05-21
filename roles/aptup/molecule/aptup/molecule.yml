@@ -10,3 +10,4 @@ provisioner:
   name: ansible
   env:
     ANSIBLE_VERBOSITY: 0
+    ANSIBLE_STDOUT_CALLBACK: community.general.yaml
