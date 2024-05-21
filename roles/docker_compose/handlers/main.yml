@@ -1,16 +1,8 @@
 ---
 - name: (Handler) Down Docker Compose project containers
-  block:
-    - name: Down Docker Compose project containers
-      community.docker.docker_compose_v2:
-        project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-        pull: never
-        recreate: never
-        state: absent
-      listen: (Handler) Down Docker Compose project containers
-      register: compose_down
-
-    - name: Show results for docker compose down
-      ansible.builtin.debug:
-        var: compose_down.stderr
-      listen: (Handler) Down Docker Compose project containers
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+    pull: never
+    recreate: never
+    state: absent
+  register: compose_down

@@ -77,9 +77,9 @@
     state: present
   register: compose_up
 
-- name: Show results for docker compose up
+- name: Show actions for docker compose up
   ansible.builtin.debug:
-    var: compose_up.stderr
+    var: compose_up.actions
 
 - name: Sleep for a specified time
   ansible.builtin.wait_for:
