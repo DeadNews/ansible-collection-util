@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.0-alpha.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0-alpha.0) - 2024-05-21
+
+### 🚀 Features
+
+- _(docker_compose)_ add support for executing commands in containers ([#17](https://github.com/DeadNews/ansible-collection-util/issues/17)) - ([60c361c](https://github.com/DeadNews/ansible-collection-util/commit/60c361ca3a29730cb835068b2e022faf7191768a))
+
+### 🐛 Bug fixes
+
+- _(docker_compose)_ adjust workflow - ([b40fd4a](https://github.com/DeadNews/ansible-collection-util/commit/b40fd4a5000c0330cf3af1bdc67af2cb115179fa))
+
+### 🧹 Chores
+
+- _(typos)_ ignore short words - ([80b6147](https://github.com/DeadNews/ansible-collection-util/commit/80b61475056101eeb80a310d5b5bb7d54d049015))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependency ansible-core to v2.17.0 ([#18](https://github.com/DeadNews/ansible-collection-util/issues/18)) - ([cc3a8a0](https://github.com/DeadNews/ansible-collection-util/commit/cc3a8a0586f3ad97780b489ee467c4dc4289d150))
+
 ## [1.2.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.1...v1.2.2) - 2024-05-12
 
 ### 🐛 Bug fixes
