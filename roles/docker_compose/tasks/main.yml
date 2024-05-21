@@ -34,28 +34,30 @@
       when:
         - not item.src.endswith('.j2')
 
-    - name: List files in the Docker Compose project {{ docker_compose_project }}
-      ansible.builtin.command:
-        cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-      changed_when: false
-      register: ls_output
-      when: ansible_verbosity > 0
-
-    - name: Show files in the Docker Compose project {{ docker_compose_project }}
-      ansible.builtin.debug:
-        var: ls_output.stdout
-        verbosity: 1
-
     - name: Validate the Docker Compose project {{ docker_compose_project }}
       ansible.builtin.command:
         cmd: docker compose -f "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/docker-compose.yml" config
       changed_when: false
       register: config_output
 
-    - name: Show the Docker Compose project in canonical format
-      ansible.builtin.debug:
-        var: config_output.stdout
-        verbosity: 1
+    - name: Show files in the Docker Compose project {{ docker_compose_project }}
+      when:
+        - docker_compose_show_files is defined
+        - docker_compose_show_files
+      block:
+        - name: Show the Docker Compose project in canonical format
+          ansible.builtin.debug:
+            var: config_output.stdout
+
+        - name: List files in the Docker Compose project {{ docker_compose_project }}
+          ansible.builtin.command:
+            cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+          changed_when: false
+          register: ls_output
+
+        - name: Show files in the Docker Compose project {{ docker_compose_project }}
+          ansible.builtin.debug:
+            var: ls_output.stdout
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
