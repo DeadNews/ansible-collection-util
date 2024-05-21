@@ -121,7 +121,10 @@
 
     - name: Show exec results
       ansible.builtin.debug:
-        var: item
+        msg:
+          rc: "{{ item.item.rc }}"
+          stderr: "{{ item.item.stderr }}"
+          stdout: "{{ item.item.stdout }}"
       loop: "{{ containers_exec.results }}"
       loop_control:
         label: "{{ item.item.container }} - {{ item.item.cmd }}"
@@ -134,58 +137,15 @@
     - name: Get Docker containers logs
       ansible.builtin.command:
         cmd: docker logs {{ item }}
-      changed_when: true
+      changed_when: false
       register: containers_logs
       loop: "{{ docker_compose_containers_logs }}"
 
     - name: Show Docker containers logs
       ansible.builtin.debug:
-        var: item
-      loop: "{{ containers_logs.results }}"
-      loop_control:
-        label: "{{ item.item }}"
-
-    - name: Show Docker containers logs 2
-      ansible.builtin.debug:
         msg:
-          - "Stderr:"
-          - "{{ item.stderr }}"
-          - "Stdout:"
-          - "{{ item.stdout }}"
-      loop: "{{ containers_logs.results }}"
-      loop_control:
-        label: "{{ item.item }}"
-
-    - name: Show Docker containers logs 3
-      ansible.builtin.debug:
-        msg: |-
-          Stderr:
-          {{ item.stderr }}
-
-          Stdout:
-          {{ item.stdout }}
-      loop: "{{ containers_logs.results }}"
-      loop_control:
-        label: "{{ item.item }}"
-
-    - name: Show Docker containers logs 4
-      ansible.builtin.debug:
-        msg:
-          - |-
-            Stderr:
-            {{ item.stderr }}
-          - |-
-            Stdout:
-            {{ item.stdout }}
-      loop: "{{ containers_logs.results }}"
-      loop_control:
-        label: "{{ item.item }}"
-
-    - name: Show Docker containers logs 5
-      ansible.builtin.debug:
-        msg:
-          Stderr: "{{ item.stderr }}"
-          Stdout: "{{ item.stdout }}"
+          stderr: "{{ item.stderr }}"
+          stdout: "{{ item.stdout }}"
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
