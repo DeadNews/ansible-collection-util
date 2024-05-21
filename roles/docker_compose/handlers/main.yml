@@ -6,8 +6,8 @@
     recreate: never
     state: absent
   register: compose_down
-  notify: (Handler) Show actions for docker compose down
+  notify: (Handler) Show results for docker compose down
 
-- name: (Handler) Show actions for docker compose down
+- name: (Handler) Show results for docker compose down
   ansible.builtin.debug:
-    var: compose_down.actions
+    var: compose_down.stderr
