@@ -134,7 +134,7 @@
     - name: Get Docker containers logs
       ansible.builtin.command:
         cmd: docker logs {{ item }}
-      changed_when: false
+      changed_when: true
       register: containers_logs
       loop: "{{ docker_compose_containers_logs }}"
 
@@ -173,10 +173,19 @@
         msg:
           - |-
             Stderr:
-            "{{ item.stderr }}
+            {{ item.stderr }}
           - |-
             Stdout:
             {{ item.stdout }}
+      loop: "{{ containers_logs.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Show Docker containers logs 5
+      ansible.builtin.debug:
+        msg:
+          Stderr: "{{ item.stderr }}"
+          Stdout: "{{ item.stdout }}"
       loop: "{{ containers_logs.results }}"
       loop_control:
         label: "{{ item.item }}"
