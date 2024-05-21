@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.0-alpha.7](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0-alpha.7) - 2024-05-21
+## [1.3.0-alpha.8](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0-alpha.8) - 2024-05-21
 
 ### 🚀 Features
 
@@ -8,6 +8,7 @@
 
 ### 🐛 Bug fixes
 
+- _(docker_compose)_ adjust workflow - ([74a9c0c](https://github.com/DeadNews/ansible-collection-util/commit/74a9c0c8c022c8c41d1c83bf4b3b78fedb64a31a))
 - _(docker_compose)_ adjust workflow - ([0226117](https://github.com/DeadNews/ansible-collection-util/commit/0226117a54f6f0e58cb87f7b58558f1e570cc4f5))
 - _(docker_compose)_ adjust workflow - ([5433123](https://github.com/DeadNews/ansible-collection-util/commit/54331233084439baf131583883fc474f01e1bbc6))
 - _(docker_compose)_ adjust workflow - ([aa8ebb0](https://github.com/DeadNews/ansible-collection-util/commit/aa8ebb078f2e2ad90e28832cf83c3e400128b71b))
