@@ -122,9 +122,9 @@
     - name: Show exec results
       ansible.builtin.debug:
         msg:
-          rc: "{{ item.item.rc }}"
-          stderr: "{{ item.item.stderr }}"
-          stdout: "{{ item.item.stdout }}"
+          rc: "{{ item.rc }}"
+          stderr: "{{ item.stderr }}"
+          stdout: "{{ item.stdout }}"
       loop: "{{ containers_exec.results }}"
       loop_control:
         label: "{{ item.item.container }} - {{ item.item.cmd }}"
