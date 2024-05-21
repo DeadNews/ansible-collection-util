@@ -61,12 +61,6 @@
   community.docker.docker_compose_v2_pull:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     policy: always
-  register: pull_output
-
-- name: Show pull results
-  ansible.builtin.debug:
-    var: pull_output
-    verbosity: 1
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
@@ -77,17 +71,10 @@
     pull: never
     state: present
     recreate: auto
-  register: compose_output
-
-- name: Show compose results
-  ansible.builtin.debug:
-    var: compose_output
-    verbosity: 1
 
 - name: Sleep for a specified time
   ansible.builtin.wait_for:
     timeout: "{{ docker_compose_sleep_time }}"
-  delegate_to: localhost
   when:
     - docker_compose_sleep_time is defined
     - docker_compose_sleep_time
