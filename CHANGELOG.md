@@ -1,24 +1,11 @@
 # Changelog
 
-## [1.3.0-alpha.8](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0-alpha.8) - 2024-05-21
+## [1.3.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0) - 2024-05-22
 
 ### 🚀 Features
 
+- _(docker_compose)_ adjust workflow ([#21](https://github.com/DeadNews/ansible-collection-util/issues/21)) - ([4cafb2f](https://github.com/DeadNews/ansible-collection-util/commit/4cafb2f93adc958bc767228968ea1a24c522c47a))
 - _(docker_compose)_ add support for executing commands in containers ([#17](https://github.com/DeadNews/ansible-collection-util/issues/17)) - ([60c361c](https://github.com/DeadNews/ansible-collection-util/commit/60c361ca3a29730cb835068b2e022faf7191768a))
-
-### 🐛 Bug fixes
-
-- _(docker_compose)_ adjust workflow - ([74a9c0c](https://github.com/DeadNews/ansible-collection-util/commit/74a9c0c8c022c8c41d1c83bf4b3b78fedb64a31a))
-- _(docker_compose)_ adjust workflow - ([0226117](https://github.com/DeadNews/ansible-collection-util/commit/0226117a54f6f0e58cb87f7b58558f1e570cc4f5))
-- _(docker_compose)_ adjust workflow - ([5433123](https://github.com/DeadNews/ansible-collection-util/commit/54331233084439baf131583883fc474f01e1bbc6))
-- _(docker_compose)_ adjust workflow - ([aa8ebb0](https://github.com/DeadNews/ansible-collection-util/commit/aa8ebb078f2e2ad90e28832cf83c3e400128b71b))
-- _(docker_compose)_ adjust workflow - ([de1e433](https://github.com/DeadNews/ansible-collection-util/commit/de1e433bc18aaa8370554979270baad5ce151ec7))
-- _(docker_compose)_ adjust workflow - ([c2a1c36](https://github.com/DeadNews/ansible-collection-util/commit/c2a1c363b8d255b467072bef265aee32953e7590))
-- _(docker_compose)_ adjust workflow - ([ea8c80e](https://github.com/DeadNews/ansible-collection-util/commit/ea8c80eb5f716769001f92092d1ed328da2478d5))
-- _(docker_compose)_ adjust workflow - ([c0a77bb](https://github.com/DeadNews/ansible-collection-util/commit/c0a77bb57488d6dd968aa6561846b13bfebdaa6b))
-- _(docker_compose)_ adjust workflow - ([6028e86](https://github.com/DeadNews/ansible-collection-util/commit/6028e86a90b5b3aef1fec17bb00d3e81d9477854))
-- _(docker_compose)_ adjust workflow - ([585cdf3](https://github.com/DeadNews/ansible-collection-util/commit/585cdf36a406f509ac83878f5a9610848e37aa79))
-- _(docker_compose)_ adjust workflow - ([b40fd4a](https://github.com/DeadNews/ansible-collection-util/commit/b40fd4a5000c0330cf3af1bdc67af2cb115179fa))
 
 ### 🧹 Chores
 
