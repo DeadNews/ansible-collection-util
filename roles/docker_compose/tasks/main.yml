@@ -18,7 +18,7 @@
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
-        - (Handler) Restart Docker Compose project containers
+        - (Handler) Down Docker Compose project containers
       when:
         - item.src.endswith('.j2')
 
@@ -30,21 +30,9 @@
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
-        - (Handler) Restart Docker Compose project containers
+        - (Handler) Down Docker Compose project containers
       when:
         - not item.src.endswith('.j2')
-
-    - name: List files in the Docker Compose project {{ docker_compose_project }}
-      ansible.builtin.command:
-        cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-      changed_when: false
-      register: ls_output
-      when: ansible_verbosity > 0
-
-    - name: Show files in the Docker Compose project {{ docker_compose_project }}
-      ansible.builtin.debug:
-        var: ls_output.stdout
-        verbosity: 1
 
     - name: Validate the Docker Compose project {{ docker_compose_project }}
       ansible.builtin.command:
@@ -52,40 +40,50 @@
       changed_when: false
       register: config_output
 
-    - name: Show the Docker Compose project in canonical format
-      ansible.builtin.debug:
-        var: config_output.stdout
-        verbosity: 1
+    - name: Show files in the Docker Compose project {{ docker_compose_project }}
+      when:
+        - docker_compose_show_files is defined
+        - docker_compose_show_files
+      block:
+        - name: Show the Docker Compose project in canonical format
+          ansible.builtin.debug:
+            var: config_output.stdout
+
+        - name: List files in the Docker Compose project {{ docker_compose_project }}
+          ansible.builtin.command:
+            cmd: ls -lha "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+          changed_when: false
+          register: ls_output
+
+        - name: Show files in the Docker Compose project {{ docker_compose_project }}
+          ansible.builtin.debug:
+            var: ls_output.stdout
 
 - name: Pull images for the Docker Compose project {{ docker_compose_project }}
   community.docker.docker_compose_v2_pull:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
-  register: pull_output
-
-- name: Show pull results
-  ansible.builtin.debug:
-    var: pull_output
-    verbosity: 1
+    policy: always
+  notify:
+    - (Handler) Down Docker Compose project containers
 
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
 
-- name: Ensure the Docker Compose project is up-to-date and running ー {{ docker_compose_project }}
+- name: Up Docker Compose project containers ー {{ docker_compose_project }}
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     pull: never
+    recreate: auto
     state: present
-  register: compose_output
+  register: compose_up
 
-- name: Show compose results
+- name: Show results for docker compose up
   ansible.builtin.debug:
-    var: compose_output
-    verbosity: 1
+    var: compose_up.stderr
 
 - name: Sleep for a specified time
   ansible.builtin.wait_for:
     timeout: "{{ docker_compose_sleep_time }}"
-  delegate_to: localhost
   when:
     - docker_compose_sleep_time is defined
     - docker_compose_sleep_time
@@ -160,11 +158,6 @@
         name: "{{ item }}"
       register: containers_info
       loop: "{{ docker_compose_containers_check }}"
-
-    - name: Show Docker containers info
-      ansible.builtin.debug:
-        var: containers_info
-        verbosity: 2
 
     - name: Assert Docker container is running
       ansible.builtin.assert:

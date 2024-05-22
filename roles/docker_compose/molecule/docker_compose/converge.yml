@@ -20,6 +20,7 @@
           - src: templates/.env.dev.j2
             dest: .env.dev-dev
             mode: "0644"
+        docker_compose_show_files: true
         docker_compose_sleep_time: 1
         docker_compose_logs: true
         docker_compose_containers_exec:
