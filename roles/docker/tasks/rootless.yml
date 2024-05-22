@@ -37,7 +37,6 @@
     - name: Print rootless user info
       ansible.builtin.debug:
         var: docker_rootless_user_info
-        verbosity: 1
 
 - name: Assign a subordinate IDs range
   ansible.builtin.lineinfile:
