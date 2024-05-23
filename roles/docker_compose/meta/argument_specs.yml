@@ -5,9 +5,8 @@ argument_specs:
     options:
       docker_compose_state:
         type: str
-        required: true
-        description: The state of the Docker Compose project.
         default: present
+        description: The state of the Docker Compose project.
         choices:
           - present
           - absent
