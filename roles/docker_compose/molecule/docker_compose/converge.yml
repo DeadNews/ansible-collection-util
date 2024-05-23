@@ -39,11 +39,3 @@
       retries: 5
       delay: 8
       until: docker_app_verify is not failed
-
-    - name: Remove Docker App
-      ansible.builtin.import_role:
-        name: deadnews.util.docker_compose
-      vars:
-        docker_compose_project: docker-app
-        docker_compose_target_dir: ~/docker-compose
-        docker_compose_state: absent
