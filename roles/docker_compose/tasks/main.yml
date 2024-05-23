@@ -1,12 +1,21 @@
 ---
 # Deploy Docker Compose projects
 
+- name: Validating arguments
+  ansible.builtin.fail:
+    msg: The parameter 'docker_compose_files' is required when 'docker_compose_state' is 'present'
+  when:
+    - docker_compose_state == 'present'
+    - docker_compose_files is not defined
+
 - name: Deploy Docker Compose project
-  when: docker_compose_state == 'present'
   ansible.builtin.include_tasks:
     file: deploy.yml
+  when:
+    - docker_compose_state == 'present'
 
 - name: Remove Docker Compose project
-  when: docker_compose_state == 'absent'
   ansible.builtin.include_tasks:
     file: remove.yml
+  when:
+    - docker_compose_state == 'absent'

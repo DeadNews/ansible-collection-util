@@ -24,7 +24,7 @@ argument_specs:
       docker_compose_files:
         type: list
         elements: dict
-        required: true
+        required: false # checked in the task
         description: A list of files to create in the Docker Compose project directory.
         options:
           src:
