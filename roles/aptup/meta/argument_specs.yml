@@ -16,4 +16,4 @@ argument_specs:
       aptup_show_stdout:
         type: bool
         required: false
-        description: Whether to show the stdout of the apt commands.
+        description: Whether to show the stdout of the apt command after update.

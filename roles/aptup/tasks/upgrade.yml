@@ -17,13 +17,6 @@
 - name: Attempt to correct a system with broken dependencies in place
   ansible.builtin.apt:
     state: fixed
-  register: aptup_fixed
-
-- name: Show fix-broken result
-  ansible.builtin.debug:
-    var: aptup_fixed
-  when:
-    - aptup_show_stdout
 
 - name: Upgrade the OS (apt dist-upgrade)
   ansible.builtin.apt:
