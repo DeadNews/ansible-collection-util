@@ -1,6 +1,6 @@
 ---
 galaxy_info:
   author: DeadNews
-  description: Deploy Docker Compose projects (with docker compose v2)
+  description: Deploy Docker Compose projects
   license: MIT
   min_ansible_version: 2.16.0

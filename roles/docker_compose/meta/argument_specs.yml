@@ -3,6 +3,14 @@ argument_specs:
   main:
     short_description: The main entry point for the docker_compose role.
     options:
+      docker_compose_state:
+        type: str
+        required: true
+        description: The state of the Docker Compose project.
+        choices:
+          - present
+          - absent
+
       docker_compose_project:
         type: str
         required: true
