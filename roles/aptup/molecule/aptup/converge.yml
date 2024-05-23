@@ -9,3 +9,4 @@
         name: deadnews.util.aptup
       vars:
         aptup_next_release: false
+        aptup_show_stdout: true
