@@ -21,7 +21,7 @@
 
 - name: Show fix-broken result
   ansible.builtin.debug:
-    var: aptup_fixed.stdout
+    var: aptup_fixed
   when:
     - aptup_show_stdout
 
