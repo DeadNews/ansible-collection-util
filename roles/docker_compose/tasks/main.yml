@@ -13,6 +13,7 @@
     name: deadnews.util.docker_compose
     tasks_from: deploy
   when:
+    - docker_compose_state is defined
     - docker_compose_state == 'present'
 
 - name: Remove Docker Compose project
@@ -20,4 +21,5 @@
     name: deadnews.util.docker_compose
     tasks_from: remove
   when:
+    - docker_compose_state is defined
     - docker_compose_state == 'absent'

@@ -1,5 +1,5 @@
 ---
-# Install Docker in rootfull mode
+# Setup Docker in rootfull mode
 
 - name: Create Docker configs
   ansible.builtin.import_role:

@@ -6,7 +6,7 @@
     name: deadnews.util.docker
     tasks_from: install
 
-- name: Install Docker in rootfull mode
+- name: Setup Docker in rootfull mode
   ansible.builtin.include_role:
     name: deadnews.util.docker
     tasks_from: rootfull
@@ -14,7 +14,7 @@
     - docker_rootless is defined
     - not docker_rootless
 
-- name: Install Docker in rootless mode
+- name: Setup Docker in rootless mode
   ansible.builtin.include_role:
     name: deadnews.util.docker
     tasks_from: rootless

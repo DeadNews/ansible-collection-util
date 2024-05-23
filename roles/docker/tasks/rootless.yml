@@ -1,5 +1,5 @@
 ---
-# Install Docker in rootless mode
+# Setup Docker in rootless mode
 # See: https://rootlesscontaine.rs
 
 - name: Install Debian family packages

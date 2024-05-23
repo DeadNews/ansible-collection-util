@@ -31,4 +31,5 @@
   ansible.builtin.debug:
     var: aptup_dist.stdout
   when:
+    - aptup_show_stdout is defined
     - aptup_show_stdout

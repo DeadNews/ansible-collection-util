@@ -20,6 +20,7 @@
   ansible.builtin.debug:
     var: aptup_full.stdout
   when:
+    - aptup_show_stdout is defined
     - aptup_show_stdout
 
 - name: Make sure that the GRUB is updated
