@@ -14,7 +14,7 @@
   ansible.builtin.debug:
     var: aptup_list.stdout
 
-- name: Attempt to correct a system with broken dependencies in place
+- name: Attempt to correct a broken dependencies in place
   ansible.builtin.apt:
     state: fixed
 
