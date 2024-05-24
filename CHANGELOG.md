@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.4.0-alpha.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.3.0...v1.4.0-alpha.1) - 2024-05-24
+## [1.4.0-alpha.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.3.0...v1.4.0-alpha.2) - 2024-05-24
 
 ### 🚀 Features
 
@@ -16,6 +16,7 @@
 - _(docker_compose)_ add option to remove project - ([77e3f1a](https://github.com/DeadNews/ansible-collection-util/commit/77e3f1aea38bd927e0851e8067e2720d478b0f01))
 - _(docker_compose)_ add option to remove project - ([89c2db4](https://github.com/DeadNews/ansible-collection-util/commit/89c2db4be2fca9d900bdb7e667ad15205fc0f210))
 - _(docker_compose)_ add option to remove project - ([227694f](https://github.com/DeadNews/ansible-collection-util/commit/227694f02b571465f61ed3e4a5c764047ce73678))
+- _(reboot)_ add role - ([763289d](https://github.com/DeadNews/ansible-collection-util/commit/763289d15777db1e0f00d9f914634c9dc7ca4bd3))
 
 ## [1.3.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0) - 2024-05-22
 
