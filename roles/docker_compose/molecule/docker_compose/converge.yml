@@ -14,6 +14,7 @@
       vars:
         docker_compose_project: docker-app
         docker_compose_target_dir: ~/docker-compose
+        docker_compose_state: present
         docker_compose_files:
           - src: files/docker-compose.yml
           - src: files/.env

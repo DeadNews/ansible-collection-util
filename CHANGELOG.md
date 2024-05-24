@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.4.0-alpha.3](https://github.com/DeadNews/ansible-collection-util/compare/v1.3.0...v1.4.0-alpha.3) - 2024-05-24
+
+### 🚀 Features
+
+- _(aptup)_ adjust workflow - ([7b5e617](https://github.com/DeadNews/ansible-collection-util/commit/7b5e617d15709504a55bf75e98a366bfdf6fe49f))
+- _(aptup)_ adjust workflow - ([eea8b8f](https://github.com/DeadNews/ansible-collection-util/commit/eea8b8f6f57219ee8ab3013ddb6de285cc7bcab1))
+- _(aptup)_ adjust workflow - ([47ee13f](https://github.com/DeadNews/ansible-collection-util/commit/47ee13f1b9f571a4844af5ef1faa0ac8a91b0bc1))
+- _(aptup)_ adjust workflow - ([ed07e70](https://github.com/DeadNews/ansible-collection-util/commit/ed07e704a51e82072c4f03f0a1edba83c86be034))
+- _(aptup)_ adjust workflow - ([ab1dfcb](https://github.com/DeadNews/ansible-collection-util/commit/ab1dfcb536113f680f97be65c0d362f69c55ae05))
+- _(docker)_ adjust workflow - ([be9d885](https://github.com/DeadNews/ansible-collection-util/commit/be9d885bf399b327455c8abdb1c26f8fc37e07ca))
+- _(docker)_ adjust workflow - ([ce817f7](https://github.com/DeadNews/ansible-collection-util/commit/ce817f7083ec55988d4ac43a940b3c841635e0ea))
+- _(docker_compose)_ add option to remove project - ([19fb8be](https://github.com/DeadNews/ansible-collection-util/commit/19fb8bed7b3dade3a308a249cc8afd220e43cb8c))
+- _(docker_compose)_ add option to remove project - ([166bbe9](https://github.com/DeadNews/ansible-collection-util/commit/166bbe9df595234ca98cf2a60fe118167d06c439))
+- _(docker_compose)_ add option to remove project - ([77e3f1a](https://github.com/DeadNews/ansible-collection-util/commit/77e3f1aea38bd927e0851e8067e2720d478b0f01))
+- _(docker_compose)_ add option to remove project - ([89c2db4](https://github.com/DeadNews/ansible-collection-util/commit/89c2db4be2fca9d900bdb7e667ad15205fc0f210))
+- _(docker_compose)_ add option to remove project - ([227694f](https://github.com/DeadNews/ansible-collection-util/commit/227694f02b571465f61ed3e4a5c764047ce73678))
+- _(reboot)_ add role - ([d00f5c2](https://github.com/DeadNews/ansible-collection-util/commit/d00f5c230cbfb6f99f338a4057dbf3bacd088835))
+- _(reboot)_ add role - ([763289d](https://github.com/DeadNews/ansible-collection-util/commit/763289d15777db1e0f00d9f914634c9dc7ca4bd3))
+
 ## [1.3.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.2.2...v1.3.0) - 2024-05-22
 
 ### 🚀 Features

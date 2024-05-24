@@ -9,42 +9,12 @@
 - name: Upgrade Debian-based OS
   ansible.builtin.import_role:
     name: deadnews.util.aptup
-    tasks_from: apt_upgrade
+    tasks_from: upgrade
 
 - name: Upgrade Debian-based OS from one LTS to the next LTS
+  ansible.builtin.include_role:
+    name: deadnews.util.aptup
+    tasks_from: next_release
   when:
     - aptup_next_release is defined
     - aptup_next_release
-  block:
-    - name: Replace the codename to next LTS version
-      ansible.builtin.import_role:
-        name: deadnews.util.aptup
-        tasks_from: codename_next
-
-    - name: Upgrade the OS (apt full-upgrade)
-      ansible.builtin.apt:
-        upgrade: full
-        update_cache: true
-        dpkg_options: force-confold,force-confdef
-        autoremove: true
-      environment:
-        DEBIAN_FRONTEND: noninteractive
-      register: aptup_full
-      failed_when:
-        - aptup_full.rc is defined
-        - aptup_full.rc != 0
-
-    - name: Show Upgrade errors
-      ansible.builtin.fail:
-        msg: aptup_full.stderr
-      when:
-        - aptup_full.rc is defined
-        - aptup_full.rc != 0
-
-    - name: Make sure that the GRUB is updated
-      ansible.builtin.import_role:
-        name: deadnews.util.aptup
-        tasks_from: grub_update
-      when:
-        - aptup_next_release_update_grub is defined
-        - aptup_next_release_update_grub

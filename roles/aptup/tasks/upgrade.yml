@@ -14,7 +14,7 @@
   ansible.builtin.debug:
     var: aptup_list.stdout
 
-- name: Attempt to correct a system with broken dependencies in place
+- name: Attempt to correct a broken dependencies in place
   ansible.builtin.apt:
     state: fixed
 
@@ -23,16 +23,13 @@
     upgrade: dist
     cache_valid_time: 7200
     dpkg_options: force-confold,force-confdef
+  register: aptup_dist
   environment:
     DEBIAN_FRONTEND: noninteractive
-  register: aptup_dist
-  failed_when:
-    - aptup_dist.rc is defined
-    - aptup_dist.rc != 0
 
-- name: Show Upgrade errors
-  ansible.builtin.fail:
-    msg: aptup_dist.stderr
+- name: Show dist-upgrade result
+  ansible.builtin.debug:
+    var: aptup_dist.stdout
   when:
-    - aptup_dist.rc is defined
-    - aptup_dist.rc != 0
+    - aptup_show_stdout is defined
+    - aptup_show_stdout

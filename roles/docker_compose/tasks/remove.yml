@@ -1,0 +1,32 @@
+---
+# Remove Docker Compose project
+
+- name: Check existence of the Docker Compose project directory {{ docker_compose_project }}
+  ansible.builtin.stat:
+    path: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+  register: project_dir
+
+- name: Down and Remove Docker Compose project {{ docker_compose_project }}
+  when: project_dir.stat.exists
+  block:
+    - name: Down the Docker Compose project containers
+      community.docker.docker_compose_v2:
+        project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+        pull: never
+        recreate: never
+        state: absent
+      register: compose_down
+
+    - name: Show results for docker compose down
+      ansible.builtin.debug:
+        var: compose_down.stderr
+
+    - name: Remove the Docker Compose project
+      ansible.builtin.file:
+        path: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
+        state: absent
+      register: rm_project
+
+    - name: Show results for removing the Docker Compose project
+      ansible.builtin.debug:
+        var: rm_project

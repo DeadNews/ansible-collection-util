@@ -3,6 +3,14 @@ argument_specs:
   main:
     short_description: The main entry point for the docker_compose role.
     options:
+      docker_compose_state:
+        type: str
+        default: present
+        description: The state of the Docker Compose project.
+        choices:
+          - present
+          - absent
+
       docker_compose_project:
         type: str
         required: true
@@ -16,7 +24,7 @@ argument_specs:
       docker_compose_files:
         type: list
         elements: dict
-        required: true
+        required: false # true if docker_compose_state == present
         description: A list of files to create in the Docker Compose project directory.
         options:
           src:
