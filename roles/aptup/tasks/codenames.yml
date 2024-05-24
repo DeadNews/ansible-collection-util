@@ -1,7 +1,7 @@
 ---
 # Replace the codename to next LTS version
 
-- name: Debian 10 to 11
+- name: Replace the codename — Debian 10 to 11
   ansible.builtin.replace:
     path: /etc/apt/sources.list
     regexp: buster
@@ -10,7 +10,7 @@
     - ansible_distribution == 'Debian'
     - ansible_lsb.major_release | int == 10
 
-- name: Debian 11 to 12
+- name: Replace the codename — Debian 11 to 12
   ansible.builtin.replace:
     path: /etc/apt/sources.list
     regexp: bullseye
@@ -19,7 +19,7 @@
     - ansible_distribution == 'Debian'
     - ansible_lsb.major_release | int == 11
 
-- name: Ubuntu 18 to 20
+- name: Replace the codename — Ubuntu 18 to 20
   ansible.builtin.replace:
     path: /etc/apt/sources.list
     regexp: bionic
@@ -28,7 +28,7 @@
     - ansible_distribution == 'Ubuntu'
     - ansible_lsb.major_release | int == 18
 
-- name: Ubuntu 20 to 22
+- name: Replace the codename — Ubuntu 20 to 22
   ansible.builtin.replace:
     path: /etc/apt/sources.list
     regexp: focal
@@ -37,7 +37,7 @@
     - ansible_distribution == 'Ubuntu'
     - ansible_lsb.major_release | int == 20
 
-- name: Ubuntu 22 to 24
+- name: Replace the codename — Ubuntu 22 to 24
   ansible.builtin.replace:
     path: /etc/apt/sources.list
     regexp: jammy

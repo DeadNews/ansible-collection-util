@@ -1,0 +1,23 @@
+---
+# Reboot machine if nedeed
+
+- name: Check if reboot is required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+    get_checksum: false
+  register: reboot_required
+
+- name: Restart machine and Waiting for it to come back
+  when:
+    - reboot_required is defined
+    - reboot_required.stat.exists
+  block:
+    - name: Restart machine
+      ansible.builtin.reboot:
+        msg: Reboot initiated by Ansible
+
+    - name: Waiting for machine to come back
+      ansible.builtin.wait_for_connection:
+        delay: 10
+        connect_timeout: 300 # 5 min
+        timeout: 600 # 10 min

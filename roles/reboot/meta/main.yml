@@ -1,0 +1,6 @@
+---
+galaxy_info:
+  author: DeadNews
+  description: Reboot machine if nedeed
+  license: MIT
+  min_ansible_version: 2.16.0
