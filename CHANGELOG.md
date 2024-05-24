@@ -1,9 +1,10 @@
 # Changelog
 
-## [1.4.0-alpha.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.3.0...v1.4.0-alpha.0) - 2024-05-24
+## [1.4.0-alpha.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.3.0...v1.4.0-alpha.1) - 2024-05-24
 
 ### 🚀 Features
 
+- _(aptup)_ adjust workflow - ([7b5e617](https://github.com/DeadNews/ansible-collection-util/commit/7b5e617d15709504a55bf75e98a366bfdf6fe49f))
 - _(aptup)_ adjust workflow - ([eea8b8f](https://github.com/DeadNews/ansible-collection-util/commit/eea8b8f6f57219ee8ab3013ddb6de285cc7bcab1))
 - _(aptup)_ adjust workflow - ([47ee13f](https://github.com/DeadNews/ansible-collection-util/commit/47ee13f1b9f571a4844af5ef1faa0ac8a91b0bc1))
 - _(aptup)_ adjust workflow - ([ed07e70](https://github.com/DeadNews/ansible-collection-util/commit/ed07e704a51e82072c4f03f0a1edba83c86be034))
