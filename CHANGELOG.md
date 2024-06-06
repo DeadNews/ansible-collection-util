@@ -1,10 +1,11 @@
 # Changelog
 
-## [1.4.1-alpha.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.0...v1.4.1-alpha.1) - 2024-06-06
+## [1.4.1-alpha.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.0...v1.4.1-alpha.2) - 2024-06-06
 
 ### 🐛 Bug fixes
 
 - _(aptup)_ enable change of held packages in `release` upgrade - ([85ef606](https://github.com/DeadNews/ansible-collection-util/commit/85ef606bdab7eb647cec7318a351047731b9e1e1))
+- _(aptup,docker)_ update distribution compatibility check - ([af65edb](https://github.com/DeadNews/ansible-collection-util/commit/af65edbedc0f89af63770217b4dc3bdea2aa940f))
 - _(aptup,docker)_ update distribution compatibility check - ([7b94956](https://github.com/DeadNews/ansible-collection-util/commit/7b9495643482634857f389def6866dc7313cbd06))
 - _(docker_compose)_ remove orphans containers on `down` - ([11279c2](https://github.com/DeadNews/ansible-collection-util/commit/11279c25741084d44cb7d905fda292935b320ed5))
 
