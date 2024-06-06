@@ -4,6 +4,7 @@
     project_src: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     pull: never
     recreate: never
+    remove_orphans: true
     state: absent
   register: compose_down
   notify: (Handler) Show results for docker compose down

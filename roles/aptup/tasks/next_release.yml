@@ -12,6 +12,7 @@
     update_cache: true
     dpkg_options: force-confold,force-confdef
     autoremove: true
+    allow_change_held_packages: true
   register: aptup_full
   environment:
     DEBIAN_FRONTEND: noninteractive

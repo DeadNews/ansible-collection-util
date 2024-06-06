@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.1-alpha.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.0...v1.4.1-alpha.2) - 2024-06-06
+
+### 🐛 Bug fixes
+
+- _(aptup)_ enable change of held packages in `release` upgrade - ([85ef606](https://github.com/DeadNews/ansible-collection-util/commit/85ef606bdab7eb647cec7318a351047731b9e1e1))
+- _(aptup,docker)_ update distribution compatibility check - ([af65edb](https://github.com/DeadNews/ansible-collection-util/commit/af65edbedc0f89af63770217b4dc3bdea2aa940f))
+- _(aptup,docker)_ update distribution compatibility check - ([7b94956](https://github.com/DeadNews/ansible-collection-util/commit/7b9495643482634857f389def6866dc7313cbd06))
+- _(docker_compose)_ remove orphans containers on `down` - ([11279c2](https://github.com/DeadNews/ansible-collection-util/commit/11279c25741084d44cb7d905fda292935b320ed5))
+
+### 📚 Documentation
+
+- _(changelog)_ update git-cliff config - ([f38cc0b](https://github.com/DeadNews/ansible-collection-util/commit/f38cc0bb2b6a957984bb1c60e7472a3eb60d4999))
+
 ## [1.4.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.3.0...v1.4.0) - 2024-05-24
 
 ### 🚀 Features
@@ -53,7 +66,7 @@
 
 - _(deps)_ update dependency ansible-core to v2.16.6 ([#6](https://github.com/DeadNews/ansible-collection-util/issues/6)) - ([c5a66a7](https://github.com/DeadNews/ansible-collection-util/commit/c5a66a7a48407ba844a7a1ae80ed0abb6cef2069))
 
-## [1.0.0] - 2024-04-03
+## [1.0.0](https://github.com/DeadNews/ansible-collection-util/commits/v1.0.0) - 2024-04-03
 
 ### 🚀 Features
 
