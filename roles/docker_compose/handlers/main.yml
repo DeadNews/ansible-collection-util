@@ -11,3 +11,5 @@
 - name: (Handler) Show results for docker compose down
   ansible.builtin.debug:
     var: compose_down.stderr
+#
+# TODO: --remove-orphans

@@ -4,6 +4,7 @@
 - name: Check distribution compatibility
   ansible.builtin.assert:
     that:
+      - ansible_os_family is defined
       - ansible_os_family == 'Debian'
 
 - name: Ensure the `deb822_repository` and `community.docker` modules requirements is installed
