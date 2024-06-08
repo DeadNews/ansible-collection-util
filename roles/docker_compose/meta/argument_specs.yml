@@ -50,7 +50,7 @@ argument_specs:
             required: false
             description: The validation command to run before copying the updated file into the final destination.
 
-      docker_compose_show_files:
+      docker_compose_files_show:
         type: bool
         required: false
         description: Whether to show the files in the Docker Compose project after they are created.

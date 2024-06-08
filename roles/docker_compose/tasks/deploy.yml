@@ -42,8 +42,8 @@
 
     - name: Show files in the Docker Compose project {{ docker_compose_project }}
       when:
-        - docker_compose_show_files is defined
-        - docker_compose_show_files
+        - docker_compose_files_show is defined
+        - docker_compose_files_show
       block:
         - name: Show the Docker Compose project in canonical format
           ansible.builtin.debug:
