@@ -1,14 +1,10 @@
 # Changelog
 
-## [1.4.2-alpha.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.1...v1.4.2-alpha.0) - 2024-06-08
+## [1.4.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.1...v1.4.2) - 2024-06-08
 
 ### 🐛 Bug fixes
 
-- _(docker_compose)_ rename `docker_compose_show_files` to `docker_compose_files_show` - ([2d694f6](https://github.com/DeadNews/ansible-collection-util/commit/2d694f602b448acc504c1c568195f2162cb83957))
-
-### 📚 Documentation
-
-- _(readme)_ update with links - ([ac89415](https://github.com/DeadNews/ansible-collection-util/commit/ac8941506c7e9921511414a8a586e3ce99de4bb5))
+- _(docker_compose)_ rename `docker_compose_show_files` to `docker_compose_files_show` ([#29](https://github.com/DeadNews/ansible-collection-util/issues/29)) - ([114a0fd](https://github.com/DeadNews/ansible-collection-util/commit/114a0fdc4c93932d6dcff607bb45d499cd1b5939))
 
 ## [1.4.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.0...v1.4.1) - 2024-06-06
 
