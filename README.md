@@ -14,3 +14,11 @@
 ```sh
 ansible-galaxy collection install deadnews.util
 ```
+
+## Roles
+
+- [roles](./roles)
+
+## Modules
+
+- [modules](./plugins/modules)
