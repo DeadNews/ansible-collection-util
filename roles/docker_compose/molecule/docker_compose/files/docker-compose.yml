@@ -4,6 +4,12 @@ services:
     image: ghcr.io/deadnews/deadnews-template-python:2.0.8@sha256:40380050d71281428d9d3514af152e072a07f1c43152aec37ef9f5f25ae208ba
     container_name: docker-app
     restart: on-failure:2
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1:${UVICORN_PORT}/health || exit 1
+      interval: 60s
+      retries: 3
+      timeout: 10s
+      start_period: 60s
     ports:
       - 127.0.0.1:${UVICORN_PORT}:${UVICORN_PORT}
     environment:
