@@ -36,6 +36,6 @@
       ansible.builtin.uri:
         url: http://127.0.0.1:8000/health
       register: docker_app_verify
-      retries: 5
-      delay: 8
+      retries: 12
+      delay: 5
       until: docker_app_verify is not failed
