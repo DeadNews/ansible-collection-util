@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.2...v1.5.0) - 2024-06-15
+
+### 🚀 Features
+
+- _(docker_compose)_ `healthy_verify` to `containers_check` ([#30](https://github.com/DeadNews/ansible-collection-util/issues/30)) - ([4224d58](https://github.com/DeadNews/ansible-collection-util/commit/4224d58c94448d900006176efb1a178cf8ca0d99))
+
 ## [1.4.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.1...v1.4.2) - 2024-06-08
 
 ### 🐛 Bug fixes
