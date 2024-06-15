@@ -170,3 +170,15 @@
       loop: "{{ containers_info.results }}"
       loop_control:
         label: "{{ item.item }}"
+
+    - name: Assert Docker container is healthy
+      ansible.builtin.assert:
+        that: item.container.State.Health.Status == 'healthy'
+        quiet: true
+      loop: "{{ containers_info.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      register: healthy_verify
+      retries: 6
+      delay: 10
+      until: healthy_verify is not failed
