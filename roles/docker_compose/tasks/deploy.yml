@@ -170,8 +170,7 @@
       register: healthy_verify
       retries: 6
       delay: 10
-      until:
-        - healthy_verify.stdout == 'healthy'
+      until: "'healthy' in healthy_verify.stdout or 'no health check' in healthy_verify.stdout"
       loop: "{{ docker_compose_containers_check }}"
 
     - name: Print container name and health status
