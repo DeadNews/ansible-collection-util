@@ -168,7 +168,7 @@
         cmd: docker inspect -f {%raw%}'{{if .State.Health}}{{.State.Health.Status}}{{else}}no health check{{end}}'{%endraw%} {{ item }}
       changed_when: false
       register: healthy_verify
-      retries: 20
+      retries: 22
       delay: 8
       until: >-
         healthy_verify.stdout == 'healthy' or
