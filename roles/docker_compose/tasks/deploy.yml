@@ -153,32 +153,22 @@
     - docker_compose_containers_check is defined
     - docker_compose_containers_check
   block:
-    - name: Get Docker container info
-      community.docker.docker_container_info:
-        name: "{{ item }}"
-      register: containers_info
+    - name: Ensure that Docker container is running
+      ansible.builtin.command:
+        cmd: docker inspect -f {{ '{{.State.State.Running}}' }} {{ item }}
+      changed_when: false
+      register: running_verify
+      retries: 5
+      delay: 8
+      until: running_verify.stdout == 'true'
       loop: "{{ docker_compose_containers_check }}"
 
-    - name: Show Docker container info
-      ansible.builtin.debug:
-        var: containers_info.results
-
-    - name: Assert Docker container is running
-      ansible.builtin.assert:
-        that: item.container.State.Running
-        quiet: true
-      loop: "{{ containers_info.results }}"
-      loop_control:
-        label: "{{ item.item }}"
-
-    - name: Assert Docker container is healthy
-      ansible.builtin.assert:
-        that: item.container.State.Health.Status == 'healthy'
-        quiet: true
-      loop: "{{ containers_info.results }}"
-      loop_control:
-        label: "{{ item.item }}"
+    - name: Ensure that Docker container is healthy
+      ansible.builtin.command:
+        cmd: docker inspect -f {{ '{{.State.Health.Status}}' }} {{ item }}
+      changed_when: false
       register: healthy_verify
       retries: 6
       delay: 10
-      until: healthy_verify is not failed
+      until: healthy_verify.stdout == 'healthy'
+      loop: "{{ docker_compose_containers_check }}"
