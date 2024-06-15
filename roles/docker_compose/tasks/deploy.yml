@@ -155,7 +155,7 @@
   block:
     - name: Ensure that Docker container is running
       ansible.builtin.command:
-        cmd: docker inspect -f {{ '{{.State.State.Running}}' }} {{ item }}
+        cmd: docker inspect -f {{ '{{.State.Running}}' }} {{ item }}
       changed_when: false
       register: running_verify
       retries: 5
@@ -165,10 +165,19 @@
 
     - name: Ensure that Docker container is healthy
       ansible.builtin.command:
-        cmd: docker inspect -f {{ '{{.State.Health.Status}}' }} {{ item }}
+        cmd: docker inspect -f {{ '{{if .State.Health}}{{.State.Health.Status}}{{else}}no health check{{end}}' }} {{ item }}
       changed_when: false
       register: healthy_verify
       retries: 6
       delay: 10
-      until: healthy_verify.stdout == 'healthy'
+      until:
+        - healthy_verify.stdout == 'healthy'
+        - healthy_verify.stdout == 'no health check'
       loop: "{{ docker_compose_containers_check }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Print container name and health status
+      ansible.builtin.debug:
+        msg: "Container: {{ item.item }}, Health Status: {{ item.stdout }}"
+      loop: "{{ healthy_verify.results }}"
