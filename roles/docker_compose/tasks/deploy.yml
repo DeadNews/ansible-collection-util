@@ -172,7 +172,6 @@
       delay: 10
       until:
         - healthy_verify.stdout == 'healthy'
-        - healthy_verify.stdout == 'no health check'
       loop: "{{ docker_compose_containers_check }}"
 
     - name: Print container name and health status
