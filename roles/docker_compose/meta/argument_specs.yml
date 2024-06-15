@@ -90,4 +90,6 @@ argument_specs:
         type: list
         elements: str
         required: false
-        description: A list of container names to assert are running after the Docker Compose project is deployed.
+        description: |
+          A list of container names to assert are running after the Docker Compose project is deployed.
+          If containers health checks are defined, they will be used to determine if the container is healthy.
