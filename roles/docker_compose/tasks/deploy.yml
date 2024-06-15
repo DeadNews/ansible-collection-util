@@ -159,6 +159,10 @@
       register: containers_info
       loop: "{{ docker_compose_containers_check }}"
 
+    - name: Show Docker container info
+      ansible.builtin.debug:
+        var: containers_info.results
+
     - name: Assert Docker container is running
       ansible.builtin.assert:
         that: item.container.State.Running
