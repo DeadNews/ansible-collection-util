@@ -26,6 +26,5 @@
     "ansible.cfg": "properties",
     "docker-compose.yml": "dockercompose"
   },
-  "python.testing.pytestEnabled": true,
-  "ansible.python.interpreterPath": "/home/deadnews/.cache/pypoetry/virtualenvs/ansible-collection-util-Tbwuu922-py3.12/bin/python"
+  "python.testing.pytestEnabled": true
 }

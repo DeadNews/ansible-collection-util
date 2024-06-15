@@ -177,7 +177,7 @@
 
     - name: Show container health status
       ansible.builtin.debug:
-        msg: "Health Status: {{ item.stdout }}"
+        msg: "{{ item.stdout }}"
       loop: "{{ healthy_verify.results }}"
       loop_control:
         label: "{{ item.item }}"
