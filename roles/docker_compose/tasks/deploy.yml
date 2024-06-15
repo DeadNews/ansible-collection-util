@@ -165,7 +165,7 @@
 
     - name: Ensure that Docker container is healthy
       ansible.builtin.command:
-        cmd: docker inspect -f {{ '{{if .State.Health}}{{.State.Health.Status}}{{else}}no health check{{end}}' }} {{ item }}
+        cmd: docker inspect -f {%raw%}'{{if .State.Health}}{{.State.Health.Status}}{{else}}no health check{{end}}'{%endraw%} {{ item }}
       changed_when: false
       register: healthy_verify
       retries: 6
