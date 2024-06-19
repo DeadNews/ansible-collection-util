@@ -9,7 +9,9 @@
 
 - name: Install Wireguard
   ansible.builtin.apt:
-    name: wireguard
+    name:
+      - wireguard
+      - iptables
     state: present
     cache_valid_time: 7200 # 2h
 
