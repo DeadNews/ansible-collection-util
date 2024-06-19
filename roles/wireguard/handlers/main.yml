@@ -1,5 +1,5 @@
 ---
-- name: (Handler) Restart Wireguard service
+- name: (Handler) Restart Wireguard service — {{ wireguard_interface }}
   ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_interface }}.service
     state: restarted
