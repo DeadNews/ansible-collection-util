@@ -1,0 +1,32 @@
+---
+# Display debug information
+
+- name: Get IP address and interface details
+  ansible.builtin.command:
+    cmd: ip a
+  changed_when: false
+  register: addr_output
+
+- name: Display output of IP address and interface details
+  ansible.builtin.debug:
+    var: addr_output.stdout
+
+- name: Get IP routing table
+  ansible.builtin.command:
+    cmd: ip route
+  changed_when: false
+  register: route_output
+
+- name: Display output of IP routing table
+  ansible.builtin.debug:
+    var: route_output.stdout
+
+- name: Get Wireguard interface details
+  ansible.builtin.command:
+    cmd: wg show
+  changed_when: false
+  register: wg_output
+
+- name: Display output of Wireguard interface details
+  ansible.builtin.debug:
+    var: wg_output.stdout

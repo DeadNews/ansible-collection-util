@@ -1,0 +1,23 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Setup Wireguard server
+      ansible.builtin.import_role:
+        name: deadnews.util.wireguard
+      vars:
+        wireguard_debug: true
+        wireguard_interface: wg0
+        wireguard_ip_forward: true
+        wireguard_template: templates/wg0.conf.j2
+
+    - name: Setup Wireguard client
+      ansible.builtin.import_role:
+        name: deadnews.util.wireguard
+      vars:
+        wireguard_debug: true
+        wireguard_interface: wg1
+        wireguard_ip_forward: false
+        wireguard_template: templates/wg1.conf.j2
