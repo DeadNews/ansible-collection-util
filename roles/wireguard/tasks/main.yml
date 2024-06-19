@@ -9,9 +9,7 @@
 
 - name: Install Wireguard
   ansible.builtin.apt:
-    name:
-      - wireguard
-      - iptables
+    name: wireguard
     state: present
     cache_valid_time: 7200 # 2h
 
@@ -47,7 +45,7 @@
 
 - name: Debug Wireguard status — {{ wireguard_interface }}
   ansible.builtin.debug:
-    var: wireguard_status
+    var: wireguard_status.stdout
 
 - name: Ensure that Wireguard is started — {{ wireguard_interface }}
   ansible.builtin.systemd:

@@ -10,6 +10,12 @@
     wireguard_publickey_peer: iEuV0dLE9OYfZzoKYrHZBK6Hzr/8dn1aovDuUrt9/g8= # gitleaks:allow
 
   tasks:
+    - name: Install iptables
+      ansible.builtin.apt:
+        name: iptables
+        state: present
+        cache_valid_time: 7200 # 2h
+
     - name: Setup Wireguard server
       ansible.builtin.import_role:
         name: deadnews.util.wireguard
@@ -19,11 +25,11 @@
         wireguard_ip_forward: true
         wireguard_debug: true
 
-    # - name: Setup Wireguard client
-    #   ansible.builtin.import_role:
-    #     name: deadnews.util.wireguard
-    #   vars:
-    #     wireguard_interface: wg1
-    #     wireguard_template: templates/wg1.conf.j2
-    #     wireguard_ip_forward: false
-    #     wireguard_debug: true
+    - name: Setup Wireguard client
+      ansible.builtin.import_role:
+        name: deadnews.util.wireguard
+      vars:
+        wireguard_interface: wg1
+        wireguard_template: templates/wg1.conf.j2
+        wireguard_ip_forward: false
+        wireguard_debug: true
