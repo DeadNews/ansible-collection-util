@@ -37,6 +37,16 @@
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
 
+- name: Show Wireguard status — {{ wireguard_interface }}
+  ansible.builtin.command:
+    cmd: systemctl status wg-quick@{{ wireguard_interface }}.service
+  changed_when: false
+  register: wireguard_status
+
+- name: Debug Wireguard status — {{ wireguard_interface }}
+  ansible.builtin.debug:
+    var: wireguard_status
+
 - name: Ensure that Wireguard is started — {{ wireguard_interface }}
   ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_interface }}.service
