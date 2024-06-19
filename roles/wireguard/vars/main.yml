@@ -1,5 +1,5 @@
 ---
-wireguard_debug: false
 wireguard_interface: wg0
-wireguard_ip_forward: false
 wireguard_template: templates/wg0.conf.j2
+wireguard_ip_forward: false
+wireguard_debug: false

@@ -30,3 +30,7 @@ roles/docker:
 roles/docker_compose:
   - *shared
   - roles/docker_compose/**
+
+roles/wireguard:
+  - *shared
+  - roles/wireguard/**
