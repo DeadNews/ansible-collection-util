@@ -5,13 +5,22 @@
   ansible.builtin.assert:
     that:
       - ansible_os_family is defined
-      - ansible_os_family == 'Debian'
+      - >
+        ansible_os_family == 'Debian' or
+        ansible_os_family == 'Archlinux'
 
-- name: Install Wireguard
+- name: Install Wireguard — Debian
+  when: ansible_os_family == 'Debian'
   ansible.builtin.apt:
     name: wireguard
     state: present
     cache_valid_time: 7200 # 2h
+
+- name: Install Wireguard — Arch Linux
+  when: ansible_os_family == 'Archlinux'
+  community.general.pacman:
+    name: wireguard-tools
+    state: present
 
 - name: Create Wireguard config — {{ wireguard_interface }}
   ansible.builtin.template:
