@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """An Ansible module to enable/disable linger for a user."""
 
 import subprocess

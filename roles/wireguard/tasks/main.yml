@@ -1,0 +1,69 @@
+---
+# Setup Wireguard
+
+- name: Check distribution compatibility
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family is defined
+      - >
+        ansible_os_family == 'Debian' or
+        ansible_os_family == 'Archlinux'
+
+- name: Install Wireguard — Debian
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+    cache_valid_time: 7200 # 2h
+
+- name: Install Wireguard — Arch Linux
+  when: ansible_os_family == 'Archlinux'
+  community.general.pacman:
+    name: wireguard-tools
+    state: present
+
+- name: Create Wireguard config — {{ wireguard_interface }}
+  ansible.builtin.template:
+    src: "{{ wireguard_template }}"
+    dest: /etc/wireguard/{{ wireguard_interface }}.conf
+    owner: root
+    group: root
+    mode: "0600"
+    validate: wg-quick strip %s
+  notify: (Handler) Restart Wireguard service
+
+- name: Enable and persist ip forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    sysctl_set: true
+    reload: true
+  when:
+    - wireguard_ip_forward is defined
+    - wireguard_ip_forward
+
+- name: Flush handlers after deployment
+  ansible.builtin.meta: flush_handlers
+
+- name: Ensure that Wireguard is started — {{ wireguard_interface }}
+  ansible.builtin.systemd:
+    name: wg-quick@{{ wireguard_interface }}.service
+    enabled: true
+    state: started
+
+- name: Verify that Wireguard is active — {{ wireguard_interface }}
+  ansible.builtin.systemd:
+    name: wg-quick@{{ wireguard_interface }}.service
+  register: wireguard_service
+  retries: 6
+  delay: 5
+  until: wireguard_service.status.ActiveState == 'active'
+
+- name: Display debug information
+  ansible.builtin.include_role:
+    name: deadnews.util.wireguard
+    tasks_from: debug
+  when:
+    - wireguard_debug is defined
+    - wireguard_debug

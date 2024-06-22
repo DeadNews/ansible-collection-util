@@ -1,0 +1,35 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    wireguard_host: 127.0.0.1
+    wireguard_privatekey_host: IKJPGZNOcrbIh1QU8yJ6oaXsSyUoQp8QUhm1uvfp5Vo= # gitleaks:allow
+    wireguard_privatekey_peer: EKgPYhHgk1kqIkR+kFCvU8+N+yiLwqDkjcl0cy1vs2Y= # gitleaks:allow
+    wireguard_publickey_host: 7I3L6nZ0P3K6TmWzJUe3xQjk/gTyoNaCwe1oDHpfGGI= # gitleaks:allow
+    wireguard_publickey_peer: iEuV0dLE9OYfZzoKYrHZBK6Hzr/8dn1aovDuUrt9/g8= # gitleaks:allow
+
+  tasks:
+    - name: Install iptables
+      ansible.builtin.apt:
+        name: iptables
+        state: present
+        cache_valid_time: 7200 # 2h
+
+    - name: Setup Wireguard server
+      ansible.builtin.include_role:
+        name: deadnews.util.wireguard
+      vars:
+        wireguard_interface: wg0
+        wireguard_template: templates/wg0.conf.j2
+        wireguard_ip_forward: true
+        wireguard_debug: true
+
+    - name: Setup Wireguard client
+      ansible.builtin.include_role:
+        name: deadnews.util.wireguard
+      vars:
+        wireguard_interface: wg1
+        wireguard_template: templates/wg1.conf.j2
+        wireguard_ip_forward: false
+        wireguard_debug: true

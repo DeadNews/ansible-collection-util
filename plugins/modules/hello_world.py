@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """A simple Ansible module that returns the message it was given."""
 
 from ansible.module_utils.basic import AnsibleModule

@@ -1,0 +1,20 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the wireguard role.
+    options:
+      wireguard_interface:
+        description: The Wireguard interface name.
+        type: str
+
+      wireguard_template:
+        description: The Wireguard configuration template.
+        type: str
+
+      wireguard_ip_forward:
+        description: Enable and persist ip forwarding.
+        type: bool
+
+      wireguard_debug:
+        description: Display debug information after deployment.
+        type: bool

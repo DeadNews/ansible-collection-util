@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+
+[Interface]
+{# Unique IP for the peer #}
+Address = 10.0.0.2/24
+{# Unique identifier for the peer, should be added to the server's configuration #}
+PrivateKey = {{ wireguard_privatekey_peer }}
+
+[Peer]
+{# Route all traffic through the VPN, except 10.0.0.0/8 #}
+AllowedIPs = 0.0.0.0/5, 8.0.0.0/7, 11.0.0.0/8, 12.0.0.0/6, 16.0.0.0/4, 32.0.0.0/3, 64.0.0.0/2, 128.0.0.0/1
+Endpoint = {{ wireguard_host }}:51820
+PublicKey = {{ wireguard_publickey_host }}

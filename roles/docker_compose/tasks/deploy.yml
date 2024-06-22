@@ -77,7 +77,7 @@
     state: present
   register: compose_up
 
-- name: Show results for docker compose up
+- name: Show results for docker compose up ー {{ docker_compose_project }}
   ansible.builtin.debug:
     var: compose_up.stderr
 
@@ -117,7 +117,7 @@
       register: containers_exec
       loop: "{{ docker_compose_containers_exec }}"
 
-    - name: Show exec results
+    - name: Show exec results ー {{ docker_compose_project }}
       ansible.builtin.debug:
         msg:
           rc: "{{ item.rc }}"
@@ -139,7 +139,7 @@
       register: containers_logs
       loop: "{{ docker_compose_containers_logs }}"
 
-    - name: Show Docker containers logs
+    - name: Show Docker containers logs ー {{ docker_compose_project }}
       ansible.builtin.debug:
         msg:
           stderr: "{{ item.stderr }}"
@@ -153,7 +153,7 @@
     - docker_compose_containers_check is defined
     - docker_compose_containers_check
   block:
-    - name: Ensure that Docker container is running
+    - name: Ensure that Docker container is running ー {{ docker_compose_project }}
       ansible.builtin.command:
         cmd: docker inspect -f {%raw%}'{{.State.Running}}'{%endraw%} {{ item }}
       changed_when: false
@@ -163,7 +163,7 @@
       until: running_verify.stdout == 'true'
       loop: "{{ docker_compose_containers_check }}"
 
-    - name: Ensure that Docker container is healthy
+    - name: Ensure that Docker container is healthy ー {{ docker_compose_project }}
       ansible.builtin.command:
         cmd: docker inspect -f {%raw%}'{{if .State.Health}}{{.State.Health.Status}}{{else}}no health check{{end}}'{%endraw%} {{ item }}
       changed_when: false
@@ -175,7 +175,7 @@
         healthy_verify.stdout == 'no health check'
       loop: "{{ docker_compose_containers_check }}"
 
-    - name: Show container health status
+    - name: Show container health status ー {{ docker_compose_project }}
       ansible.builtin.debug:
         msg: "{{ item.stdout }}"
       loop: "{{ healthy_verify.results }}"
