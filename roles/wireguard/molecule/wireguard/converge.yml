@@ -17,7 +17,7 @@
         cache_valid_time: 7200 # 2h
 
     - name: Setup Wireguard server
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: deadnews.util.wireguard
       vars:
         wireguard_interface: wg0
@@ -25,11 +25,11 @@
         wireguard_ip_forward: true
         wireguard_debug: true
 
-    - name: Setup Wireguard client
-      ansible.builtin.import_role:
-        name: deadnews.util.wireguard
-      vars:
-        wireguard_interface: wg1
-        wireguard_template: templates/wg1.conf.j2
-        wireguard_ip_forward: false
-        wireguard_debug: true
+    # - name: Setup Wireguard client
+    #   ansible.builtin.include_role:
+    #     name: deadnews.util.wireguard
+    #   vars:
+    #     wireguard_interface: wg1
+    #     wireguard_template: templates/wg1.conf.j2
+    #     wireguard_ip_forward: false
+    #     wireguard_debug: true
