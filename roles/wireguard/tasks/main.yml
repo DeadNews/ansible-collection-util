@@ -43,7 +43,7 @@
     enabled: true
     state: started
 
-- name: Verify that Wireguard service is active — {{ wireguard_interface }}
+- name: Verify that Wireguard is active — {{ wireguard_interface }}
   ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_interface }}.service
   register: wireguard_service

@@ -1,13 +1,13 @@
 ---
 # Display debug information
 
-- name: Get Wireguard service status — {{ wireguard_interface }}
+- name: Get Wireguard status — {{ wireguard_interface }}
   ansible.builtin.command:
     cmd: systemctl status wg-quick@{{ wireguard_interface }}.service
   changed_when: false
   register: wireguard_status
 
-- name: Show Wireguard service status — {{ wireguard_interface }}
+- name: Show Wireguard status — {{ wireguard_interface }}
   ansible.builtin.debug:
     var: wireguard_status.stdout
 
