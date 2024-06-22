@@ -3,10 +3,3 @@
   ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_interface }}.service
     state: restarted
-  register: wireguard_restart
-  notify: (Handler) Show results for Wireguard restart
-  failed_when: false
-
-- name: (Handler) Show results for Wireguard restart
-  ansible.builtin.debug:
-    var: wireguard_restart
