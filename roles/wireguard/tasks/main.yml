@@ -43,14 +43,13 @@
     enabled: true
     state: started
 
-- name: (Handler) Get Wireguard service status 2 — {{ wireguard_interface }}
+- name: Verify that Wireguard service is active — {{ wireguard_interface }}
   ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_interface }}.service
-  register: wireguard_status
-
-- name: Show Wireguard service status 2 — {{ wireguard_interface }}
-  ansible.builtin.debug:
-    var: wireguard_status
+  register: wireguard_service
+  retries: 6
+  delay: 5
+  until: wireguard_service.status.ActiveState == 'active'
 
 - name: Display debug information
   ansible.builtin.include_role:
