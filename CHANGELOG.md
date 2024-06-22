@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.5.0...v1.6.0) - 2024-06-22
+
+### 🚀 Features
+
+- _(wireguard)_ add role ([#32](https://github.com/DeadNews/ansible-collection-util/issues/32)) - ([c9be46d](https://github.com/DeadNews/ansible-collection-util/commit/c9be46d4be1ad197099d91d33ada7c1f9b9e5deb))
+
 ## [1.5.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.4.2...v1.5.0) - 2024-06-15
 
 ### 🚀 Features
