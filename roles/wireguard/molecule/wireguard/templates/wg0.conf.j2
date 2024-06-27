@@ -3,10 +3,10 @@
 [Interface]
 Address = 10.0.0.1/24
 ListenPort = 51820
-PostDown = iptables -t nat -D POSTROUTING -o tun0 -j MASQUERADE
 PostUp   = iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+PostDown = iptables -t nat -D POSTROUTING -o tun0 -j MASQUERADE
 PrivateKey = {{ wireguard_privatekey_host }}
 
 [Peer]
-AllowedIPs = 10.0.0.2/24
+AllowedIPs = 10.0.0.2/32
 PublicKey = {{ wireguard_publickey_peer }}
