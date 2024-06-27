@@ -27,6 +27,7 @@
         src: "{{ item.src }}"
         dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename) }}"
         mode: "{{ item.mode | default('0600') }}"
+        directory_mode: "{{ item.directory_mode | default('0700') }}"
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:

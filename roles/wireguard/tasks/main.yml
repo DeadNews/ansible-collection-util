@@ -46,7 +46,7 @@
 - name: Flush handlers after deployment
   ansible.builtin.meta: flush_handlers
 
-- name: Ensure that Wireguard is started — {{ wireguard_interface }}
+- name: Ensure that Wireguard is enabled and started — {{ wireguard_interface }}
   ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_interface }}.service
     enabled: true

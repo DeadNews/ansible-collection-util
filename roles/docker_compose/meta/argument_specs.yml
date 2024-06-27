@@ -45,6 +45,13 @@ argument_specs:
             required: false
             default: "0600"
             description: The file mode to set on the created file.
+          directory_mode:
+            type: str
+            required: false
+            default: "0700"
+            description: |
+              The directory mode to set on the created directory.
+              See the directory_mode option in the ansible.builtin.copy module for more details.
           validate:
             type: str
             required: false
