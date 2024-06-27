@@ -1,14 +1,10 @@
 # Changelog
 
-## [1.6.1-alpha.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.0...v1.6.1-alpha.0) - 2024-06-27
+## [1.6.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.0...v1.6.1) - 2024-06-27
 
 ### 🐛 Bug fixes
 
-- _(docker_compose)_ add `directory_mode` option - ([f9d345f](https://github.com/DeadNews/ansible-collection-util/commit/f9d345ff1d05c3ae15fc2cc824955913380857a5))
-
-### 🧹 Chores
-
-- _(wireguard)_ update test config - ([60e4ca7](https://github.com/DeadNews/ansible-collection-util/commit/60e4ca7aa2b3e5c9ac9195ebfb21695229fbbeed))
+- _(docker_compose)_ add `directory_mode` option ([#34](https://github.com/DeadNews/ansible-collection-util/issues/34)) - ([095bd11](https://github.com/DeadNews/ansible-collection-util/commit/095bd112d1fe986bbaabb60ae2554338dffa0a0a))
 
 ## [1.6.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.5.0...v1.6.0) - 2024-06-22
 
