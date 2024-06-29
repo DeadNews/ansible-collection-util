@@ -13,9 +13,9 @@ galaxy-update = "^0.0.1a0"
 
 [tool.poetry.group.lint.dependencies]
 ansible-lint = { version = "^24.6.1", markers = "platform_system != 'Windows'" }
-mypy = "^1.10.0"
-poethepoet = "^0.26.1"
-ruff = "^0.4.9"
+mypy = "^1.10.1"
+poethepoet = "^0.27.0"
+ruff = "^0.5.0"
 
 [tool.poetry.group.test.dependencies]
 molecule = "^24.6.0"
