@@ -1,6 +1,6 @@
 # deadnews.util.system_info
 
-> Display system information
+> Show system info
 
 ## Example Playbook
 

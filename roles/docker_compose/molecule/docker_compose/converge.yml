@@ -4,6 +4,10 @@
   become: true
 
   tasks:
+    - name: Show system info
+      ansible.builtin.import_role:
+        name: deadnews.util.system_info
+
     - name: Install Docker
       ansible.builtin.import_role:
         name: deadnews.util.docker

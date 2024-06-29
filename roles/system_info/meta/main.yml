@@ -1,6 +1,6 @@
 ---
 galaxy_info:
   author: DeadNews
-  description: Display system information
+  description: Show system info
   license: MIT
   min_ansible_version: 2.16.0

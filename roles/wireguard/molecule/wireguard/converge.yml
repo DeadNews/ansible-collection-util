@@ -10,6 +10,10 @@
     wireguard_publickey_peer: iEuV0dLE9OYfZzoKYrHZBK6Hzr/8dn1aovDuUrt9/g8= # gitleaks:allow
 
   tasks:
+    - name: Show system info
+      ansible.builtin.include_role:
+        name: deadnews.util.system_info
+
     - name: Install iptables
       ansible.builtin.apt:
         name: iptables
