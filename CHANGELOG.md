@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.1...v1.6.2) - 2024-06-29
+
+### 🚀 Features
+
+- _(system_info)_ add role ([#37](https://github.com/DeadNews/ansible-collection-util/issues/37)) - ([895ee00](https://github.com/DeadNews/ansible-collection-util/commit/895ee00f6cf849ab6defa3d3a405daa00339bd63))
+
 ## [1.6.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.0...v1.6.1) - 2024-06-27
 
 ### 🐛 Bug fixes
