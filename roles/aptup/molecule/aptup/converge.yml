@@ -3,10 +3,8 @@
   hosts: all
   become: true
 
-  tasks:
-    - name: Test role
-      ansible.builtin.import_role:
-        name: deadnews.util.aptup
-      vars:
-        aptup_next_release: false
-        aptup_show_stdout: true
+  roles:
+    - role: deadnews.util.system_info
+    - role: deadnews.util.aptup
+      aptup_next_release: false
+      aptup_show_stdout: true

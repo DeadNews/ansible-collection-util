@@ -1,0 +1,20 @@
+---
+# Display system information
+
+- name: Display system information (can be cashed)
+  ansible.builtin.debug:
+    msg: |
+      Hostname: {{ ansible_hostname }}
+      System:   {{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_distribution_release }}
+      Kernel:   {{ ansible_kernel }}
+      Python:   {{ ansible_python_version }}
+      Product:  {{ ansible_product_name }}
+      CPUs:     {{ ansible_processor_count }} × {{ ansible_processor[2] }}
+      Cores:    {{ ansible_processor_nproc }} cores, {{ ansible_processor_nproc * ansible_processor_threads_per_core }} threads
+      Memory:   {{ (ansible_memtotal_mb / 1024) | round(2) }} GiB
+      Uptime:   {{
+        (ansible_uptime_seconds // 86400) | string + 'd ' +
+        ((ansible_uptime_seconds // 3600) % 24) | string + 'h ' +
+        ((ansible_uptime_seconds // 60) % 60) | string + 'm ' +
+        (ansible_uptime_seconds % 60) | string + 's'
+      }}
