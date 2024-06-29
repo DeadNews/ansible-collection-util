@@ -3,12 +3,10 @@
   hosts: all
   become: true
 
-  tasks:
-    - name: Install Docker
-      ansible.builtin.import_role:
-        name: deadnews.util.docker
-      vars:
-        docker_rootless: true
-        docker_config: files/config.json
-        docker_config_daemon: files/daemon.json
-        docker_config_systemd: templates/proxy.conf.j2
+  roles:
+    - role: deadnews.util.system_info
+    - role: deadnews.util.docker
+      docker_rootless: true
+      docker_config: files/config.json
+      docker_config_daemon: files/daemon.json
+      docker_config_systemd: templates/proxy.conf.j2
