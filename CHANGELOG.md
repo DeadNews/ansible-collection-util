@@ -1,10 +1,10 @@
 # Changelog
 
-## [1.6.3-alpha.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.2...v1.6.3-alpha.0) - 2024-07-13
+## [1.6.3](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.2...v1.6.3) - 2024-07-13
 
 ### 🐛 Bug fixes
 
-- _(docker_compose)_ add `containers_check_retries` argument - ([bf586ae](https://github.com/DeadNews/ansible-collection-util/commit/bf586ae6d8ed0a7573985c8f8aa7b9e35ea53230))
+- _(docker_compose)_ add `containers_check_retries` argument ([#40](https://github.com/DeadNews/ansible-collection-util/issues/40)) - ([558e81d](https://github.com/DeadNews/ansible-collection-util/commit/558e81d44050a325f7fd4dc4e334362d42861e1f))
 
 ## [1.6.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.1...v1.6.2) - 2024-06-29
 
