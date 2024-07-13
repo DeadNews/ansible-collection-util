@@ -169,7 +169,7 @@
         cmd: docker inspect -f {%raw%}'{{if .State.Health}}{{.State.Health.Status}}{{else}}no health check{{end}}'{%endraw%} {{ item }}
       changed_when: false
       register: healthy_verify
-      retries: 24
+      retries: "{{ docker_compose_containers_check_retries | default(24) }}"
       delay: 5
       until: >-
         healthy_verify.stdout == 'healthy' or
