@@ -100,3 +100,11 @@ argument_specs:
         description: |
           A list of container names to assert are running after the Docker Compose project is deployed.
           If containers health checks are defined, they will be used to determine if the container is healthy.
+
+      docker_compose_containers_check_retries:
+        type: int
+        required: false
+        default: 24
+        description: |
+          The number of retries to check if the container is healthy.
+          Delay between retries is 5 seconds.

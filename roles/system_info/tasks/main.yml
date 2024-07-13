@@ -1,7 +1,7 @@
 ---
 # Show system info
 
-- name: Show system info (can be cashed)
+- name: Show system info (can be cached)
   ansible.builtin.debug:
     msg: |
       Hostname: {{ ansible_hostname }}
