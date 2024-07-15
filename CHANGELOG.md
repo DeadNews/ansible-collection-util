@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.4](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.3...v1.6.4) - 2024-07-15
+
+### 🐛 Bug fixes
+
+- _(docker)_ add `docker_cleanup_scheduled_until` argument ([#41](https://github.com/DeadNews/ansible-collection-util/issues/41)) - ([068b786](https://github.com/DeadNews/ansible-collection-util/commit/068b786a6c9da313d97a3b85e532d04840be9a58))
+
 ## [1.6.3](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.2...v1.6.3) - 2024-07-13
 
 ### 🐛 Bug fixes
