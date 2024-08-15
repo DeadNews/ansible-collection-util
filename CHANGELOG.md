@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.5](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.4...v1.6.5) - 2024-08-15
+
+### 🐛 Bug fixes
+
+- _(docker)_ update `cleanup_scheduled_until` to 30 days - ([8313a9f](https://github.com/DeadNews/ansible-collection-util/commit/8313a9f5f7b8bdea55233246932b450c89464d71))
+- _(docker_compose)_ change default permissions from `0600` to `0644` on created files - ([ade785a](https://github.com/DeadNews/ansible-collection-util/commit/ade785a11b5166be60f791e95de6ce4cf7bf0aa2))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependency ansible-core to v2.17.2 ([#42](https://github.com/DeadNews/ansible-collection-util/issues/42)) - ([9063458](https://github.com/DeadNews/ansible-collection-util/commit/906345882c10b4b240a22e9a247fbca77777d473))
+
 ## [1.6.4](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.3...v1.6.4) - 2024-07-15
 
 ### 🐛 Bug fixes
