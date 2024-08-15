@@ -14,7 +14,7 @@
       ansible.builtin.template:
         src: "{{ item.src }}"
         dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename | split('.j2') | first) }}"
-        mode: "{{ item.mode | default('0600') }}"
+        mode: "{{ item.mode | default('0644') }}"
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
@@ -26,8 +26,8 @@
       ansible.builtin.copy:
         src: "{{ item.src }}"
         dest: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}/{{ item.dest | default(item.src | basename) }}"
-        mode: "{{ item.mode | default('0600') }}"
-        directory_mode: "{{ item.directory_mode | default('0700') }}"
+        mode: "{{ item.mode | default('0644') }}"
+        directory_mode: "{{ item.directory_mode | default('0755') }}"
         validate: "{{ item.validate | default('') }}"
       loop: "{{ docker_compose_files }}"
       notify:
