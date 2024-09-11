@@ -9,3 +9,4 @@ docker_rootless_uid: 800
 docker_rootless_user_home: /var/lib/{{ docker_rootless_user }}
 docker_rootless_user: rootless
 docker_rootless: false
+docker_uninstall: false
