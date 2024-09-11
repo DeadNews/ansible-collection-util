@@ -1,31 +1,40 @@
 ---
 # Install Docker on Debian-family OS
 
-- name: Install Docker
+- name: Check distribution compatibility
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family is defined
+      - ansible_os_family == 'Debian'
+
+- name: Uninstall Docker packages
+  when: docker_uninstall
   ansible.builtin.import_role:
     name: deadnews.util.docker
     tasks_from: install
 
-- name: Setup Docker in rootfull mode
-  ansible.builtin.include_role:
-    name: deadnews.util.docker
-    tasks_from: rootfull
-  when:
-    - docker_rootless is defined
-    - not docker_rootless
+- name: Install Docker
+  when: not docker_uninstall
+  block:
+    - name: Install Docker
+      ansible.builtin.import_role:
+        name: deadnews.util.docker
+        tasks_from: install
 
-- name: Setup Docker in rootless mode
-  ansible.builtin.include_role:
-    name: deadnews.util.docker
-    tasks_from: rootless
-  when:
-    - docker_rootless is defined
-    - docker_rootless
+    - name: Setup Docker in rootfull mode
+      when: not docker_rootless
+      ansible.builtin.include_role:
+        name: deadnews.util.docker
+        tasks_from: rootfull
 
-- name: Schedule Docker images cleanup
-  ansible.builtin.include_role:
-    name: deadnews.util.docker
-    tasks_from: cleanup
-  when:
-    - docker_cleanup_scheduled is defined
-    - docker_cleanup_scheduled
+    - name: Setup Docker in rootless mode
+      when: docker_rootless
+      ansible.builtin.include_role:
+        name: deadnews.util.docker
+        tasks_from: rootless
+
+    - name: Schedule Docker images cleanup
+      when: docker_cleanup_scheduled
+      ansible.builtin.include_role:
+        name: deadnews.util.docker
+        tasks_from: cleanup

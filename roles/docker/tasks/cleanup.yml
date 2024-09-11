@@ -15,8 +15,8 @@
 
 - name: Create a cron for clear unused Docker images created more than specified time ago
   ansible.builtin.cron:
-    name: clear unused Docker images created more than {{ docker_cleanup_scheduled_until | default('720h') }} ago
+    name: clear unused Docker images created more than {{ docker_cleanup_scheduled_until | default('672h') }} ago
     special_time: monthly
     user: "{{ job_user }}"
-    job: docker image prune -f --all --filter "until={{ docker_cleanup_scheduled_until | default('720h') }}"
+    job: docker image prune -f --all --filter "until={{ docker_cleanup_scheduled_until | default('672h') }}"
     cron_file: docker-image-clear-unused-{{ job_user }}

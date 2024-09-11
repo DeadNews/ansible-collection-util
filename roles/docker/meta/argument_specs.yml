@@ -33,7 +33,7 @@ argument_specs:
       docker_cleanup_scheduled_until:
         type: str
         required: false
-        default: 720h # 30 days
+        default: 672h # 28 days
         description: |
           Specifies the duration after which unused Docker images are considered for cleanup.
           Images created more than this duration ago will be pruned.
@@ -82,3 +82,8 @@ argument_specs:
         type: str
         required: false
         description: The home directory for the rootless user.
+
+      docker_uninstall:
+        type: bool
+        required: false
+        description: Uninstall Docker packages.
