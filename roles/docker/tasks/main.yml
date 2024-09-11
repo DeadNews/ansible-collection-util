@@ -11,7 +11,7 @@
   when: docker_uninstall
   ansible.builtin.import_role:
     name: deadnews.util.docker
-    tasks_from: install
+    tasks_from: uninstall
 
 - name: Install Docker
   when: not docker_uninstall
