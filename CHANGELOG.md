@@ -1,11 +1,10 @@
 # Changelog
 
-## [1.6.6-alpha.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.5...v1.6.6-alpha.0) - 2024-09-11
+## [1.6.6](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.5...v1.6.6) - 2024-09-11
 
 ### 🚀 Features
 
-- _(docker)_ add uninstall option - ([f339d44](https://github.com/DeadNews/ansible-collection-util/commit/f339d44fb970c2a0d9c99c07bb7a7dea7aeea481))
-- _(docker)_ add uninstall option - ([5e6fde9](https://github.com/DeadNews/ansible-collection-util/commit/5e6fde9577373f7b18e91d57aa05b9df9e6b5a90))
+- _(docker)_ add uninstall option ([#54](https://github.com/DeadNews/ansible-collection-util/issues/54)) - ([7a3573c](https://github.com/DeadNews/ansible-collection-util/commit/7a3573ca4a442c7ecdf8b63cc1a7e9d00326a6c9))
 
 ### ⬆️ Dependencies
 
