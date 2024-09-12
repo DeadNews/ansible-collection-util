@@ -8,13 +8,13 @@
       - ansible_os_family == 'Debian'
 
 - name: Uninstall Docker packages
-  when: docker_uninstall
+  when: docker_state == 'absent'
   ansible.builtin.import_role:
     name: deadnews.util.docker
     tasks_from: uninstall
 
 - name: Install Docker
-  when: not docker_uninstall
+  when: docker_state == 'present'
   block:
     - name: Install Docker
       ansible.builtin.import_role:

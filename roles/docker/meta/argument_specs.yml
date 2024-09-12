@@ -83,7 +83,10 @@ argument_specs:
         required: false
         description: The home directory for the rootless user.
 
-      docker_uninstall:
-        type: bool
-        required: false
-        description: Uninstall Docker packages.
+      docker_state:
+        type: str
+        default: present
+        description: The state of the Docker installation.
+        choices:
+          - present
+          - absent
