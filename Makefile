@@ -15,15 +15,13 @@ update:
 	poetry run galaxy-update requirements.yml
 
 checks: pc lint-py
-
 pc:
 	pre-commit run -a
+lint-py:
+	poetry run poe lint
 
 lint:
 	poetry run ansible-lint
-
-lint-py:
-	poetry run poe lint
 
 test-%:
 	pushd roles/$* && poetry run molecule test -s $*; popd
