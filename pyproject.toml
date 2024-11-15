@@ -5,14 +5,14 @@ description = "Ansible Utils Collection"
 authors = ["DeadNews <deadnewsgit@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-ansible-core = "^2.17.5"
+python = "^3.12"
+ansible-core = "^2.18.0"
 
 [tool.poetry.group.dev.dependencies]
 galaxy-update = "^0.0.1"
 
 [tool.poetry.group.lint.dependencies]
-ansible-lint = { version = "^24.9.2", markers = "platform_system != 'Windows'" }
+ansible-lint = { version = "^24.10.0", markers = "platform_system != 'Windows'" }
 mypy = "^1.13.0"
 poethepoet = "^0.29.0"
 ruff = "^0.7.0"
