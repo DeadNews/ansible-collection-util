@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.7.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.7...v1.7.0) - 2025-01-31
+
+### 🚀 Features
+
+- _(aptup)_ explicitly tell to only list the services that need to be restarted ([#82](https://github.com/DeadNews/ansible-collection-util/issues/82)) - ([c7fef04](https://github.com/DeadNews/ansible-collection-util/commit/c7fef040b336b1c4ded4987abdd15d05fa0faddf))
+
+### 🧹 Chores
+
+- _(config)_ migrate config .renovaterc.json ([#68](https://github.com/DeadNews/ansible-collection-util/issues/68)) - ([301c19d](https://github.com/DeadNews/ansible-collection-util/commit/301c19d56c0dd7743cf9743f1131fdc647bf4307))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependencies - ([bbf5e97](https://github.com/DeadNews/ansible-collection-util/commit/bbf5e972f46bed7811cac58917ed198785b9f864))
+- _(deps)_ update dependency ansible-core to v2.18.1 ([#74](https://github.com/DeadNews/ansible-collection-util/issues/74)) - ([211ab09](https://github.com/DeadNews/ansible-collection-util/commit/211ab09318b64db86825e588cc66cb7f68cd5ba7))
+- _(deps)_ bump minimal version to `python:3:12` - ([395add7](https://github.com/DeadNews/ansible-collection-util/commit/395add7ae83a64eaa25832ef41d6de02f7709f79))
+- _(deps)_ update dependency ansible-core to v2.18.0 ([#69](https://github.com/DeadNews/ansible-collection-util/issues/69)) - ([b36b163](https://github.com/DeadNews/ansible-collection-util/commit/b36b16309282d2691ee935509a472cbd3dc3abba))
+- _(deps)_ update dependencies ([#67](https://github.com/DeadNews/ansible-collection-util/issues/67)) - ([b0669e3](https://github.com/DeadNews/ansible-collection-util/commit/b0669e3af80b447a31d8f8b1ed682157a57806c4))
+- _(deps)_ update dependency ansible-core to v2.17.5 ([#62](https://github.com/DeadNews/ansible-collection-util/issues/62)) - ([37aded8](https://github.com/DeadNews/ansible-collection-util/commit/37aded82c61fbaced2ffc51894afe0027c2542c0))
+
+### ◀️ Revert
+
+- "fix(deps): update dependencies" - ([53c9072](https://github.com/DeadNews/ansible-collection-util/commit/53c9072bb19db11203a5e72409a72eb08ac7337c))
+
 ## [1.6.7](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.6...v1.6.7) - 2024-09-12
 
 ### 🐛 Bug fixes
