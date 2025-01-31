@@ -16,6 +16,7 @@
   register: aptup_full
   environment:
     DEBIAN_FRONTEND: noninteractive
+    NEEDRESTART_MODE: l # Only list the services that need to be restarted
 
 - name: Show full-upgrade result
   ansible.builtin.debug:
