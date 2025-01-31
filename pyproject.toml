@@ -6,22 +6,22 @@ authors = ["DeadNews <deadnewsgit@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-ansible-core = "^2.18.2"
+ansible-core = "^2.18.0"
 
 [tool.poetry.group.dev.dependencies]
 galaxy-update = "^0.0.1"
 
 [tool.poetry.group.lint.dependencies]
-ansible-lint = { version = "^25.1.1", markers = "platform_system != 'Windows'" }
-mypy = "^1.14.1"
-poethepoet = "^0.32.2"
-ruff = "^0.9.4"
+ansible-lint = { version = "^24.12.2", markers = "platform_system != 'Windows'" }
+mypy = "^1.13.0"
+poethepoet = "^0.31.1"
+ruff = "^0.8.3"
 
 [tool.poetry.group.test.dependencies]
-molecule = "^25.2.0"
-molecule-plugins = { version = "^23.7.0", extras = ["docker", "vagrant"] }
+molecule = "^24.12.0"
+molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
 pytest = "^8.3.4"
-pytest-ansible = "^25.1.0"
+pytest-ansible = "^24.12.0"
 
 [tool.poe.tasks]
 mypy = "mypy ."
