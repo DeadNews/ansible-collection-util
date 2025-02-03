@@ -1,4 +1,5 @@
 ---
 aptup_next_release_update_grub: true
 aptup_next_release: false
+aptup_restart_services: false
 aptup_show_stdout: true

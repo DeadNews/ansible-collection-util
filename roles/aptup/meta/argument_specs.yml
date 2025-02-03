@@ -13,6 +13,10 @@ argument_specs:
         required: false
         description: Whether to update the GRUB configuration after updating to the next LTS release.
 
+      aptup_restart_services:
+        type: bool
+        required: false
+        description: Whether to auto restart services that need to be restarted or only list them.
       aptup_show_stdout:
         type: bool
         required: false

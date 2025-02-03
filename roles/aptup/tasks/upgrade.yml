@@ -26,7 +26,7 @@
   register: aptup_dist
   environment:
     DEBIAN_FRONTEND: noninteractive
-    NEEDRESTART_MODE: l # Only list the services that need to be restarted
+    NEEDRESTART_MODE: "{{ 'a' if aptup_restart_services else 'l' }}"
 
 - name: Show dist-upgrade result
   ansible.builtin.debug:
