@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.7.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.7.0...v1.7.1) - 2025-02-03
+
+### 🚀 Features
+
+- _(aptup)_ add option to auto restart services during upgrades ([#85](https://github.com/DeadNews/ansible-collection-util/issues/85)) - ([b529c36](https://github.com/DeadNews/ansible-collection-util/commit/b529c3611704c0b2b7489f35bb3c33b43c24fcec))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependency ansible-core to v2.18.2 ([#83](https://github.com/DeadNews/ansible-collection-util/issues/83)) - ([d169a9e](https://github.com/DeadNews/ansible-collection-util/commit/d169a9e7eef14256fbbe6e0acc761aeac7421525))
+
 ## [1.7.0](https://github.com/DeadNews/ansible-collection-util/compare/v1.6.7...v1.7.0) - 2025-01-31
 
 ### 🚀 Features
