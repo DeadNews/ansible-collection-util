@@ -13,14 +13,14 @@ galaxy-update = "^0.0.1"
 
 [tool.poetry.group.lint.dependencies]
 ansible-lint = { version = "^24.12.2", markers = "platform_system != 'Windows'" }
-mypy = "^1.13.0"
-poethepoet = "^0.31.1"
-ruff = "^0.8.3"
+mypy = "^1.15.0"
+poethepoet = "^0.33.1"
+ruff = "^0.11.1"
 
 [tool.poetry.group.test.dependencies]
 molecule = "^24.12.0"
-molecule-plugins = { version = "^23.5.3", extras = ["docker", "vagrant"] }
-pytest = "^8.3.4"
+molecule-plugins = { version = "^23.7.0", extras = ["docker", "vagrant"] }
+pytest = "^8.3.5"
 pytest-ansible = "^24.12.0"
 
 [tool.poe.tasks]
