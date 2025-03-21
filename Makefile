@@ -8,7 +8,7 @@ install:
 	poetry run ansible-galaxy install -r requirements.yml
 
 lock:
-	poetry lock --no-update
+	poetry lock
 
 update:
 	poetry up --latest
