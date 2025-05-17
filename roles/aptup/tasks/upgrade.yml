@@ -3,7 +3,7 @@
 
 - name: Update cache
   ansible.builtin.apt:
-    cache_valid_time: 300
+    cache_valid_time: 7200 # 2 hours
 
 - name: Get upgradable list
   ansible.builtin.command: apt list --upgradable
@@ -21,7 +21,7 @@
 - name: Upgrade the OS (apt dist-upgrade)
   ansible.builtin.apt:
     upgrade: dist
-    cache_valid_time: 7200
+    cache_valid_time: 7200 # 2 hours
     dpkg_options: force-confold,force-confdef
   register: aptup_dist
   environment:

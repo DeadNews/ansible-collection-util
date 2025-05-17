@@ -3,6 +3,11 @@ argument_specs:
   main:
     short_description: The main entry point for the aptup role.
     options:
+      aptup_cleanup:
+        type: bool
+        required: false
+        description: Whether to clean up the apt cache and remove unused packages.
+
       aptup_next_release:
         type: bool
         required: false
@@ -17,6 +22,7 @@ argument_specs:
         type: bool
         required: false
         description: Whether to auto restart services that need to be restarted or only list them.
+
       aptup_show_stdout:
         type: bool
         required: false
