@@ -13,9 +13,18 @@
     tasks_from: upgrade
 
 - name: Upgrade Debian-based OS from one LTS to the next LTS
+  when: aptup_next_release
   ansible.builtin.include_role:
     name: deadnews.util.aptup
     tasks_from: next_release
-  when:
-    - aptup_next_release is defined
-    - aptup_next_release
+
+- name: Clean up apt cache and remove unused packages
+  when: aptup_cleanup
+  block:
+    - name: Autoremove unused packages
+      ansible.builtin.apt:
+        autoremove: true
+
+    - name: Clean apt cache
+      ansible.builtin.apt:
+        clean: true

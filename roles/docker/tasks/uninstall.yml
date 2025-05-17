@@ -18,13 +18,12 @@
     autoremove: false
     allow_change_held_packages: true
 
-- name: Ensure the `deb822_repository` and `community.docker` modules requirements is installed
+- name: Remove the `deb822_repository` and `community.docker` modules requirements
   ansible.builtin.apt:
     name:
       - python3-debian
       - python3-requests
-    state: present
-    cache_valid_time: 3600 # 1h
+    state: absent
 
 - name: Remove Docker repository
   ansible.builtin.deb822_repository:
