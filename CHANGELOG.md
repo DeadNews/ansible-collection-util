@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.7.1...v1.7.2) - 2025-05-17
+
+### 🚀 Features
+
+- _(aptup)_ add `cleanup` option ([#99](https://github.com/DeadNews/ansible-collection-util/issues/99)) - ([00c6478](https://github.com/DeadNews/ansible-collection-util/commit/00c6478153206dc5d362c583e092900d6fbc7904))
+
+### ⬆️ Dependencies
+
+- _(deps)_ update dependency ansible-core to v2.18.4 ([#93](https://github.com/DeadNews/ansible-collection-util/issues/93)) - ([4be76b3](https://github.com/DeadNews/ansible-collection-util/commit/4be76b3b2d0e561531f68dcd591a18486298501e))
+- _(deps)_ update dependencies ([#92](https://github.com/DeadNews/ansible-collection-util/issues/92)) - ([1a0c9e9](https://github.com/DeadNews/ansible-collection-util/commit/1a0c9e92ad89101fcaebfe74d5a7d35229f8fe6d))
+- _(deps)_ update dependency ansible-core to v2.18.3 ([#89](https://github.com/DeadNews/ansible-collection-util/issues/89)) - ([2dd3610](https://github.com/DeadNews/ansible-collection-util/commit/2dd3610a99867f5247073fe172ff4f6b7b50a6ce))
+
 ## [1.7.1](https://github.com/DeadNews/ansible-collection-util/compare/v1.7.0...v1.7.1) - 2025-02-03
 
 ### 🚀 Features
