@@ -7,7 +7,7 @@
       - python3-debian
       - python3-requests
     state: present
-    cache_valid_time: 3600 # 1h
+    cache_valid_time: 7200 # 2 hours
 
 - name: Add Docker repository
   ansible.builtin.deb822_repository:
