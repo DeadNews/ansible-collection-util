@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.3](https://github.com/DeadNews/ansible-collection-util/compare/v1.7.2...v1.7.3) - 2025-05-22
+
+### 🐛 Bug fixes
+
+- _(docker)_ uninstall task now purge packages - ([8a1d82e](https://github.com/DeadNews/ansible-collection-util/commit/8a1d82ed7fb53c3a0e627b3403d9792ccf12ae01))
+
 ## [1.7.2](https://github.com/DeadNews/ansible-collection-util/compare/v1.7.1...v1.7.2) - 2025-05-17
 
 ### 🚀 Features
