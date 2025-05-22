@@ -11,19 +11,13 @@
       - docker-ce-rootless-extras
       - docker-compose-plugin
 
-- name: Uninstall Docker packages
+- name: Uninstall and Purge Docker packages
   ansible.builtin.apt:
     name: "{{ docker_pkgs }}"
     state: absent
-    autoremove: false
+    purge: true
+    autoremove: true
     allow_change_held_packages: true
-
-- name: Remove the `deb822_repository` and `community.docker` modules requirements
-  ansible.builtin.apt:
-    name:
-      - python3-debian
-      - python3-requests
-    state: absent
 
 - name: Remove Docker repository
   ansible.builtin.deb822_repository:
